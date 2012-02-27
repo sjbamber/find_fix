@@ -1,0 +1,117 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+*/
+
+/* Public stylesheet */
+
+/* Colors
+red:          #9F352A
+green:        #94B26F
+light green:  #B6D491
+yellow:       #F2DC87
+dark brown:   #332318
+light brown:  #4C2516
+*/
+
+html { height: 100%; width: 100%; }
+body { width: 100%; min-width: 980px; height: 100%; margin: 0; padding: 0; 
+  font: 14px Verdana,Lucida,Arial,Helvetica,sans-serif; color: #332318; }
+p, td, ul, ol, li, dl, dt, dd { 
+  font-family: Verdana,Lucida,Arial,Helvetica,sans-serif; }
+img { border: none; }
+table { border-collapse: collapse; }
+table tr th, table tr td { vertical-align: top; text-align: left; 
+  padding: 3px; }
+a, a:visited { color: #9F352A; }
+a:hover {}
+
+.clear { clear: both; }
+.center { text-align: center; }
+
+/* Structure */
+#header { height: 5em; padding-top: 1em; text-align: center; 
+  background: #FFFFFF; color: #000000; border-bottom: 3px solid #4C2516;}
+#header h1 { margin: 0; padding: 0; }
+#main { min-height: 500px; background: #F2DC87; }
+#navigation { float: left; width: 180px; min-height: 480px; padding: 10px; 
+  background: #94B26F; color: #4C2516; }
+#content { padding: 10px; }
+#footer { clear: both; height: 2.5em; text-align: right;
+  background: #4C2516; color: #F2DC87; }
+#footer p { margin: 0; padding: 0.5em 1em; }
+
+/* Navigation */
+#navigation ul { list-style: none; margin: 0; padding: 0; }
+#navigation ul li { margin-bottom: 0.5em; }
+#navigation ul ul { margin: 0.5em 0 0 1em; font-size: 0.9em; }
+#navigation a { text-decoration: none; padding: 1px 3px;}
+#navigation a:hover { background: #F2DC87; }
+
+/* Content */
+#content h2 { color: #4C2516; }
+
+/****************/
+
+/* Structure */
+#content { padding-left: 100px; padding-right: 100px; }
+#content h2 { width: 760px; text-align: center; }
+
+.login form { margin: 100px 250px; }
+.menu .identity { text-align: center; }
+.menu ul { margin: 3em 250px; list-style: none; }
+.menu ul li { margin-bottom: 1em; }
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* large action buttons */
+a.action { float: right; padding: 2px 5px; margin: 0 0 1em 1em; 
+  background: #332318; color: #F2DC87;  border: 1px solid #4C2516;
+  text-decoration: none; font-size: 0.8em; text-align: center; }
+a.action:hover { background: #F2DC87; color: #332318; }
+
+/* small action buttons */
+.actions { width: 200px; }
+.actions a.action { float: left; min-width: 3.5em; 
+  padding: 1px 2px; margin: 2px 5px; font-size: 0.7em; }
+
+/* CRUD */
+.notice { height: 1.25em; padding: 0.5em; text-align: center;
+  background: #B6D491; color: #4C2516; }
+.back-link { font-size: 0.8em; margin-bottom: 1em; }
+.form-buttons { text-align: center; margin: 1em 0; }
+
+.list table { clear: both; width: 100%; }
+.list table tr td { border: 1px solid #666666; }
+.show table { clear: both; margin: 0 200px; width: 300px; }
+.show table.wide { width: 600px; margin: 0 50px; }
+.show table tr th { white-space: nowrap; padding-right: 5px;}
+.show table tr td { border: 1px solid #666666; }
+.edit table, .new table { margin: 0 auto; }
+
+.odd { background: #E5CE69; }
+.even { background: none; }
+
+.section + .section { padding-top: 0.5em; margin-top: 0.5em; 
+  border-top: 1px dotted #666666; }
+
+/* Errors */
+.fieldWithErrors { display: table; padding: 2px; background-color: #AA0000; }
+#errorExplanation { width: 400px; padding: 0; margin: 0 auto 1.5em; 
+  border: 1px solid #AA0000; background-color: #FFFFFF; font-size: 12px; }
+#errorExplanation h2 { font-weight: bold; font-size: 12px;
+  padding: 5px 5px 5px 15px; margin: 0; width: 380px;
+  background-color: #AA0000; color: #FFFFFF; }
+#errorExplanation p { color: #333333; margin: 0; padding: 3px 0.5em; }
+#errorExplanation ul { margin-top: 0; }
+#errorExplanation ul li { list-style: square; }

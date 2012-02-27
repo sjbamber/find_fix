@@ -1,0 +1,19 @@
+<% @page_title = "Delete Problem"%>
+
+<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
+
+<div class="problem delete">
+  <h2>Delete Problem</h2>
+  
+  <%= form_for(:problem, :url => {:action => 'destroy', :id => @problem.id}) do |f| -%>
+
+    <p>Are you sure you want to permanently delete this problem?</p>
+  
+    <p class="reference-name"><%= @problem.title %></p>
+  
+    <div class="form-buttons">
+      <%= submit_tag("Delete Problem") %>
+    </div>
+    
+  <% end %>
+</div>

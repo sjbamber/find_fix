@@ -1,0 +1,32 @@
+<% @page_title = "Problems List"%>
+
+<div class="problem list">
+  <%= link_to("Add New Problem", {:action => 'new'}, :class => 'action new') %>
+	
+  <h2>Problems</h2>
+
+  <table class="listing" summary="Problem list">
+    <tr class="header">
+      <th>Problem ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Score</th>
+      <th>Author</th>
+      <th>Actions</th>
+    </tr>
+    <% @problems.each do |problem| %>
+    <tr>
+      <td class="center"><%= problem.id %></td>
+      <td><%= problem.title %></td>
+      <td><%= problem.description %></td>
+      <td class="center"><%= problem.score ? problem.score : '0' %></td>
+      <td><%= problem.user ? problem.user.username : 'Unknown' %></td>
+      <td class="actions">
+        <%= link_to("Show", {:action => 'show', :id => problem.id}, :class => 'action show') %>
+        <%= link_to("Edit", {:action => 'edit', :id => problem.id}, :class => 'action edit') %>
+        <%= link_to("Delete", {:action => 'delete', :id => problem.id}, :class => 'action delete') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

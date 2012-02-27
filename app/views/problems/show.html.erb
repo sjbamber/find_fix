@@ -1,0 +1,39 @@
+<% @page_title = "Detailed Problem View"%>
+
+<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
+
+<div class="problem show">
+  <h2>Show Problem</h2>
+
+  <table summary="Problem detail view">
+    <tr>
+      <th>Problem ID</th>
+      <td><%= @problem.id %></td>
+    </tr>
+    <tr>
+      <th>Title</th>
+      <td><%= @problem.title %></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><%= @problem.description %></td>
+    </tr>
+    <tr>
+      <th>Score</th>
+      <td><%= @problem.score ? @problem.score : '0' %></td>
+    </tr>
+    <tr>
+      <th>Author</th>
+      <td><%= @problem.user ? @problem.user.username : 'Unknown' %></td>
+    </tr>
+    <tr>
+      <th>Created</th>
+      <td><%= @problem.created_at %></td>
+    </tr>
+    <tr>
+      <th>Updated</th>
+      <td><%= @problem.updated_at %></td>
+    </tr>
+  </table>
+  
+</div>
