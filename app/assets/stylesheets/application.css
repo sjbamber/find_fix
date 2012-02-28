@@ -25,7 +25,7 @@ light brown:  #4C2516
 
 html { height: 100%; width: 100%; }
 body { width: 100%; min-width: 980px; height: 100%; margin: 0; padding: 0; 
-  font: 14px Verdana,Lucida,Arial,Helvetica,sans-serif; color: #332318; }
+  font: 14px Verdana,Lucida,Arial,Helvetica,sans-serif; color: #eeeeee; }
 p, td, ul, ol, li, dl, dt, dd { 
   font-family: Verdana,Lucida,Arial,Helvetica,sans-serif; }
 img { border: none; }
@@ -39,15 +39,15 @@ a:hover {}
 .center { text-align: center; }
 
 /* Structure */
-#header { height: 5em; padding-top: 1em; text-align: center; 
-  background: #FFFFFF; color: #000000; border-bottom: 3px solid #4C2516;}
+#header { height: 5em; padding: 1em 0 0 1em; text-align: left; background: url("header_background.png") repeat-x #993120;
+  color: #000000; border-bottom: 5px solid #4C2516; }
 #header h1 { margin: 0; padding: 0; }
-#main { min-height: 500px; background: #F2DC87; }
+#main { min-height: 500px; background: #eeeeee; 
+  background: #1c1c1c; border-top: 10px solid #1b1b1b; }
 #navigation { float: left; width: 180px; min-height: 480px; padding: 10px; 
   background: #94B26F; color: #4C2516; }
-#content { padding: 10px; }
 #footer { clear: both; height: 2.5em; text-align: right;
-  background: #4C2516; color: #F2DC87; }
+  background: #6c241c; color: #EEEEEE; }
 #footer p { margin: 0; padding: 0.5em 1em; }
 
 /* Navigation */
@@ -58,13 +58,13 @@ a:hover {}
 #navigation a:hover { background: #F2DC87; }
 
 /* Content */
-#content h2 { color: #4C2516; }
+#content h2 { color: #EEEEEE; }
 
 /****************/
 
 /* Structure */
-#content { padding-left: 100px; padding-right: 100px; }
-#content h2 { width: 760px; text-align: center; }
+#content { width: 1000px; margin: 10px auto 10px auto;}
+#content h2 { text-align: center; }
 
 .login form { margin: 100px 250px; }
 .menu .identity { text-align: center; }
@@ -74,11 +74,16 @@ a:hover {}
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+.navigation_links {float:right;}
+a.navigation{ color: #eeeeee; padding: 10px; margin: 0 10px 0 10px; position: relative; top: 1.5em; border: 1px solid #000000;
+  background: #6c241c; color: #eeeeee;}
+a.navigation:hover { background: #eeeeee; color: #6c241c; text-decoration: none; }
+
 /* large action buttons */
 a.action { float: right; padding: 2px 5px; margin: 0 0 1em 1em; 
-  background: #332318; color: #F2DC87;  border: 1px solid #4C2516;
+  background: #6c241c; color: #eeeeee;  border: 1px solid #000000;
   text-decoration: none; font-size: 0.8em; text-align: center; }
-a.action:hover { background: #F2DC87; color: #332318; }
+a.action:hover { background: #eeeeee; color: #6c241c;}
 
 /* small action buttons */
 .actions { width: 200px; }
@@ -86,8 +91,11 @@ a.action:hover { background: #F2DC87; color: #332318; }
   padding: 1px 2px; margin: 2px 5px; font-size: 0.7em; }
 
 /* CRUD */
+.form-input input {width:600px;}
+.form-input textarea {width:600px; font-family: Verdana,Lucida,Arial,Helvetica,sans-serif;}
+
 .notice { height: 1.25em; padding: 0.5em; text-align: center;
-  background: #B6D491; color: #4C2516; }
+  background: #eeeeee; color: #6c241c; }
 .back-link { font-size: 0.8em; margin-bottom: 1em; }
 .form-buttons { text-align: center; margin: 1em 0; }
 
@@ -98,6 +106,8 @@ a.action:hover { background: #F2DC87; color: #332318; }
 .show table tr th { white-space: nowrap; padding-right: 5px;}
 .show table tr td { border: 1px solid #666666; }
 .edit table, .new table { margin: 0 auto; }
+
+
 
 .odd { background: #E5CE69; }
 .even { background: none; }
@@ -115,3 +125,15 @@ a.action:hover { background: #F2DC87; color: #332318; }
 #errorExplanation p { color: #333333; margin: 0; padding: 3px 0.5em; }
 #errorExplanation ul { margin-top: 0; }
 #errorExplanation ul li { list-style: square; }
+
+#wrapper { 
+	 min-height: 100%; 
+	 height: auto !important; 
+	 height: 100%; 
+	 margin: 0 auto -50px; 
+	 background: #1c1c1c;
+}
+
+#footer, #push { 
+	 height: 50px; 
+}
