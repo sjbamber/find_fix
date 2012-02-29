@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120226124218) do
+ActiveRecord::Schema.define(:version => 20120228211244) do
 
   create_table "categories", :force => true do |t|
     t.string   "name",       :null => false
@@ -20,12 +20,22 @@ ActiveRecord::Schema.define(:version => 20120226124218) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "categories_problems", :id => false, :force => true do |t|
+  create_table "categories_posts", :id => false, :force => true do |t|
     t.integer "category_id"
-    t.integer "problem_id"
+    t.integer "post_id"
   end
 
-  add_index "categories_problems", ["category_id", "problem_id"], :name => "index_categories_problems_on_category_id_and_problem_id"
+  add_index "categories_posts", ["category_id", "post_id"], :name => "index_categories_posts_on_category_id_and_post_id"
+
+  create_table "comments", :force => true do |t|
+    t.string   "comment",    :null => false
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "comments", ["user_id", "post_id"], :name => "index_comments_on_user_id_and_post_id"
 
   create_table "error_messages", :force => true do |t|
     t.text     "description", :null => false
@@ -33,42 +43,32 @@ ActiveRecord::Schema.define(:version => 20120226124218) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "error_messages_problems", :id => false, :force => true do |t|
+  create_table "error_messages_posts", :id => false, :force => true do |t|
     t.integer "error_message_id"
-    t.integer "problem_id"
+    t.integer "post_id"
   end
 
-  add_index "error_messages_problems", ["error_message_id", "problem_id"], :name => "index_error_messages_problems_on_error_message_id_and_problem_id"
+  add_index "error_messages_posts", ["error_message_id", "post_id"], :name => "index_error_messages_posts_on_error_message_id_and_post_id"
 
-  create_table "problems", :force => true do |t|
-    t.string   "title",       :null => false
-    t.text     "description", :null => false
-    t.integer  "score"
+  create_table "posts", :force => true do |t|
+    t.boolean  "post_type",   :default => false
+    t.integer  "parent_id"
+    t.string   "title"
+    t.text     "description",                    :null => false
+    t.integer  "vote_count"
     t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
-  add_index "problems", ["user_id"], :name => "index_problems_on_user_id"
+  add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
-  create_table "problems_tags", :id => false, :force => true do |t|
-    t.integer "problem_id"
+  create_table "posts_tags", :id => false, :force => true do |t|
+    t.integer "post_id"
     t.integer "tag_id"
   end
 
-  add_index "problems_tags", ["problem_id", "tag_id"], :name => "index_problems_tags_on_problem_id_and_tag_id"
-
-  create_table "solutions", :force => true do |t|
-    t.text     "summary",    :null => false
-    t.integer  "score"
-    t.integer  "problem_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "solutions", ["problem_id"], :name => "index_solutions_on_problem_id"
-  add_index "solutions", ["user_id"], :name => "index_solutions_on_user_id"
+  add_index "posts_tags", ["post_id", "tag_id"], :name => "index_posts_tags_on_post_id_and_tag_id"
 
   create_table "tags", :force => true do |t|
     t.string   "name",       :null => false
@@ -94,5 +94,21 @@ ActiveRecord::Schema.define(:version => 20120226124218) do
   end
 
   add_index "users", ["username"], :name => "index_users_on_username"
+
+  create_table "vote_types", :force => true do |t|
+    t.string   "name",       :limit => 30
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.integer  "vote_type_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "votes", ["user_id", "post_id", "vote_type_id"], :name => "index_votes_on_user_id_and_post_id_and_vote_type_id"
 
 end

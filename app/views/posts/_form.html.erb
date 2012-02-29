@@ -1,0 +1,24 @@
+    <div class="form-input">
+    <table summary="Post form fields">
+      <tr>
+        <th>Title</th>
+        <td><%= f.text_field(:title) %></td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td><%= f.text_area(:description, :size => "600x10") %></td>
+      </tr>
+      <tr>
+        <th>Error Message</th>
+        <td><%= text_field( :error_message, :description) %></td>
+      </tr>
+      <tr>
+        <th>Category</th>
+        <td><%= select( :category, :id, Category.all.collect {|c| [c.name, c.id]}) %></td>
+      </tr>
+      <tr>
+        <th>Custom Tags</th>
+        <td><%= text_field( :tag, :name) %></td>
+      </tr>          
+    </table>
+    </div>

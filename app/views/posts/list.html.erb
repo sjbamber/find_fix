@@ -1,0 +1,35 @@
+<% @page_title = "Posts List"%>
+
+<div class="post list">
+	
+  <h2>Posts</h2>
+  
+  <%= link_to("Add New Post", {:action => 'new'}, :class => 'action new') %>
+  
+  <div><%= pluralize(@posts.size, 'post')%> found</div>
+
+  <table class="listing" summary="Post list">
+    <tr class="header">
+      <th>Post ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Score</th>
+      <th>Author</th>
+      <th>Actions</th>
+    </tr>
+    <% @posts.each do |post| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td class="center"><%= post.id %></td>
+      <td><%= post.title %></td>
+      <td><%= post.description %></td>
+      <td class="center"><%= post.vote_count ? post.vote_count : '0' %></td>
+      <td><%= post.user ? post.user.username : 'Unknown' %></td>
+      <td class="actions">
+        <%= link_to("Show", {:action => 'show', :id => post.id}, :class => 'action show') %>
+        <%= link_to("Edit", {:action => 'edit', :id => post.id}, :class => 'action edit') %>
+        <%= link_to("Delete", {:action => 'delete', :id => post.id}, :class => 'action delete') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

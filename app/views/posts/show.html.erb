@@ -1,0 +1,63 @@
+<% @page_title = "Detailed Post View"%>
+
+<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
+
+<div class="post show">
+  <h2>Show Post</h2>
+
+  <table summary="Post detail view">
+    <tr>
+      <th>Post ID</th>
+      <td><%= @post.id %></td>
+    </tr>
+    <tr>
+      <th>Title</th>
+      <td><%= @post.title %></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><%= @post.description %></td>
+    </tr>
+    <tr>
+      <th>Error Messages</th>
+      <td>
+      	<% @error_messages.each do |e| %>
+      	<%= e["description"] %> <br / >
+      	<% end %> 	
+      </td>
+    </tr>
+    <tr>
+      <th>Categories</th>
+      <td> 
+      	<% @categories.each do |c| %>
+      	<%= c["name"] %> <br / >
+      	<% end %> 	
+      </td>
+    </tr>
+    <tr>
+      <th>Tags</th>
+      <td>
+      	<% @tags.each do |t| %>
+      	<%= t["name"] %> <br / >
+      	<% end %> 
+      </td>
+    </tr>
+    <tr>
+      <th>Score</th>
+      <td><%= @post.vote_count ? @post.vote_count : '0' %></td>
+    </tr>
+    <tr>
+      <th>Author</th>
+      <td><%= @post.user ? @post.user.username : 'Unknown' %></td>
+    </tr>
+    <tr>
+      <th>Created</th>
+      <td><%= @post.created_at %></td>
+    </tr>
+    <tr>
+      <th>Updated</th>
+      <td><%= @post.updated_at %></td>
+    </tr>
+  </table>
+  
+</div>

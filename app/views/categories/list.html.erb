@@ -1,0 +1,30 @@
+<% @page_title = "Categories List"%>
+
+<div class="category list">
+	
+  <h2>Categories</h2>
+  
+  <%= link_to("Add New Category", {:action => 'new'}, :class => 'action new') %>
+  
+  <div><%= pluralize(@categories.size, 'category')%> found</div>
+
+  <table class="listing" summary="Category list">
+    <tr class="header">
+      <th>Category ID</th>
+      <th>Name</th>
+      <th>Parent Category</th>
+    </tr>
+    <% @categories.each_with_index do |category, i| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td class="center"><%= category.id %></td>
+      <td><%= category.name %></td>
+      <td class="center"><%= @parent[i] %></td>
+      <td class="actions">
+        <%= link_to("Show", {:action => 'show', :id => category.id}, :class => 'action show') %>
+        <%= link_to("Edit", {:action => 'edit', :id => category.id}, :class => 'action edit') %>
+        <%= link_to("Delete", {:action => 'delete', :id => category.id}, :class => 'action delete') %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

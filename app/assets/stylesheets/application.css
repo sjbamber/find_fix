@@ -109,7 +109,7 @@ a.action:hover { background: #eeeeee; color: #6c241c;}
 
 
 
-.odd { background: #E5CE69; }
+.odd { background: #2c2c2c; }
 .even { background: none; }
 
 .section + .section { padding-top: 0.5em; margin-top: 0.5em; 
