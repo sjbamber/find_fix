@@ -1,12 +1,12 @@
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
-      t.boolean "post_type", :null => false
+      t.integer "post_type", :default => 0, :null => false  # post type 0 for problem 1 for solution
       t.integer "parent_id"
       t.string "title"
       t.text "description", :null => false
       t.integer "vote_count"
-      t.boolean "post_type", :default => false
+      t.boolean "accepted_solution", :default => false
       t.references :user
       t.timestamps
     end

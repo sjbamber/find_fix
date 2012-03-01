@@ -1,13 +1,15 @@
+<%= error_messages_for(@category) %>
+
     <div class="form-input">
     <table summary="Category form fields">
       <tr>
-        <th>Name</th>
+        <th><%= f.label(:name) %></th>
         <td><%= f.text_field(:name) %></td>
       </tr>
       <tr>
-        <th>Parent ID</th>
+        <th><%= f.label(:parent_id, "Parent Category") %></th>
         <td>
-        	<%= f.text_field(:parent_id) %>
+        	<%= f.select(:parent_id, @options) %>
         </td>
       </tr>
     </table>

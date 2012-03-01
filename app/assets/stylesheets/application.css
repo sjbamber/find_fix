@@ -49,6 +49,9 @@ a:hover {}
 #footer { clear: both; height: 2.5em; text-align: right;
   background: #6c241c; color: #EEEEEE; }
 #footer p { margin: 0; padding: 0.5em 1em; }
+#wrapper { min-height: 100%; height: auto !important; height: 100%; 
+  margin: 0 auto -50px; background: #1c1c1c; }
+#footer, #push { height: 50px; }
 
 /* Navigation */
 #navigation ul { list-style: none; margin: 0; padding: 0; }
@@ -107,8 +110,6 @@ a.action:hover { background: #eeeeee; color: #6c241c;}
 .show table tr td { border: 1px solid #666666; }
 .edit table, .new table { margin: 0 auto; }
 
-
-
 .odd { background: #2c2c2c; }
 .even { background: none; }
 
@@ -116,24 +117,16 @@ a.action:hover { background: #eeeeee; color: #6c241c;}
   border-top: 1px dotted #666666; }
 
 /* Errors */
-.fieldWithErrors { display: table; padding: 2px; background-color: #AA0000; }
-#errorExplanation { width: 400px; padding: 0; margin: 0 auto 1.5em; 
+.fieldWithErrors label { color: #AA0000; }
+.fieldWithErrors input textarea { border: 1px solid #AA0000; }
+#errorExplanation { width: 600px; padding: 0; margin: 0 auto 1.5em; 
   border: 1px solid #AA0000; background-color: #FFFFFF; font-size: 12px; }
 #errorExplanation h2 { font-weight: bold; font-size: 12px;
-  padding: 5px 5px 5px 15px; margin: 0; width: 380px;
+  padding: 5px 5px 5px 15px; margin: 0; width: 580px;
   background-color: #AA0000; color: #FFFFFF; }
 #errorExplanation p { color: #333333; margin: 0; padding: 3px 0.5em; }
-#errorExplanation ul { margin-top: 0; }
+#errorExplanation ul { margin-top: 0; color: #333333;}
 #errorExplanation ul li { list-style: square; }
 
-#wrapper { 
-	 min-height: 100%; 
-	 height: auto !important; 
-	 height: 100%; 
-	 margin: 0 auto -50px; 
-	 background: #1c1c1c;
-}
 
-#footer, #push { 
-	 height: 50px; 
-}
+

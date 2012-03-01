@@ -51,14 +51,15 @@ ActiveRecord::Schema.define(:version => 20120228211244) do
   add_index "error_messages_posts", ["error_message_id", "post_id"], :name => "index_error_messages_posts_on_error_message_id_and_post_id"
 
   create_table "posts", :force => true do |t|
-    t.boolean  "post_type",   :default => false
+    t.integer  "post_type",         :default => 0,     :null => false
     t.integer  "parent_id"
     t.string   "title"
-    t.text     "description",                    :null => false
+    t.text     "description",                          :null => false
     t.integer  "vote_count"
+    t.boolean  "accepted_solution", :default => false
     t.integer  "user_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"

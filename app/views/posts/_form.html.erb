@@ -1,23 +1,25 @@
+<%= error_messages_for(@post) %>
+
     <div class="form-input">
     <table summary="Post form fields">
       <tr>
-        <th>Title</th>
+        <th><%= f.label(:title) %></th>
         <td><%= f.text_field(:title) %></td>
       </tr>
       <tr>
-        <th>Description</th>
+        <th><%= f.label(:description) %></th>
         <td><%= f.text_area(:description, :size => "600x10") %></td>
       </tr>
       <tr>
-        <th>Error Message</th>
+        <th><%= label( :error_message, :description, "Error Message") %></th>
         <td><%= text_field( :error_message, :description) %></td>
       </tr>
       <tr>
-        <th>Category</th>
+        <th><%= label( :category, :id, "Category") %></th>
         <td><%= select( :category, :id, Category.all.collect {|c| [c.name, c.id]}) %></td>
       </tr>
       <tr>
-        <th>Custom Tags</th>
+        <th><%= label( :tag, :name, "Custom Tags") %></th>
         <td><%= text_field( :tag, :name) %></td>
       </tr>          
     </table>

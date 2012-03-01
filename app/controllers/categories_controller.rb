@@ -27,13 +27,22 @@ class CategoriesController < ApplicationController
   end
   
   def new
-    @category = Category.new
-    @categories = Category.order("categories.id ASC")
+    
+    @category = Category.new    # Instantiate new category to be added
+      
+    # Create a list of categories to appear in the parent category field including a no parent option
+    categories = Category.all.unshift( Category.new( :name => "No Parent" ) )
+    @options = categories.collect {|c| [c.name, c.id]}
+    
   end
   
   def create
     # Instantiate a new object using form parameters
     @category = Category.new(params[:category])
+    # Create a list of categories to appear in the parent category field including a no parent option
+    categories = Category.all.unshift( Category.new( :name => "No Parent" ) )
+    @options = categories.collect {|c| [c.name, c.id]}
+    
     # Save the object
     if @category.save
       # If save succeeds, redirect to the list action
@@ -46,11 +55,17 @@ class CategoriesController < ApplicationController
   end
   
   def edit
-    @category = Category.find(params[:id])
+    
+    @category = Category.find(params[:id])  # Find the category to be updated
+      
+    # Create a list of categories to appear in the parent category field including a no parent option
+    categories = Category.all.unshift( Category.new(:id => nil, :name => "No Parent") )
+    @options = categories.collect {|c| [c.name, c.id]}
+    
   end
   
   def update
-     # Find object using form parameters
+    # Find object using form parameters
     @category = Category.find(params[:id])
     # Update the object
     if @category.update_attributes(params[:category])

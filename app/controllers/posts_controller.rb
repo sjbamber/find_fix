@@ -45,6 +45,8 @@ class PostsController < ApplicationController
   
   def edit
     @post = Post.find(params[:id])
+    @error_message = ErrorMessage.new
+    @tag = Tag.new
   end
   
   def update
