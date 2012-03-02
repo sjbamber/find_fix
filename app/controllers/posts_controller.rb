@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   
+  before_filter :confirm_logged_in
+  
   def index
     list
     render('list')
@@ -20,6 +22,11 @@ class PostsController < ApplicationController
     @post = Post.new
     @error_message = ErrorMessage.new
     @tag = Tag.new
+    
+    # Create a list of categories to appear in the category
+    categories = Category.all.unshift( Category.new( :name => "--- Pick a Category ---" ) )
+    @category_options = categories.collect {|c| [c.name, c.id]}
+    
   end
   
   def create
@@ -28,12 +35,17 @@ class PostsController < ApplicationController
     @error_message = ErrorMessage.new(:description => params[:error_message]["description"])
     @category = Category.find(params[:category]["id"])
     @tag = Tag.new(:name => params[:tag]["name"])
+    
+    # Create a list of categories to appear in the category
+    categories = Category.all.unshift( Category.new( :name => "--- Pick a Category ---" ) )
+    @category_options = categories.collect {|c| [c.name, c.id]}
+    
     # Save the object
     if @post.save && @error_message.save && @tag.save
        # If save succeeds, make the relevant relationships
       @post.error_messages << @error_message
-      @category.posts << @post
-      @tag.posts << @post
+      @post.categories << @category
+      @post.tags << @tag
       # If save succeeds, redirect to the list action
       flash[:notice] = "Post Created"
       redirect_to(:action => 'list')
@@ -47,11 +59,16 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @error_message = ErrorMessage.new
     @tag = Tag.new
+    
+    # Create a list of categories to appear in the category
+    @category_options = Category.all.collect {|c| [c.name, c.id]}
   end
   
   def update
      # Find object using form parameters
     @post = Post.find(params[:id])
+     # Create a list of categories to appear in the category
+    @category_options = Category.all.collect {|c| [c.name, c.id]}
     # Update the object
     if @post.update_attributes(params[:post])
       # If update succeeds, redirect to the show action

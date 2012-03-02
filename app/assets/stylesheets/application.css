@@ -82,6 +82,8 @@ a.navigation{ color: #eeeeee; padding: 10px; margin: 0 10px 0 10px; position: re
   background: #6c241c; color: #eeeeee;}
 a.navigation:hover { background: #eeeeee; color: #6c241c; text-decoration: none; }
 
+.login_status { color: #eeeeee; float:right; }
+
 /* large action buttons */
 a.action { float: right; padding: 2px 5px; margin: 0 0 1em 1em; 
   background: #6c241c; color: #eeeeee;  border: 1px solid #000000;

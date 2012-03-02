@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <th><%= label( :category, :id, "Category") %></th>
-        <td><%= select( :category, :id, Category.all.collect {|c| [c.name, c.id]}) %></td>
+        <td><%= select( :category, :id, @category_options) %></td>
       </tr>
       <tr>
         <th><%= label( :tag, :name, "Custom Tags") %></th>

@@ -16,8 +16,18 @@
 	      <%= link_to("Home", {:controller => 'welcome', :action => 'index'}, :class => 'navigation home') %>
 	      <%= link_to("Posts", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
 	      <%= link_to("Categories", {:controller => 'categories', :action => 'list'}, :class => 'navigation categories') %>
+	      <% if session[:user_id] %>
+	      <%= link_to("Logout", {:controller => 'user_access', :action => 'logout'}, :class => 'navigation login-out') %>
+	      <% else %>
+	      <%= link_to("Login", {:controller => 'user_access', :action => 'login'}, :class => 'navigation login-in') %>
+	      <% end %>
 	      </div>
 	    </div>
+	      <div class="login_status">
+	    	<% if session[:user_id] %>      	
+	      		<p>Logged in as: <%= session[:username]%></p>
+	      	<% end %>	
+	      </div>
 	    <div id="main">
 	      <% if !flash[:notice].blank? %>
 	      <div class="notice">

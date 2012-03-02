@@ -1,0 +1,24 @@
+<% @page_title = "Login" %>
+
+<div class="login">
+  <h2>User Login</h2>	
+	
+  <%= form_tag(:action => 'process_login') do %>
+  <div class="form-input">
+  <table>
+    <tr>
+      <td><%= label_tag(:username) %></td>
+      <td><%= text_field_tag(:username) %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag(:password) %></td>
+      <td><%= password_field_tag(:password) %></td>
+    </tr>
+  </table>
+  </div>
+  <div class="form-buttons">
+  	<%= submit_tag("Log In") %>
+  </div>	
+  
+  <% end %>
+</div>

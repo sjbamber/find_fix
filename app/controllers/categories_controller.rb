@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
     
+  before_filter :confirm_logged_in
+  
   def index
     list
     render('list')
@@ -12,7 +14,7 @@ class CategoriesController < ApplicationController
       if category.parent_id
          @parent << Category.find(category.parent_id).name
       else
-         @parent << "none"
+         @parent << "No Parent"
       end
     end
   end
@@ -22,7 +24,7 @@ class CategoriesController < ApplicationController
     if @category.parent_id
       @parent = Category.find(@category.parent_id).name
     else
-      @parent = "none"
+      @parent = "No Parent"
     end
   end
   
