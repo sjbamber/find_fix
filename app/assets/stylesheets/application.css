@@ -28,24 +28,32 @@ body { width: 100%; min-width: 980px; height: 100%; margin: 0; padding: 0;
   font: 14px Verdana,Lucida,Arial,Helvetica,sans-serif; color: #eeeeee; }
 p, td, ul, ol, li, dl, dt, dd { 
   font-family: Verdana,Lucida,Arial,Helvetica,sans-serif; }
+p, td, ul, ol, li, dl, dt, dd, h1, h2, h3 { 
+  padding: 5px 0 5px 0; margin: 0;}
 img { border: none; }
 table { border-collapse: collapse; }
 table tr th, table tr td { vertical-align: top; text-align: left; 
   padding: 3px; }
-a, a:visited { color: #9F352A; }
-a:hover {}
+a, a:visited { color: #FF8888; }
+a { text-decoration: underline; }
+a:hover { color: #EEEEEE; }
 
 .clear { clear: both; }
 .center { text-align: center; }
 
 /* Structure */
 #header { height: 5em; padding: 1em 0 0 1em; text-align: left; background: url("header_background.png") repeat-x #993120;
-  color: #000000; border-bottom: 5px solid #4C2516; }
+  color: #000000; }
 #header h1 { margin: 0; padding: 0; }
-#main { min-height: 500px; background: #eeeeee; 
-  background: #1c1c1c; border-top: 10px solid #1b1b1b; }
-#navigation { float: left; width: 180px; min-height: 480px; padding: 10px; 
-  background: #94B26F; color: #4C2516; }
+#info_bar { height: 2em; background: #4C2516; }
+
+#main { width: 1000px; margin: 20px auto 20px auto; }
+#main_header { height: 67px; background: url("content_header.png"); }
+#main_header h2 { color: #EEEEEE; padding: 20px  0 0 50px; }
+#main_content { width: 100%; background: url("content_background.png") repeat-y transparent; }
+#content { width: 80%; margin: 0 auto 0 auto; padding: 20px 0 20px 0;}
+#main_footer { height: 45px; background: url("content_footer.png");}
+
 #footer { clear: both; height: 2.5em; text-align: right;
   background: #6c241c; color: #EEEEEE; }
 #footer p { margin: 0; padding: 0.5em 1em; }
@@ -53,36 +61,24 @@ a:hover {}
   margin: 0 auto -50px; background: #1c1c1c; }
 #footer, #push { height: 50px; }
 
-/* Navigation */
-#navigation ul { list-style: none; margin: 0; padding: 0; }
-#navigation ul li { margin-bottom: 0.5em; }
-#navigation ul ul { margin: 0.5em 0 0 1em; font-size: 0.9em; }
-#navigation a { text-decoration: none; padding: 1px 3px;}
-#navigation a:hover { background: #F2DC87; }
-
-/* Content */
-#content h2 { color: #EEEEEE; }
 
 /****************/
 
 /* Structure */
-#content { width: 1000px; margin: 10px auto 10px auto;}
-#content h2 { text-align: center; }
 
-.login form { margin: 100px 250px; }
-.menu .identity { text-align: center; }
-.menu ul { margin: 3em 250px; list-style: none; }
-.menu ul li { margin-bottom: 1em; }
 
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }
 
-.navigation_links {float:right;}
-a.navigation{ color: #eeeeee; padding: 10px; margin: 0 10px 0 10px; position: relative; top: 1.5em; border: 1px solid #000000;
-  background: #6c241c; color: #eeeeee;}
+.admin_menu ul { margin: 3em 250px; list-style: none; }
+.admin_menu ul li { margin-bottom: 1em; }
+
+.page_logo {float:left; margin-right: 20px;}
+.navigation_links_left {float:left;}
+.navigation_links_right {float:right; margin-right: 20px;}
+a.navigation{ color: #eeeeee; padding: 5px 10px 5px 10px; margin: 0 5px 0 5px; position: relative; top: 1em; border: 1px solid #000000;
+  background: #6c241c; color: #eeeeee; font-size: 18px; text-decoration: none;}
 a.navigation:hover { background: #eeeeee; color: #6c241c; text-decoration: none; }
 
-.login_status { color: #eeeeee; float:right; }
+.login_status { color: #eeeeee; float:right; padding: 5px 20px 0 0; }
 
 /* large action buttons */
 a.action { float: right; padding: 2px 5px; margin: 0 0 1em 1em; 
@@ -95,39 +91,44 @@ a.action:hover { background: #eeeeee; color: #6c241c;}
 .actions a.action { float: left; min-width: 3.5em; 
   padding: 1px 2px; margin: 2px 5px; font-size: 0.7em; }
 
-/* CRUD */
-.form-input input {width:600px;}
+/* Forms */
+form { width: 600px; margin: 0 auto 0 auto; }
+.form-input input { display:block; width:600px; height: 40px; }
 .form-input textarea {width:600px; font-family: Verdana,Lucida,Arial,Helvetica,sans-serif;}
+.form-input select { display:block; width:600px; height: 30px; }
+.form-field { padding: 10px 0 10px 0;}
+.form-field label { font-size: 18px; }
+.form-field input, select { margin: 10px 0 10px 0; font-size: 18px;}
+.form-buttons { text-align: center; margin-top: 10px;}
+.form-buttons input { font-size: 18px; padding: 10px;}
 
 .notice { height: 1.25em; padding: 0.5em; text-align: center;
-  background: #eeeeee; color: #6c241c; }
+  background: url("notice_background.png") repeat-y transparent; color: #6c241c; }
 .back-link { font-size: 0.8em; margin-bottom: 1em; }
-.form-buttons { text-align: center; margin: 1em 0; }
 
-.list table { clear: both; width: 100%; }
+
+.list table { clear: both; width: 90%; }
 .list table tr td { border: 1px solid #666666; }
-.show table { clear: both; margin: 0 200px; width: 300px; }
-.show table.wide { width: 600px; margin: 0 50px; }
+.show table { clear: both; margin: 0 200px; width: 600px; width: 90%; }
 .show table tr th { white-space: nowrap; padding-right: 5px;}
-.show table tr td { border: 1px solid #666666; }
+.show table tr td { border: none; }
+.show table td { height: 40px; }
 .edit table, .new table { margin: 0 auto; }
 
+/* A */
 .odd { background: #2c2c2c; }
 .even { background: none; }
-
-.section + .section { padding-top: 0.5em; margin-top: 0.5em; 
-  border-top: 1px dotted #666666; }
 
 /* Errors */
 .fieldWithErrors label { color: #AA0000; }
 .fieldWithErrors input textarea { border: 1px solid #AA0000; }
-#errorExplanation { width: 600px; padding: 0; margin: 0 auto 1.5em; 
-  border: 1px solid #AA0000; background-color: #FFFFFF; font-size: 12px; }
-#errorExplanation h2 { font-weight: bold; font-size: 12px;
+#errorExplanation { width: 600px; padding: 0; margin: 0 auto 15px auto; 
+  border: 1px solid #AA0000; background-color: #EEEEEE; font-size: 14px; }
+#errorExplanation h2 { font-weight: bold; font-size: 18px;
   padding: 5px 5px 5px 15px; margin: 0; width: 580px;
   background-color: #AA0000; color: #FFFFFF; }
 #errorExplanation p { color: #333333; margin: 0; padding: 3px 0.5em; }
-#errorExplanation ul { margin-top: 0; color: #333333;}
+#errorExplanation ul { margin-top: 0; margin-left: 25px; color: #333333;}
 #errorExplanation ul li { list-style: square; }
 
 

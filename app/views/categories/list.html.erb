@@ -1,10 +1,9 @@
 <% @page_title = "Categories List"%>
+<% @content_header = "Categories"%>
 
 <div class="category list">
-	
-  <h2>Categories</h2>
   
-  <%= link_to("Add New Category", {:action => 'new'}, :class => 'action new') %>
+  <%= link_to("Add New Category", {:action => 'new'}, :class => 'action new') if is_admin %>
   
   <div><%= pluralize(@categories.size, 'category')%> found</div>
 
@@ -21,8 +20,8 @@
       <td class="center"><%= @parent[i] %></td>
       <td class="actions">
         <%= link_to("Show", {:action => 'show', :id => category.id}, :class => 'action show') %>
-        <%= link_to("Edit", {:action => 'edit', :id => category.id}, :class => 'action edit') %>
-        <%= link_to("Delete", {:action => 'delete', :id => category.id}, :class => 'action delete') %>
+        <%= link_to("Edit", {:action => 'edit', :id => category.id}, :class => 'action edit') if is_admin %>
+        <%= link_to("Delete", {:action => 'delete', :id => category.id}, :class => 'action delete') if is_admin %>
       </td>
     </tr>
     <% end %>

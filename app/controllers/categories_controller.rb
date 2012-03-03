@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
     
-  before_filter :confirm_logged_in
+  before_filter :confirm_logged_in, :except => [:list, :show]
+  before_filter :confirm_admin_role, :except => [:list, :show]
   
   def index
     list

@@ -1,26 +1,26 @@
 <%= error_messages_for(@post) %>
 
     <div class="form-input">
-    <table summary="Post form fields">
-      <tr>
-        <th><%= f.label(:title) %></th>
-        <td><%= f.text_field(:title) %></td>
-      </tr>
-      <tr>
-        <th><%= f.label(:description) %></th>
-        <td><%= f.text_area(:description, :size => "600x10") %></td>
-      </tr>
-      <tr>
-        <th><%= label( :error_message, :description, "Error Message") %></th>
-        <td><%= text_field( :error_message, :description) %></td>
-      </tr>
-      <tr>
-        <th><%= label( :category, :id, "Category") %></th>
-        <td><%= select( :category, :id, @category_options) %></td>
-      </tr>
-      <tr>
-        <th><%= label( :tag, :name, "Custom Tags") %></th>
-        <td><%= text_field( :tag, :name) %></td>
-      </tr>          
-    </table>
+
+      <div class="form-field">
+        <%= f.label(:title) %>
+        <%= f.text_field(:title) %>
+      </div>
+      <div class="form-field">
+        <%= f.label(:description) %>
+        <%= f.text_area(:description, :size => "600x10") %>
+      </div>
+      <div class="form-field">
+        <%= label( :error_message, :description, "Error Message") %>
+        <%= text_field( :error_message, :description) %>
+      </div>
+      <div class="form-field">
+        <%= label( :category, :id, "Category") %>
+        <%= select( :category, :id, @category_options) %>
+      </div>
+      <div class="form-field">
+        <%= label( :tag, :name, "Custom Tags") %>
+        <%= text_field( :tag, :name) %>
+      </div>         
+
     </div>

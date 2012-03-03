@@ -1,14 +1,18 @@
 <% @page_title = "Detailed Post View"%>
+<% @content_header = "Show Post"%>
 
 <%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
 
 <div class="post show">
-  <h2>Show Post</h2>
 
   <table summary="Post detail view">
     <tr>
       <th>Post ID</th>
       <td><%= @post.id %></td>
+    </tr>
+    <tr>
+      <th>Post Type</th>
+      <td><%= @post.post_type == 0 ? 'Problem' : 'Solution' %></td>
     </tr>
     <tr>
       <th>Title</th>

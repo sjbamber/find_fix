@@ -1,9 +1,9 @@
 <% @page_title = "Update Category"%>
+<% @content_header = "Update Category"%>
 
 <%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
 
 <div class="category new">
-  <h2>Update Category</h2>
 
   <%= form_for(:category, :url => {:action => 'update', :id => @category.id}) do |f| %>
   

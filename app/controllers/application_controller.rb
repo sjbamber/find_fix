@@ -13,4 +13,14 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def confirm_admin_role
+    unless session[:role] == 2
+      flash[:notice] = "You are not permitted to access the requested page."
+      redirect_to(:controller => 'welcome', :action => 'index')
+      return false # halts the before filter
+    else
+      return true
+    end
+  end
+  
 end

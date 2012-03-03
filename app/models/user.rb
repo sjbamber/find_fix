@@ -19,11 +19,13 @@ class User < ActiveRecord::Base
   # New validate method
   validates :name, :length => { :maximum => 60 }
   validates :username, :presence => true, :length => { :within => 8..25 }, :uniqueness => true
-  validates :email, :presence => true, :length => { :maximum => 100 }, :format => REGEX_EMAIL, :uniqueness => true, :confirmation => true
+  validates :email, :presence => true, :length => { :maximum => 100 }, :format => REGEX_EMAIL, :uniqueness => true
+  validates_confirmation_of :email, :on => :create
   
   # Only perform this validation on create to allow other attributes to be updated
   validates_presence_of :password, :on => :create
   validates_length_of :password, :within => 8..25, :on => :create
+  validates_confirmation_of :password, :on => :create
   
   # Standard validation methods
   # validates_length_of :name, :maximum => 60
@@ -36,8 +38,11 @@ class User < ActiveRecord::Base
   # validates_length_of :username, :within => 8..25
   # validates_uniqueness_of :username
   
+  scope :named, lambda {|uname| where(:username => uname)}
+  scope :sorted, order("users.username ASC")
+  
   # password and salt do not get directly added from user input forms
-  attr_protected :hashed_password, :salt
+  attr_protected :role, :hashed_password, :salt
   
   # Class method to create a salt that is unique (using the username of a user), pseudo random (using Kernel::srand) and hashed (using SHA1 hash)
   def self.create_salt(username="")

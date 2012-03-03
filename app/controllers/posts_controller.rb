@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   
-  before_filter :confirm_logged_in
+  before_filter :confirm_logged_in, :except => [:list, :show]
+  before_filter :confirm_admin_role, :only => [:delete, :destroy]
   
   def index
     list
@@ -33,7 +34,11 @@ class PostsController < ApplicationController
     # Instantiate a new object using form parameters
     @post = Post.new(params[:post])
     @error_message = ErrorMessage.new(:description => params[:error_message]["description"])
-    @category = Category.find(params[:category]["id"])
+    unless params[:category]["id"].empty?
+      @category = Category.find(params[:category]["id"])
+    else
+      @category = Category.new
+    end   
     @tag = Tag.new(:name => params[:tag]["name"])
     
     # Create a list of categories to appear in the category

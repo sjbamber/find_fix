@@ -16,4 +16,22 @@ module ApplicationHelper
   def error_messages_for( object )
     render(:partial => 'shared/errors_to_display', :locals => {:object => object})    
   end
+  
+  def is_logged_in
+    if session[:user_id]
+      return true
+    else
+      return false
+    end
+  end
+  
+  def is_admin
+    if is_logged_in && session[:role] == 2
+      return true
+    else
+      return false
+    end
+  end
+  
+
 end

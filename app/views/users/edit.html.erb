@@ -1,0 +1,40 @@
+<% @page_title = "Update User"%>
+<% @content_header = "Update User Details"%>
+
+<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
+
+<div class="user new">
+
+  <%= form_for(:user, :url => {:action => 'update', :id => @user.id}) do |f| %>
+  
+	<div class="form-input">
+
+	 <div class="form-field">
+        <%= f.label(:name) %>
+        <%= f.text_field(:name) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:email) %>
+        <%= f.text_field(:email) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:username) %>
+        <%= f.text_field(:username) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:password, "Reset Password") %>
+        <%= f.password_field(:password) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:password_confirmation, "Confirm Password") %>
+        <%= f.password_field(:password_confirmation) %>
+     </div>   
+        
+	</div>
+    
+    <div class="form-buttons">
+      <%= submit_tag("Submit Post") %>
+    </div>
+    
+  <% end %>
+</div>

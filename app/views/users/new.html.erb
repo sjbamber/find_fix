@@ -1,0 +1,43 @@
+<% @page_title = "Register Account"%>
+<% @content_header = "Register User Account"%>
+
+<div class="user new">
+<%= error_messages_for(@user) %>
+
+  <%= form_for(:user, :url => {:action => 'create'}) do |f| %>
+  
+    <div class="form-input">
+
+	 <div class="form-field">
+        <%= f.label(:name, "Name (optional)") %>
+        <%= f.text_field(:name) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:email, "Email Address") %>
+        <%= f.text_field(:email) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:email_confirmation, "Confirm Email Address") %>
+        <%= f.text_field(:email_confirmation) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:username) %>
+        <%= f.text_field(:username) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:password) %>
+        <%= f.password_field(:password) %>
+     </div>
+	 <div class="form-field">
+        <%= f.label(:password_confirmation, "Confirm Password") %>
+        <%= f.password_field(:password_confirmation) %>
+     </div>   
+        
+	</div>
+    
+    <div class="form-buttons">
+      <%= submit_tag("Submit") %>
+    </div>
+    
+  <% end %>
+</div>

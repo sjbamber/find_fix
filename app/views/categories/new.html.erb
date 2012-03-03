@@ -1,9 +1,9 @@
 <% @page_title = "Create Category"%>
+<% @content_header = "Create Category"%>
 
 <%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
 
 <div class="category new">
-  <h2>Create Category</h2>
 
   <%= form_for(:category, :url => {:action => 'create'}) do |f| %>
   

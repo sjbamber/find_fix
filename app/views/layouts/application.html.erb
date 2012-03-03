@@ -11,32 +11,47 @@
   <body>
   	<div id="wrapper">
 	    <div id="header">
-	      <%= image_tag('find_fix_logo.png', :alt => 'Find Fix Logo') %>
-	      <div class="navigation_links">
-	      <%= link_to("Home", {:controller => 'welcome', :action => 'index'}, :class => 'navigation home') %>
-	      <%= link_to("Posts", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
-	      <%= link_to("Categories", {:controller => 'categories', :action => 'list'}, :class => 'navigation categories') %>
-	      <% if session[:user_id] %>
-	      <%= link_to("Logout", {:controller => 'user_access', :action => 'logout'}, :class => 'navigation login-out') %>
-	      <% else %>
-	      <%= link_to("Login", {:controller => 'user_access', :action => 'login'}, :class => 'navigation login-in') %>
-	      <% end %>
+	      <%= image_tag('find_fix_logo.png', :alt => 'Find Fix Logo', :class => 'page_logo') %>
+	      <div class="navigation_links_left">
+		      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home') %>
+		      <%= link_to("Posts", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
+		      <%= link_to("Categories", {:controller => 'categories', :action => 'list'}, :class => 'navigation categories') %>
+	      </div>
+	      <div class="navigation_links_right">
+		      <% if is_admin %>
+		      	<%= link_to("Admin Menu", {:controller => 'user_access', :action => 'admin_menu'}, :class => 'navigation logout') %>
+		      <% end %>
+		      <% if is_logged_in %>
+		      	<%= link_to("Logout", {:controller => 'user_access', :action => 'logout'}, :class => 'navigation logout') %>
+		      <% else %>
+		      <%= link_to("Register", {:controller => 'users', :action => 'new'}, :class => 'navigation register') %>
+		      <%= link_to("Login", {:controller => 'user_access', :action => 'login'}, :class => 'navigation login') %>
+		      <% end %>
 	      </div>
 	    </div>
+	    
+	    <div id="info_bar">
 	      <div class="login_status">
 	    	<% if session[:user_id] %>      	
-	      		<p>Logged in as: <%= session[:username]%></p>
+	      		Logged in as: <%= session[:username]%>
 	      	<% end %>	
 	      </div>
+	    </div>
+	    
 	    <div id="main">
+	      <div id="main_header"><h2><%= @content_header %></h2></div>
 	      <% if !flash[:notice].blank? %>
 	      <div class="notice">
 	        <%= flash[:notice] %>
 	      </div>
 	      <% end %>
-	      <div id="content">
+	      <div id="main_content">
+	      	<div id="content">
 	        <%= yield %>
+	        </div>
 	      </div>
+	      <div id="main_footer"></div>
+	      
 	    </div>
 		<div id="push"></div>
     </div>

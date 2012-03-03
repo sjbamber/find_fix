@@ -20,4 +20,7 @@ class Post < ActiveRecord::Base
   # post type does not get added from user input forms
   attr_protected :post_type
   
+  scope :sorted, order("posts.updated_at ASC")
+  scope :search, lambda {|query| where(["title LIKE ?", "%#{query}%"])}
+  
 end
