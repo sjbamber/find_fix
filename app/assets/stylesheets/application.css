@@ -49,9 +49,9 @@ a:hover { color: #EEEEEE; }
 
 #main { width: 1000px; margin: 20px auto 20px auto; }
 #main_header { height: 67px; background: url("content_header.png"); }
-#main_header h2 { color: #EEEEEE; padding: 20px  0 0 50px; }
+#main_header h2 { width: 88%; color: #EEEEEE; padding: 20px  0 5px 20px; border-bottom: 1px solid #9a3329; margin: 0 0 0 40px; }
 #main_content { width: 100%; background: url("content_background.png") repeat-y transparent; }
-#content { width: 80%; margin: 0 auto 0 auto; padding: 20px 0 20px 0;}
+#content { width: 90%; margin: 0 auto 0 auto; padding: 20px;}
 #main_footer { height: 45px; background: url("content_footer.png");}
 
 #footer { clear: both; height: 2.5em; text-align: right;
@@ -107,12 +107,20 @@ form { width: 600px; margin: 0 auto 0 auto; }
 .back-link { font-size: 0.8em; margin-bottom: 1em; }
 
 
-.list table { clear: both; width: 90%; }
+.list table { clear: both; width: 100%; }
 .list table tr td { border: 1px solid #666666; }
-.show table { clear: both; margin: 0 200px; width: 600px; width: 90%; }
+.list th { text-align: center; }
+.show table { clear: both; margin: 0 200px; width: 100%; }
 .show table tr th { white-space: nowrap; padding-right: 5px;}
 .show table tr td { border: none; }
 .show table td { height: 40px; }
+.show_post { width: 80%; margin: 0 auto;  }
+.show_post h2 { border-bottom: 1px solid #9a3329 }
+.post_description {background:#666666; font-size: 16px; line-height: 22px; text-align:justify;}
+.show_post li { margin-left: 20px; }
+.show_post div {padding: 5px 20px 5px 20px;}
+.show_post .back-link {position:relative; right: 100px;}
+.score {float: left; text-align:center; position:relative; top: 80px;}
 .edit table, .new table { margin: 0 auto; }
 
 /* A */

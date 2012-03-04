@@ -1,5 +1,8 @@
 class ErrorMessage < ActiveRecord::Base
   
-  has_and_belongs_to_many :posts
+  has_many :post_error_messages
+  has_many :posts, :through => :post_error_messages
+  
+  validates :description, :presence => true, :length => { :maximum => 255 }
   
 end

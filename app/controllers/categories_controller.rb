@@ -9,15 +9,7 @@ class CategoriesController < ApplicationController
   end
   
   def list
-    @categories = Category.order("categories.id ASC")
-    @parent = []
-    @categories.each do |category|
-      if category.parent_id
-         @parent << Category.find(category.parent_id).name
-      else
-         @parent << "No Parent"
-      end
-    end
+    get_category_list
   end
   
   def show
@@ -29,23 +21,22 @@ class CategoriesController < ApplicationController
     end
   end
   
-  def new
-    
+  def new   
     @category = Category.new    # Instantiate new category to be added
-      
     # Create a list of categories to appear in the parent category field including a no parent option
-    categories = Category.all.unshift( Category.new( :name => "No Parent" ) )
-    @options = categories.collect {|c| [c.name, c.id]}
-    
+    @category_options = Category.all.unshift( Category.new( :name => "No Parent" ) )
   end
   
   def create
     # Instantiate a new object using form parameters
-    @category = Category.new(params[:category])
-    # Create a list of categories to appear in the parent category field including a no parent option
-    categories = Category.all.unshift( Category.new( :name => "No Parent" ) )
-    @options = categories.collect {|c| [c.name, c.id]}
-    
+    @category = Category.new
+
+    if params[:category][:parent_id].blank?
+      @category = Category.new :name => params[:category][:name]
+    else
+      @category = Category.new :name => params[:category][:name], :parent_id => params[:category][:parent_id]
+    end    
+
     # Save the object
     if @category.save
       # If save succeeds, redirect to the list action
@@ -53,30 +44,43 @@ class CategoriesController < ApplicationController
       redirect_to(:action => 'list')
     else
       # If save fails, redisplay the form so user can fix categories
+      @category_options = Category.all.unshift( Category.new( :name => "No Parent" ) )
       render('new')
     end
+    
   end
   
-  def edit
-    
-    @category = Category.find(params[:id])  # Find the category to be updated
-      
+  def edit    
+    @category = Category.find(params[:id])  # Find the category to be updated      
     # Create a list of categories to appear in the parent category field including a no parent option
-    categories = Category.all.unshift( Category.new(:id => nil, :name => "No Parent") )
-    @options = categories.collect {|c| [c.name, c.id]}
-    
+    @category_options = Category.all.unshift( Category.new( :name => "No Parent" ) )
   end
   
   def update
     # Find object using form parameters
     @category = Category.find(params[:id])
+    
+    if @category.parent.blank? && params[:category][:parent_id].blank?
+      @category.name = params[:category][:name]
+    elsif params[:category][:parent_id].blank?
+      @category.name = params[:category][:name]
+      @category.ancestry.clear
+    elsif @category.parent.blank?
+      @category.name = params[:category][:name]
+      @category.parent_id = params[:category][:parent_id]
+    else 
+      @category.name = params[:category][:name]
+      @category.ancestry.clear
+      @category.parent_id = params[:category][:parent_id]
+    end 
     # Update the object
-    if @category.update_attributes(params[:category])
+    if @category.save
       # If update succeeds, redirect to the show action
-      flash[:notice] = "Category Updated"
+      flash[:notice] = "Category Updated #{params[:category][:parent]}"
       redirect_to(:action => 'show', :id => @category.id)
     else
       # If update fails, redisplay the form so user can fix categories
+      @category_options = Category.all.unshift( Category.new( :name => "No Parent" ) )
       render('edit')
     end   
   end

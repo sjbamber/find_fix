@@ -27,6 +27,9 @@ end
 
 gem 'jquery-rails'
 
+# Required for tree structure in Category
+gem 'ancestry'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

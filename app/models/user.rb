@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :votes
   has_many :comments
-  has_and_belongs_to_many :tags
+  has_many :tag_ownerships
+  has_many :tags, :through => :tag_ownerships
   
   # Callbacks used to process the password hashing
   before_save :create_hashed_password

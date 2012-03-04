@@ -11,16 +11,22 @@
         <%= f.text_area(:description, :size => "600x10") %>
       </div>
       <div class="form-field">
-        <%= label( :error_message, :description, "Error Message") %>
-        <%= text_field( :error_message, :description) %>
+        <%= label(:error_messages, :description, "Error Message(s)") %> 
+        <%= f.fields_for :error_messages do |e| %>   
+		      <%= e.text_field :description %>
+  		<% end %>
       </div>
       <div class="form-field">
-        <%= label( :category, :id, "Category") %>
-        <%= select( :category, :id, @category_options) %>
+        <%= label(:categories, :id, "Categories") %>
+        <%= f.fields_for :categories do |c| %>
+			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --', :selected => nil}) %>
+	    <% end %>
       </div>
       <div class="form-field">
-        <%= label( :tag, :name, "Custom Tags") %>
-        <%= text_field( :tag, :name) %>
+        <%= label(:tags, :name, "Custom Tags") %>
+        <%= f.fields_for :tags do |t| %>
+		      <%= t.text_field :name %>
+  		<% end %>
       </div>         
 
     </div>

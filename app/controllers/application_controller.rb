@@ -23,4 +23,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def get_category_list
+    @categories = Category.sort_by_ancestry(Category.all)
+  end
+  
 end

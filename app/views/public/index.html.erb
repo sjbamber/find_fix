@@ -1,6 +1,14 @@
 <% @page_title = "Home"%>
 <% @content_header = "Welcome"%>
+<% @alt_header = "Categories"%>
+<div id="category_list">
+    <% @categories.each do |category| %>
+      <li><%= category.name %></li>
+    <% end %>
+  </table>
+</div>
 
+<div id="information">
 <p>
 Find Fix is a web application that allows users to record, discuss and search IT support problems and solutions. 
 </p>
@@ -14,3 +22,6 @@ error message to share and discuss the problem with others.
 Existing problems can be searched and tagged with keywords to make the search more effective. 
 Each record added can be searched by any user, and over time the system will improve its knowledge base.
 </p>
+</div>
+
+

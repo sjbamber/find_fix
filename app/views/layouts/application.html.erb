@@ -14,7 +14,10 @@
 	      <%= image_tag('find_fix_logo.png', :alt => 'Find Fix Logo', :class => 'page_logo') %>
 	      <div class="navigation_links_left">
 		      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home') %>
-		      <%= link_to("Posts", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
+		      <% if is_logged_in %>
+		      <%= link_to("New Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
+		      <% end %>
+		      <%= link_to("View Problems", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
 		      <%= link_to("Categories", {:controller => 'categories', :action => 'list'}, :class => 'navigation categories') %>
 	      </div>
 	      <div class="navigation_links_right">
@@ -39,7 +42,9 @@
 	    </div>
 	    
 	    <div id="main">
+	    	<div id="alt_header"><h2><%= @alt_header %></h2></div>
 	      <div id="main_header"><h2><%= @content_header %></h2></div>
+	      
 	      <% if !flash[:notice].blank? %>
 	      <div class="notice">
 	        <%= flash[:notice] %>

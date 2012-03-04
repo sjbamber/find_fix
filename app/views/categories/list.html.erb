@@ -13,11 +13,11 @@
       <th>Name</th>
       <th>Parent Category</th>
     </tr>
-    <% @categories.each_with_index do |category, i| %>
+    <% @categories.each do |category| %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td class="center"><%= category.id %></td>
       <td><%= category.name %></td>
-      <td class="center"><%= @parent[i] %></td>
+      <td class="center"><%= category.parent.blank? ? "No Parent" : category.parent.name %></td>
       <td class="actions">
         <%= link_to("Show", {:action => 'show', :id => category.id}, :class => 'action show') %>
         <%= link_to("Edit", {:action => 'edit', :id => category.id}, :class => 'action edit') if is_admin %>

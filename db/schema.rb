@@ -11,21 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228211244) do
+ActiveRecord::Schema.define(:version => 20120304133345) do
 
   create_table "categories", :force => true do |t|
     t.string   "name",       :null => false
-    t.integer  "parent_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "ancestry"
   end
 
-  create_table "categories_posts", :id => false, :force => true do |t|
-    t.integer "category_id"
-    t.integer "post_id"
-  end
-
-  add_index "categories_posts", ["category_id", "post_id"], :name => "index_categories_posts_on_category_id_and_post_id"
+  add_index "categories", ["ancestry"], :name => "index_categories_on_ancestry"
 
   create_table "comments", :force => true do |t|
     t.string   "comment",    :null => false
@@ -43,12 +38,32 @@ ActiveRecord::Schema.define(:version => 20120228211244) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "error_messages_posts", :id => false, :force => true do |t|
-    t.integer "error_message_id"
-    t.integer "post_id"
+  create_table "post_categories", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
-  add_index "error_messages_posts", ["error_message_id", "post_id"], :name => "index_error_messages_posts_on_error_message_id_and_post_id"
+  add_index "post_categories", ["post_id", "category_id"], :name => "index_post_categories_on_post_id_and_category_id"
+
+  create_table "post_error_messages", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "error_message_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "post_error_messages", ["post_id", "error_message_id"], :name => "index_post_error_messages_on_post_id_and_error_message_id"
+
+  create_table "post_tags", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "post_tags", ["post_id", "tag_id"], :name => "index_post_tags_on_post_id_and_tag_id"
 
   create_table "posts", :force => true do |t|
     t.integer  "post_type",         :default => 0,     :null => false
@@ -64,25 +79,20 @@ ActiveRecord::Schema.define(:version => 20120228211244) do
 
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
-  create_table "posts_tags", :id => false, :force => true do |t|
-    t.integer "post_id"
-    t.integer "tag_id"
+  create_table "tag_ownerships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "posts_tags", ["post_id", "tag_id"], :name => "index_posts_tags_on_post_id_and_tag_id"
+  add_index "tag_ownerships", ["user_id", "tag_id"], :name => "index_tag_ownerships_on_user_id_and_tag_id"
 
   create_table "tags", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "tags_users", :id => false, :force => true do |t|
-    t.integer "tag_id"
-    t.integer "user_id"
-  end
-
-  add_index "tags_users", ["tag_id", "user_id"], :name => "index_tags_users_on_tag_id_and_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",            :limit => 60

@@ -1,67 +1,55 @@
 <% @page_title = "Detailed Post View"%>
-<% @content_header = "Show Post"%>
+<% @content_header = @post.title %>
 
-<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
 
-<div class="post show">
-
-  <table summary="Post detail view">
+    <div class="score">
+      <h3>Score</h3>
+      <p><%=h @post.vote_count ? @post.vote_count : '0' %></p>
+    </div>
+<div class="show_post">
+	<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
+    <div>
+      Submitted By: <%=h @post.user ? @post.user.username : 'Unknown' %>
+    </div>
+    <div class="post_description">
+      <p><%=h @post.description %></p>
+    </div>
+    <table>
     <tr>
-      <th>Post ID</th>
-      <td><%= @post.id %></td>
-    </tr>
-    <tr>
-      <th>Post Type</th>
-      <td><%= @post.post_type == 0 ? 'Problem' : 'Solution' %></td>
-    </tr>
-    <tr>
-      <th>Title</th>
-      <td><%= @post.title %></td>
-    </tr>
-    <tr>
-      <th>Description</th>
-      <td><%= @post.description %></td>
-    </tr>
-    <tr>
-      <th>Error Messages</th>
-      <td>
-      	<% @error_messages.each do |e| %>
-      	<%= e["description"] %> <br / >
-      	<% end %> 	
-      </td>
-    </tr>
-    <tr>
-      <th>Categories</th>
-      <td> 
-      	<% @categories.each do |c| %>
-      	<%= c["name"] %> <br / >
-      	<% end %> 	
-      </td>
-    </tr>
-    <tr>
-      <th>Tags</th>
-      <td>
-      	<% @tags.each do |t| %>
-      	<%= t["name"] %> <br / >
+    <td>
+    <div>
+      <h3>Error Messages</h3>
+      	<ul>
+      	<% for error_message in @post.error_messages %>
+      	<li> <%=h error_message.description %></li>
       	<% end %> 
-      </td>
+      	</ul>	
+    </div>
+    </td>
+    <td>
+    <div>
+      <h3>Categories</h3>
+      	<ul>
+      	<% for category in @post.categories %>
+      	<li> <%=h category.name %></li>
+      	<% end %>
+      	</ul> 
+    </div>
+    </td>
+    <td>
+    <div>
+      <h3>Tags</h3>
+      	<ul>
+      	<% for tag in @post.tags %>
+      	<li> <%=h tag.name %></li>
+      	<% end %> 
+      	</ul>
+    </div>
+    </td>
     </tr>
-    <tr>
-      <th>Score</th>
-      <td><%= @post.vote_count ? @post.vote_count : '0' %></td>
-    </tr>
-    <tr>
-      <th>Author</th>
-      <td><%= @post.user ? @post.user.username : 'Unknown' %></td>
-    </tr>
-    <tr>
-      <th>Created</th>
-      <td><%= @post.created_at %></td>
-    </tr>
-    <tr>
-      <th>Updated</th>
-      <td><%= @post.updated_at %></td>
-    </tr>
-  </table>
+    </table>
+    <div>
+      <p><b>Time Created:</b> <%=h @post.created_at %> - <b> Last Updated:</b> <%=h @post.updated_at %></p>
+    </div>
   
 </div>
