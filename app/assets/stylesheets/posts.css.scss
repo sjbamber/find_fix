@@ -1,3 +1,11 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.show_post .back-link {padding-left: 20px;}
+.problem_description { background:#666666; font-size: 16px; line-height: 22px; text-align:justify; white-space: pre-line;}
+.solution_display { white-space: pre-line; }
+.problem_score { text-align:center; float:left; position:relative; top: 40px; }
+.solution_score { text-align:center; float:left; position:relative; top: 10px; }
+.solution_submit form {  width: 80%; margin: 0 auto; }
+.solution_submit .form-input textarea { width: 100%; }
+a.solution_edit , a.solution_delete { display:inline-block; height:30px; padding: 15px; }

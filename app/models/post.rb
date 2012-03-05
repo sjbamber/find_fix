@@ -37,7 +37,7 @@ class Post < ActiveRecord::Base
   
   # Custom Scopes
   
-  scope :sorted, order("posts.updated_at ASC")
+  scope :sorted, order("posts.updated_at ASC")  
   scope :search, lambda {|query| where(["title LIKE ?", "%#{query}%"])}
   
 end

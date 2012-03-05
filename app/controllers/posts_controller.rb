@@ -9,14 +9,35 @@ class PostsController < ApplicationController
   end
   
   def list
-    @posts = Post.order("posts.updated_at DESC")
+    case
+    when params[:query]
+      @posts = Post.order("posts.updated_at DESC").where("title or description LIKE \"%#{params[:query]}%\"")
+    when params[:category_id]
+      category = Category.find_by_id(params[:category_id])
+      if category.blank? 
+        @posts = []
+      else  
+        @posts = category.posts
+      end
+    when params[:tag_id]
+      tag = Tag.find_by_id(params[:tag_id])
+      if tag.blank? 
+        @posts = []
+      else  
+        @posts = tag.posts
+      end
+    else
+      @posts = Post.order("posts.updated_at DESC").where(:post_type => 0)
+    end
   end
   
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find_by_id(params[:id])
     @error_messages = @post.error_messages
     @tags = @post.tags
     @categories = @post.categories
+    @solutions = Post.where(:parent_id => params[:id])
+    @solution = Post.new
   end
   
   def new
@@ -65,6 +86,25 @@ class PostsController < ApplicationController
       @tag_count.times { @post.tags.build }
       @category_count.times { @post.categories.build }
       render('new')
+    end
+  end
+  
+  def create_solution
+    @solution = Post.new(:parent_id => params[:id].to_i, :title => "Solution to Post ID #{params[:id]}", :description => params[:post][:description])
+    @solution.post_type = 1
+    @solution.user = User.find_by_id(session[:user_id]) unless session[:user_id].blank?
+    if @solution.save
+      flash[:notice] = "Solution Created"
+      redirect_to(:action => 'show', :id => params[:id])
+    else    
+      # If save fails, redisplay the form so user can fix posts
+      # Create a list of categories to appear in the category
+      flash[:notice] = "Errors prevented the solution from saving #{params}"
+      @post = Post.find(params[:id])
+      @error_messages = @post.error_messages
+      @tags = @post.tags
+      @categories = @post.categories
+      render('show')
     end
   end
   

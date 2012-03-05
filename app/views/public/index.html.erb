@@ -1,16 +1,6 @@
 <% @page_title = "Home"%>
 <% @content_header = "Welcome"%>
 <% @alt_header = "Categories"%>
-<div class="category_list">
-    <% @categories.each do |category| %>
-    <div class="category<%=category.depth%>">
-      <li>
-      	<%= link_to(category.name, {:controller => 'categories', :action => 'show', :id => category.id}) %>
-      </li>
-    </div> 
-    <% end %>
-  </table>
-</div>
 
 <div id="information">
 <p>
@@ -33,5 +23,26 @@ You can browse or search for <%= link_to("existing problems", {:controller => 'p
  <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %> or  <%= link_to("create an account", {:controller => 'users', :action => 'new'}) %>. 
 </p>
 </div>
+
+<% content_for :right_bar do %>
+    <% @categories.each do |category| %>
+    <div class="category<%=category.depth%>">
+    <ul>  
+      <li>
+      	<%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}) %>
+      </li>
+    </ul>   
+    </div> 
+    <% end %>
+
+	<h2>Tags</h2>
+    <% @tags.each do |tag| %>
+    <ul>      
+      <li>
+      	<%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}) %>
+      </li>
+    </ul>        
+    <% end %>
+<% end %>
 
 

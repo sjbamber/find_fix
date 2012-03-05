@@ -1,22 +1,20 @@
 <% @page_title = "Detailed Post View"%>
 <% @content_header = @post.title %>
-
-
-    <div class="score">
+<div class="problem_score">
       <h3>Score</h3>
       <p><%=h @post.vote_count ? @post.vote_count : '0' %></p>
-    </div>
+</div>
+
+
 <div class="show_post">
 	<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
     <div>
       Submitted By: <%=h @post.user ? @post.user.username : 'Unknown' %>
     </div>
-    <div class="post_description">
+
+    <div class="problem_description">
       <p><%=h @post.description %></p>
     </div>
-    <table>
-    <tr>
-    <td>
     <div>
       <h3>Error Messages</h3>
       	<ul>
@@ -25,7 +23,8 @@
       	<% end %> 
       	</ul>	
     </div>
-    </td>
+    <table>
+    <tr>
     <td>
     <div>
       <h3>Categories</h3>
@@ -51,5 +50,50 @@
     <div>
       <p><b>Time Created:</b> <%=h @post.created_at %> - <b> Last Updated:</b> <%=h @post.updated_at %></p>
     </div>
+</div>    
+  <br />  
+  <!-- Solution List -->
+  <% @solutions.each_with_index do |solution, i| %>
+    <div class="solution_score">
+      <h3>Score</h3>
+      	<p><%= solution.vote_count ? solution.vote_count : '0' %></p>
+    </div>
+    <div class="show_post <%= cycle('odd', 'even') %>">
+      <div class="solution_display">
+      <h2>Solution <%=i+1%></h2>
+      	<p><%= solution.description %></p>  
+      <br />   
+      <p>Submitted By: <%= solution.user ? solution.user.username : 'Unknown' %></p>
+          <%= link_to("Edit this solution", {:action => 'edit', :id => solution.id}, :class => 'solution_edit') if is_admin %>
+          <%= link_to("Delete this solution", {:action => 'delete', :id => solution.id}, :class => 'solution_delete') if is_admin %>
+      </div>
+    </div>
+    
+
+    
+    <br />
+  <% end %>
   
-</div>
+  <!-- New Solution Form -->
+  <% if is_logged_in %>  
+  <div class="solution_submit">
+  	<%= form_for(@solution, :url => {:action => 'create_solution', :id => @post.id}) do |f| %>
+	  
+	    <div class="form-input">
+	      <div class="form-field">
+	        <%= f.label("Post a solution to this problem") %>
+	        <%= f.text_area(:description, :size => "600x10") %>
+	      </div>        
+	    </div>
+	    
+	    <div class="form-buttons">
+	      <%= submit_tag("Submit Solution") %>
+	    </div>
+
+	<% end %>
+  </div>
+  <% else %>
+  	<br />
+	  <p>To submit a new solution please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
+  <% end %>
+  

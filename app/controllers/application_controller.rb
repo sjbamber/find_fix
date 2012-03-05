@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
   protected
   
   def confirm_logged_in
@@ -26,5 +26,10 @@ class ApplicationController < ActionController::Base
   def get_category_list
     @categories = Category.sort_by_ancestry(Category.all)
   end
+  
+  def get_tag_list
+    @tags = Tag.all
+  end
+  
   
 end

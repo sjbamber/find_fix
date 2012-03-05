@@ -1,7 +1,7 @@
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
-      t.integer "post_type", :default => 0, :null => false  # post type 0 for problem 1 for solution
+      t.integer "post_type", :default => 0  # post type 0 for problem 1 for solution
       t.integer "parent_id"
       t.string "title"
       t.text "description", :null => false

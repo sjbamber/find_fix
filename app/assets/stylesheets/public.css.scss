@@ -1,8 +1,8 @@
 // Place all the styles related to the Public controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#information {width: 70%; min-height:400px; font-size: 16px; line-height: 22px; text-align:justify; margin-left: 20px;}
-.category_list {float:right; width: 15%; padding-right:20px; }
+#information {min-height:500px; font-size: 16px; line-height: 22px; text-align:justify;}
+.right_list {float:right; width: 15%; padding-right:20px; }
 
 #alt_header {height:67px; float:right; position: relative; right: 100px;}
 #alt_header h2 { color: #EEEEEE; padding: 20px  0 0 50px; }

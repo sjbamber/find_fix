@@ -13,7 +13,7 @@
 	    <div id="header">
 	      <div id="header_content">
 		      <%= link_to(image_tag('find_fix_logo.png', :alt => 'Find Fix Logo', :class => 'page_logo'), {:controller => 'public', :action => 'index'}) %>
-				
+
 		      <div class="access_links">
 			      <% if is_admin %>
 			      	<%= link_to("Admin Menu", {:controller => 'user_access', :action => 'admin_menu'}, :class => 'access logout') %>
@@ -25,14 +25,21 @@
 			      <%= link_to("Login", {:controller => 'user_access', :action => 'login'}, :class => 'access login') %>
 			      <% end %>
 		      </div>
+		      
+		      <div class="search_bar">
+				<%= form_tag({:controller => 'posts', :action => 'list'}, :method => :get) do %>
+				  <%= label_tag(:query, "Search for a fix:") %><br />
+				  <%= text_field_tag(:query, "", :class => 'search_input') %>
+				  <%= submit_tag("Search", :class => 'search_submit') %>
+				<% end %>
+			  </div>
 	      </div>
 	    </div>
 	    
 	    <div id="info_bar">
 	     <div id="info_bar_content">
-
-			      <% if is_logged_in %>
 			      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home') %>
+			      <% if is_logged_in %>
 			      <%= link_to("New Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
 			      <% end %>
 			      <%= link_to("View Problems", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
@@ -51,12 +58,15 @@
 	      
 	      <% if !flash[:notice].blank? %>
 	      <div class="notice">
-	        <%= flash[:notice] %>
+	        <span><%= flash[:notice] %></span>
 	      </div>
 	      <% end %>
 	      <div id="main_content">
+	        <div id="right_content">
+	        	<%= yield :right_bar %>
+	        </div>
 	      	<div id="content">
-	        <%= yield %>
+	        	<%= yield %>
 	        </div>
 	      </div>
 	      <div id="main_footer"></div>
@@ -65,7 +75,9 @@
 		<div id="push"></div>
     </div>
     <div id="footer">
-      <p id="copyright">&copy; Stephen J Bamber</p>
+      <div id="footer_content">
+        <p id="copyright"><%=Time.now.strftime("%Y")%> &copy; Stephen J Bamber</p>
+      </div>
     </div>
   </body>
 </html>
