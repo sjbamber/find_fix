@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   def list
     case
     when params[:query]
-      @posts = Post.order("posts.updated_at DESC").where("title or description LIKE \"%#{params[:query]}%\"")
+      @posts = Post.order("posts.updated_at DESC").where("description ILIKE '%#{params[:query]}%' OR title ILIKE '%#{params[:query]}%'")#title or description LIKE \"%#{params[:query]}%\"")
     when params[:category_id]
       category = Category.find_by_id(params[:category_id])
       if category.blank? 
