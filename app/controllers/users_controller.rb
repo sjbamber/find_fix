@@ -29,9 +29,18 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      # If save succeeds, redirect to the login page
-      flash[:notice] = "User Registered"
-      redirect_to(:controller => 'user_access', :action => 'login')
+      # If save succeeds, log the user in and redirect to the login page
+      unless view_context.is_logged_in
+        session[:user_id] = @user.id
+        session[:username] = @user.username
+        session[:role] = @user.role
+        flash[:notice] = "User account registered. You are now signed in"
+        redirect_to(:controller => 'posts')
+      else
+        flash[:notice] = "User account registered"
+        redirect_to(:controller => 'users', :action => 'list' )
+      end
+      
     else
       # If save fails, redisplay the form so user can fix posts
       render('new')

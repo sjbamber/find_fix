@@ -1,11 +1,11 @@
 <% @page_title = "Update Post"%>
+<% @content_header = "Update Post"%>
 
 <%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
 
 <div class="post new">
-  <h2>Update Post</h2>
 
-  <%= form_for(:post, :url => {:action => 'update', :id => @post.id}) do |f| %>
+  <%= form_for(@post, :url => {:action => 'update', :id => @post.id}) do |f| %>
   
 	<%= render(:partial => "form", :locals => {:f => f}) %>
     

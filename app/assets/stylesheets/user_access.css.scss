@@ -3,4 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .login form { width: 300px; margin: 0 auto 0 auto; }
 .login .form-input input { width:300px; }
-a { font-size: 14px; }
+
+.admin_menu a { font-size: 16px; text-decoration:none;}
+.admin_menu ul { margin: 3em 250px; list-style: none; }
+.admin_menu ul li { margin-bottom: 1em; }

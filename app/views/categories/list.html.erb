@@ -5,7 +5,7 @@
   
   <%= link_to("Add New Category", {:action => 'new'}, :class => 'action new') if is_admin %>
   
-  <div><%= pluralize(@categories.size, 'category')%> found</div>
+  <div><%= pluralize(@categories.size, 'category')%> found</div><br />
 
   <table class="listing" summary="Category list">
     <tr class="header">
@@ -16,7 +16,7 @@
     <% @categories.each do |category| %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td class="center"><%= category.id %></td>
-      <td><%= category.name %></td>
+      <td class="center"><%= category.name %></td>
       <td class="center"><%= category.parent.blank? ? "No Parent" : category.parent.name %></td>
       <td class="actions">
         <%= link_to("Show", {:action => 'show', :id => category.id}, :class => 'action show') %>

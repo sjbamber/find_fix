@@ -11,34 +11,38 @@
   <body>
   	<div id="wrapper">
 	    <div id="header">
-	      <%= image_tag('find_fix_logo.png', :alt => 'Find Fix Logo', :class => 'page_logo') %>
-	      <div class="navigation_links_left">
-		      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home') %>
-		      <% if is_logged_in %>
-		      <%= link_to("New Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
-		      <% end %>
-		      <%= link_to("View Problems", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
-		      <%= link_to("Categories", {:controller => 'categories', :action => 'list'}, :class => 'navigation categories') %>
-	      </div>
-	      <div class="navigation_links_right">
-		      <% if is_admin %>
-		      	<%= link_to("Admin Menu", {:controller => 'user_access', :action => 'admin_menu'}, :class => 'navigation logout') %>
-		      <% end %>
-		      <% if is_logged_in %>
-		      	<%= link_to("Logout", {:controller => 'user_access', :action => 'logout'}, :class => 'navigation logout') %>
-		      <% else %>
-		      <%= link_to("Register", {:controller => 'users', :action => 'new'}, :class => 'navigation register') %>
-		      <%= link_to("Login", {:controller => 'user_access', :action => 'login'}, :class => 'navigation login') %>
-		      <% end %>
+	      <div id="header_content">
+		      <%= link_to(image_tag('find_fix_logo.png', :alt => 'Find Fix Logo', :class => 'page_logo'), {:controller => 'public', :action => 'index'}) %>
+				
+		      <div class="access_links">
+			      <% if is_admin %>
+			      	<%= link_to("Admin Menu", {:controller => 'user_access', :action => 'admin_menu'}, :class => 'access logout') %>
+			      <% end %>
+			      <% if is_logged_in %>
+			      	<%= link_to("Logout", {:controller => 'user_access', :action => 'logout'}, :class => 'access logout') %>
+			      <% else %>
+			      <%= link_to("Register", {:controller => 'users', :action => 'new'}, :class => 'access register') %>
+			      <%= link_to("Login", {:controller => 'user_access', :action => 'login'}, :class => 'access login') %>
+			      <% end %>
+		      </div>
 	      </div>
 	    </div>
 	    
 	    <div id="info_bar">
+	     <div id="info_bar_content">
+
+			      <% if is_logged_in %>
+			      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home') %>
+			      <%= link_to("New Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
+			      <% end %>
+			      <%= link_to("View Problems", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
+			      <%= link_to("Categories", {:controller => 'categories', :action => 'list'}, :class => 'navigation categories') %>
 	      <div class="login_status">
 	    	<% if session[:user_id] %>      	
 	      		Logged in as: <%= session[:username]%>
 	      	<% end %>	
 	      </div>
+	     </div>
 	    </div>
 	    
 	    <div id="main">

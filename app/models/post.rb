@@ -22,7 +22,7 @@ class Post < ActiveRecord::Base
   # :reject_if => lambda {|a| a[:name].blank?} # Reject ignores blank entries
 
   # Validation
-  validates_presence_of :post_type, :description#, :categories, :tags, :error_messages
+  validates_presence_of :post_type, :title, :description
   validates_length_of :title, :maximum => 255
   
   # validates_presence_of :error_messages
