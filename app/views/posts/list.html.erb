@@ -1,18 +1,14 @@
 <% @page_title = "Posts List"%>
 <% @content_header = "Problem List"%>
 
-
-  
-  <div><%= pluralize(@posts.size, 'problem record')%> found</div><br />
-
   <%= list_posts(@posts)  %>
 
 <div class="digg_pagination">
     <div clas="page_info">
-      <%= page_entries_info @posts %>
+      <%= page_entries_info @posts, :model => "Problem", :html => false  %>
     </div>
     <%= will_paginate @posts, :container => false %>
-  </div>
+</div>
 
 <% @right_header = "Help"%>
 
