@@ -146,7 +146,7 @@ form { width: 600px; margin: 0 auto 0 auto; }
 /* Form Validation Errors */
 .fieldWithErrors label { color: #AA0000; }
 .fieldWithErrors input textarea { border: 1px solid #AA0000; }
-#errorExplanation { width: 600px; padding: 0; margin: 10px auto 0 auto; auto 15px auto; 
+#errorExplanation { width: 600px; padding: 0; margin: 10px auto 0 auto;
   border: 1px solid #AA0000; background-color: #EEEEEE; font-size: 14px; }
 #errorExplanation h2 { font-weight: bold; font-size: 18px;
   padding: 5px 5px 5px 15px; margin: 0; width: 580px;
