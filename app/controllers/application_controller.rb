@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   # ***End of Before Filters***
   
   def get_category_list
-    @categories = Category.sort_by_ancestry(Category.all)
+    @categories = Category.sort_by_ancestry(Category.paginate(:page => params[:page]).all)
   end
   
   def get_tag_list

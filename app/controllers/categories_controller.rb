@@ -9,7 +9,8 @@ class CategoriesController < ApplicationController
   end
   
   def list
-    get_category_list
+    #get_category_list
+    @categories = Category.sort_by_ancestry(Category.all).paginate(:page => params[:page])
   end
   
   def show

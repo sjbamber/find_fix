@@ -30,6 +30,9 @@ gem 'jquery-rails'
 # Required for tree structure in Category
 gem 'ancestry'
 
+# Gem for pagination of form data
+gem 'will_paginate'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

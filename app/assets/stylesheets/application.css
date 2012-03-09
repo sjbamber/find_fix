@@ -138,6 +138,7 @@ form { width: 600px; margin: 0 auto 0 auto; }
 .list table {  width: 100%; }
 .list th { text-align: center; }
 .list ul li { padding:0; }
+.added_date {font-size: 12px;}
 
 /* Alternates background colour between table rows in a list */
 .odd { background: #2c2c2c; }

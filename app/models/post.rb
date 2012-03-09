@@ -14,7 +14,6 @@ class Post < ActiveRecord::Base
   has_many :post_error_messages
   has_many :error_messages, :through => :post_error_messages
   
-  accepts_nested_attributes_for :post_tags, :post_categories, :post_error_messages, :reject_if => lambda {|a| a[:post_id].blank?}
   accepts_nested_attributes_for :tags, :categories, :reject_if => lambda {|a| a[:name].blank?}
   accepts_nested_attributes_for :error_messages, :reject_if => lambda {|a| a[:description].blank?}
   accepts_nested_attributes_for :user, :comments, :votes
@@ -32,8 +31,11 @@ class Post < ActiveRecord::Base
   #validates_presence_of :tags
   validates_associated :tags#, :categories, :error_messages
   
-  # post type does not get added from user input forms
+  # Prevents mass assignment, post type does not get added from user input forms
   attr_protected :post_type
+  
+  # Sets pagination value
+  self.per_page = 10
   
   # Custom Scopes
   

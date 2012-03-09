@@ -14,7 +14,11 @@
     <% posts.each do |post| %>
     <tr class="<%= cycle('odd', 'even') %>">
 
-      <td><%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id, :post_type => post.post_type, :parent_id => post.parent_id }) %></td>
+      <td>
+      	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id, :post_type => post.post_type, :parent_id => post.parent_id }) %>
+      	
+      	<p class="added_date">Added at: <%= post.created_at.strftime("%H:%M %d/%m/%y") %></p>
+      </td>
       <td><% post.categories.each do |category| %>
       	  <ul>
       	  	<li><%= category.name %></li>
@@ -23,7 +27,7 @@
       </td>
       <td><% post.tags.each do |tag| %>
       	  <ul>
-      	  	<li><%= tag.name %></li>
+      	  	<li><%= truncate(tag.name, :length => 20) %></li>
       	  </ul>
       	  <% end %>
       </td> 

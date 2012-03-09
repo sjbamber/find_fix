@@ -27,3 +27,10 @@
     <% end %>
   </table>
 </div>
+
+<div class="digg_pagination">
+    <div clas="page_info">
+      <%= page_entries_info @categories %>
+    </div>
+    <%= will_paginate @categories, :container => false %>
+  </div>

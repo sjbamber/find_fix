@@ -11,11 +11,11 @@ class PostsController < ApplicationController
   end
   
   def list
+    
     case
     when params[:query] # Search function
       #@posts = Post.order("posts.updated_at DESC").where( ["title OR description LIKE ?", "%#{params[:query]}%"] )
       @posts = Post.order("posts.updated_at DESC").where( ["description LIKE ? OR title LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres
-      
       
       @posts.each_with_index do |post, i|
         if post.post_type == 1
@@ -27,23 +27,25 @@ class PostsController < ApplicationController
           end       
         end
       end
-      @posts = @posts.compact   
+      @posts = @posts.compact
+      @posts = @posts.paginate(:page => params[:page])
     when params[:category_id]
       category = Category.find_by_id(params[:category_id])
       if category.blank? 
-        @posts = []
+        @posts = [].paginate(:page => params[:page])
       else  
-        @posts = category.posts
+        @posts = category.posts.paginate(:page => params[:page])
       end
     when params[:tag_id]
       tag = Tag.find_by_id(params[:tag_id])
       if tag.blank? 
-        @posts = []
+        @posts = [].paginate(:page => params[:page])
       else  
-        @posts = tag.posts
+        @posts = tag.posts.paginate(:page => params[:page])
       end
     else
-      @posts = Post.order("posts.updated_at DESC").where(:post_type => 0)
+      # @posts = Post.order("posts.updated_at DESC").where(:post_type => 0)
+      @posts = Post.paginate(:page => params[:page]).order("posts.updated_at DESC").where(:post_type => 0)
     end
   end
   

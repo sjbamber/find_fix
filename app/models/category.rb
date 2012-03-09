@@ -8,4 +8,7 @@ class Category < ActiveRecord::Base
   validates_length_of :name, :within => 3..255
   validates_uniqueness_of :name
   
+  # Sets pagination value
+  self.per_page = 10
+    
 end
