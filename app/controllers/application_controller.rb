@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     unless session[:role] == 2 || !session[:user_id]
       flash[:notice] = "You are not permitted to access the requested page."
       redirect_to(:controller => 'public', :action => 'index')
-      return false # halts the before filter      
+      return false # halts the before filter
     else
       return true
     end
@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_tag_list
-    @tags = Tag.all
+    @tags = Tag.order("(select count(*) from post_tags) DESC").limit(10)
   end
   
 end

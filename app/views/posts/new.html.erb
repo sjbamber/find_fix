@@ -4,7 +4,7 @@
 <%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
 
 <div class="post new">
-
+<br />
   <%= form_for(@post, :url => {:action => 'create'}) do |f| %>
   
     <%= render(:partial => "form", :locals => {:f => f}) %>

@@ -65,8 +65,10 @@
       	<p><%= solution.description %></p>  
       <br />   
       <p>Submitted By: <%= solution.user ? solution.user.username : 'Unknown' %></p>
-          <%= link_to("Edit this solution", {:action => 'edit', :id => solution.id}, :class => 'solution_edit') if is_admin %>
-          <%= link_to("Delete this solution", {:action => 'delete', :id => solution.id}, :class => 'solution_delete') if is_admin %>
+      	<table><tr>
+          <td><%= link_to("Edit this solution", {:action => 'edit', :id => solution.id}, :class => 'solution_edit') if is_admin %></td>
+          <td><%= link_to("Delete this solution", {:action => 'delete', :id => solution.id}, :class => 'solution_delete') if is_admin %></td>
+      	</tr></table>
       </div>
     </div>
     

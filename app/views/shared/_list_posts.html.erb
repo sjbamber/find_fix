@@ -30,9 +30,8 @@
       <td class="center"><%= solution_count(post).to_s %></td>
       <td><%= post.user ? post.user.username : 'Unknown' %></td>
       <% if is_admin && is_post_list_page %>
-      <td class="actions">
-        
-        <%= link_to("Edit", {:action => 'edit', :id => post.id}, :class => 'action edit') if is_logged_in %>
+      <td class="actions">  
+        <%= link_to("Edit", {:action => 'edit', :id => post.id, :post_type => 0}, :class => 'action edit') if is_logged_in %>
         <%= link_to("Delete", {:action => 'delete', :id => post.id}, :class => 'action delete') if is_admin %>
       </td>
       <% end %>

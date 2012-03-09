@@ -1,16 +1,17 @@
 <% @page_title = "Delete Post"%>
+<% @content_header = "Delete Post" %>
 
 <%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
 
 <div class="post delete">
-  <h2>Delete Post</h2>
   
   <%= form_for(:post, :url => {:action => 'destroy', :id => @post.id}) do |f| -%>
-
+	
+	<br />
     <p>Are you sure you want to permanently delete this post?</p>
   
     <p class="reference-name"><%= @post.title %></p>
-  
+  	<br />
     <div class="form-buttons">
       <%= submit_tag("Delete Post") %>
     </div>

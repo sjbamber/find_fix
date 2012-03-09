@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   
   before_filter :confirm_logged_in, :except => [:list, :show]
   before_filter :confirm_admin_role, :only => [:edit, :update, :delete, :destroy]
-  before_filter :confirm_not_solution, :only => [:show, :edit, :update]
+  before_filter :confirm_not_solution, :only => [:show]
   before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete]
   
   def index
@@ -12,9 +12,11 @@ class PostsController < ApplicationController
   
   def list
     case
-    when params[:query]
+    when params[:query] # Search function
       #@posts = Post.order("posts.updated_at DESC").where( ["title OR description LIKE ?", "%#{params[:query]}%"] )
-      @posts = Post.order("posts.updated_at DESC").where( ["description ILIKE ? OR title ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres
+      @posts = Post.order("posts.updated_at DESC").where( ["description LIKE ? OR title LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres
+      
+      
       @posts.each_with_index do |post, i|
         if post.post_type == 1
           parent_post = Post.find_by_id(post.parent_id)
@@ -87,36 +89,30 @@ class PostsController < ApplicationController
       @post = Post.new(params[:post])
       # Associate the author of the post
       @post.user = User.find_by_id(session[:user_id]) if session[:user_id]
-      # Check the errors and tags do not already exist and update the object if they do
+      # Check the errors, categories and tags do not already exist and update the object if they do
       @post.error_messages.each_with_index do |error_message, i|
         @post.error_messages[i] = ErrorMessage.find_or_initialize_by_description(error_message.description)
       end
+      @post.categories.each_with_index do |category, i|
+        @post.categories[i] = Category.find_or_initialize_by_name(category.name)
+      end      
       @post.tags.each_with_index do |tag, i|
         @post.tags[i] = Tag.find_or_initialize_by_name(tag.name)
       end
-      # Make the reference to the related category using the join table 'post_categories'
-      @post.post_categories.clear
-      if pc_attributes = params[:post][:post_categories_attributes]
-        pc_attributes.each do |pc| 
-          @post.post_categories << PostCategory.new(pc.last) unless pc.last[:category_id].blank?
-        end
-      end
       # Commit the post to the database
       @post.save!
-      # Make the relation to category on the other side of the join
-      @post.post_categories.each do |pc|
-        category = Category.find_by_id(pc.category_id)
-        pc.category = category
-        pc.save
-      end
-      @post.categories(true)
+
       flash[:notice] = "Post Created"
       redirect_to(:action => 'list')
     rescue ActiveRecord::RecordInvalid => e
       # If save fails
       # Display errors
       @errors = e.record
-      flash[:notice] = "Errors prevented the post from saving #{@post.post_categories.inspect}"
+      flash[:notice] = "Errors prevented the post from saving"
+      # Clear any found ids to prevent the form raising errors
+      @post.error_messages.each_with_index do |error_message, i|; @post.error_messages[i].id = nil; end
+      @post.categories.each_with_index do |category, i|; @post.categories[i].id = nil; end
+      @post.tags.each_with_index do |tag, i|; @post.tags[i].id = nil; end
       # Render the view again
       @category_options = Category.all
       render('new')
@@ -132,28 +128,31 @@ class PostsController < ApplicationController
     begin
       # Create a new post object from the form data
       @post = Post.find_by_id(params[:id])
-      # Associate the author of the post
-      @post.user = User.find_by_id(session[:user_id]) if session[:user_id]
+      @post.title = params[:post][:title]
+      @post.description = params[:post][:description]
       # Check the errors and tags do not already exist and update the object if they do
-      @post.error_messages.each_with_index do |error_message, i|
-        @post.error_messages[i] = ErrorMessage.find_or_initialize_by_description(error_message.description)
+      @post.error_messages.clear
+      params[:post][:error_messages_attributes].each_with_index do |error_message, i|
+        @post.error_messages << ErrorMessage.find_or_initialize_by_description(error_message.last["description"])
       end
-      @post.tags.each_with_index do |tag, i|
-        @post.tags[i] = Tag.find_or_initialize_by_name(tag.name)
+      @post.categories.clear
+      params[:post][:categories_attributes].each_with_index do |category, i|
+        @post.categories << Category.find_or_initialize_by_name(category.last["name"])
       end
-      @post.post_categories.each_with_index do |pc, i|
-        @post.post_categories[i] = PostCategories.find_or_initialize_by_category_id(pc.category_id)
+      @post.tags.clear
+      params[:post][:tags_attributes].each_with_index do |tag, i|
+        @post.tags << Tag.find_or_initialize_by_name(tag.last["name"])
       end
       # Update the post
-      @post.update_attributes!(params[:post])
-      @post.categories(true)
+      @post.save!
+
       flash[:notice] = "Post Updated"
       redirect_to(:action => 'show', :id => params[:id], :post_type => 0)
     rescue ActiveRecord::RecordInvalid => e
       # If save fails
       # Display errors
       @errors = e.record
-      flash[:notice] = "Errors prevented the post from saving #{@post.post_categories.inspect}"
+      flash[:notice] = "Errors prevented the post from saving #{params}"
       # Render the view again
       @category_options = Category.all
       render('new')

@@ -17,11 +17,11 @@
 		      <%= e.text_field :description %>
   		<% end %>
       </div>
-      <% @post.post_categories.build if @post.post_categories.blank? %>
+      <% @post.categories.build if @post.categories.blank? %>
       <div class="form-field">
-        <%= label(:post_categories, :category_id, "Categories") %>
-        <%= f.fields_for :post_categories do |c| %>
-			<%= c.collection_select(:category_id, @category_options, :id, :name, {:prompt => '-- Please Select a Category --', :selected => nil}) %>
+        <%= label(:categories, :name, "Categories") %>
+        <%= f.fields_for :categories do |c| %>
+			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --'}) %>
 	    <% end %>
       </div>
       <% @post.tags.build if @post.tags.blank? %>
