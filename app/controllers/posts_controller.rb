@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     case
     when params[:query]
       #@posts = Post.order("posts.updated_at DESC").where( ["title OR description LIKE ?", "%#{params[:query]}%"] )
-      @posts = Post.order("posts.updated_at DESC").where( ["description ILIKE '%#{params[:query]}%' OR title ILIKE '%#{params[:query]}%'"]) # Query works with postgres
+      @posts = Post.order("posts.updated_at DESC").where( ["description ILIKE ? OR title ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres
       @posts.each_with_index do |post, i|
         if post.post_type == 1
           parent_post = Post.find_by_id(post.parent_id)
