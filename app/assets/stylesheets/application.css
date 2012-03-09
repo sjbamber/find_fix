@@ -124,6 +124,7 @@ form { width: 600px; margin: 0 auto 0 auto; }
 .form-field { padding: 10px 0 10px 0;}
 .form-field label { font-size: 16px; }
 .form-field input, select { margin: 0 0 10px 0; font-size: 16px;}
+.form-field textarea { font-size: 16px; }
 .form-buttons { text-align: center; margin-top: 10px;}
 .form-buttons input { font-size: 16px; padding: 10px;}
 
