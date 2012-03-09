@@ -91,7 +91,7 @@ a:hover { color: #EEEEEE; }
 
 .access_links {float:right; margin: 10px 20px 0 0;  }
 a.access{ color: #eeeeee; padding: 5px 10px 5px 10px; margin: 0 5px 0 5px; display:inline-block; width:101px; height: 22px;
-  background: url("nav_button.png") ; color: #eeeeee; font-size: 17px; text-decoration: none;  text-align: center;}
+  background: url("nav_button.png") ; color: #eeeeee; font-size: 16px; text-decoration: none;  text-align: center;}
 a.access:hover { background: url("nav_button_hover.png"); text-decoration: none; }
 a.navigation { height: 3em; font-size: 18px; text-decoration: none; padding: 0 10px 0 10px;
   position: relative; top: 10px;}
