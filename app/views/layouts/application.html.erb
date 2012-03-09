@@ -40,37 +40,47 @@
 	     <div id="info_bar_content">
 			      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home') %>
 			      <% if is_logged_in %>
-			      <%= link_to("New Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
+			      <%= link_to("Submit a New Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
 			      <% end %>
-			      <%= link_to("View Problems", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
-			      <%= link_to("Categories", {:controller => 'categories', :action => 'list'}, :class => 'navigation categories') %>
+			      <%= link_to("View Existing Problems", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
 	      <div class="login_status">
 	    	<% if session[:user_id] %>      	
-	      		Logged in as: <%= session[:username]%>
+	      		You are logged in as: <%= session[:username]%>
+	        <% else %>
+	        	You are not logged in
 	      	<% end %>	
 	      </div>
 	     </div>
 	    </div>
 	    
 	    <div id="main">
-	    	<div id="alt_header"><h2><%= @alt_header %></h2></div>
-	      <div id="main_header"><h2><%= @content_header %></h2></div>
-	      
-	      <% if !flash[:notice].blank? %>
-	      <div class="notice">
-	        <span><%= flash[:notice] %></span>
-	      </div>
-	      <% end %>
-	      <div id="main_content">
-	        <div id="right_content">
-	        	<%= yield :right_bar %>
-	        </div>
+	 
+		  <div id="right_bar">
+		  	  <div id="right_content_header">
+	      		<h2><%= @right_header %></h2>
+	      	  </div>
+		      <div id="right_bar_content">
+		        <%= yield :right_bar %> 	
+		      </div>
+		      <div id="right_footer"></div>
+		  </div>
+		    
+		    
+		  <div id="main_content">
+	      	<div id="content_header">
+	      	<h2><%= @content_header %></h2>
+	      	</div>	      
+		    <% if !flash[:notice].blank? %>
+		      <div class="notice">
+		        <%= flash[:notice] %>
+		      </div>
+		    <% end %>
 	      	<div id="content">
 	        	<%= yield %>
 	        </div>
-	      </div>
-	      <div id="main_footer"></div>
-	      
+	        <div id="content_footer"></div>
+		 </div>	      
+		       	
 	    </div>
 		<div id="push"></div>
     </div>

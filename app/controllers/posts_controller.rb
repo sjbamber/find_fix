@@ -1,7 +1,9 @@
 class PostsController < ApplicationController
   
   before_filter :confirm_logged_in, :except => [:list, :show]
-  before_filter :confirm_admin_role, :only => [:delete, :destroy]
+  before_filter :confirm_admin_role, :only => [:edit, :update, :delete, :destroy]
+  before_filter :confirm_not_solution, :only => [:show, :edit, :update]
+  before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete]
   
   def index
     list
@@ -11,7 +13,19 @@ class PostsController < ApplicationController
   def list
     case
     when params[:query]
-      @posts = Post.order("posts.updated_at DESC").where("description ILIKE '%#{params[:query]}%' OR title ILIKE '%#{params[:query]}%'")#title or description LIKE \"%#{params[:query]}%\"")
+      #@posts = Post.order("posts.updated_at DESC").where( ["title OR description LIKE ?", "%#{params[:query]}%"] )
+      @posts = Post.order("posts.updated_at DESC").where( ["description ILIKE '%#{params[:query]}%' OR title ILIKE '%#{params[:query]}%'"]) # Query works with postgres
+      @posts.each_with_index do |post, i|
+        if post.post_type == 1
+          parent_post = Post.find_by_id(post.parent_id)
+          if @posts.include?(parent_post)
+            @posts[i] = nil
+          else
+            @posts[i] = parent_post
+          end       
+        end
+      end
+      @posts = @posts.compact   
     when params[:category_id]
       category = Category.find_by_id(params[:category_id])
       if category.blank? 
@@ -32,125 +46,118 @@ class PostsController < ApplicationController
   end
   
   def show
+
     @post = Post.find_by_id(params[:id])
-    @error_messages = @post.error_messages
-    @tags = @post.tags
-    @categories = @post.categories
     @solutions = Post.where(:parent_id => params[:id])
     @solution = Post.new
+    
   end
   
+  def create_solution
+    begin   
+      @solution = Post.new(:parent_id => params[:id].to_i, :title => "Solution to Post ID #{params[:id]}", :description => params[:post][:description])
+      @solution.post_type = 1
+      @solution.user = User.find_by_id(session[:user_id]) unless session[:user_id].blank?
+      @solution.save!
+      flash[:notice] = "Solution Created"
+      redirect_to(:action => 'show', :id => params[:id], :post_type => 0)
+    rescue ActiveRecord::RecordInvalid => e
+      # If save fails
+      # Display errors
+      @errors = e.record
+      flash[:notice] = "Errors prevented the solution from saving"
+      # Render the view again
+      @post = Post.find(params[:id])
+      @solutions = Post.where(:parent_id => params[:id])
+      render('show')
+    end
+  end  
+  
   def new
+    
     @post = Post.new
-    @error_message_count = 2; @tag_count = 2; @category_count = 2
-    @error_message_count.times { @post.error_messages.build }
-    @tag_count.times { @post.tags.build }
-    @category_count.times { @post.categories.build }
-
     # Create a list of categories to appear in the category
     @category_options = Category.all
     
   end
   
   def create
-    # Instantiate new post object using data submitted from the form
-    @post = Post.new(params[:post])
-    # Get arrays of all errors, tags and categories submitted from the form
-    @errors = []; @tags = []; @categories = []
-    get_objects_from_params(@errors, @tags, @categories)
-
-    # Flags indicating if the error messages and tags were updated correctly
-    # Category does not need to be checked because it is not added to by the form
-    error_messages_updated = true; tags_updated = true
-    objects_exist?(@errors, @tags, error_messages_updated, tags_updated)
-    
-    # Clear error tag and category attributes from the post object before saving
-    @post.error_messages.clear; @post.tags.clear; @post.categories.clear
-    
-    # Associate the author of the post
-    @post.user = User.find_by_id(session[:user_id]) if session[:user_id]
-    
-    if  error_messages_updated && tags_updated && @post.save
-      # if saves are successful, make the required relationships
-      relate_to_post(@post, @errors, @tags, @categories)     
-      # If save succeeds, redirect to the list action
+    begin
+      # Create a new post object from the form data
+      @post = Post.new(params[:post])
+      # Associate the author of the post
+      @post.user = User.find_by_id(session[:user_id]) if session[:user_id]
+      # Check the errors and tags do not already exist and update the object if they do
+      @post.error_messages.each_with_index do |error_message, i|
+        @post.error_messages[i] = ErrorMessage.find_or_initialize_by_description(error_message.description)
+      end
+      @post.tags.each_with_index do |tag, i|
+        @post.tags[i] = Tag.find_or_initialize_by_name(tag.name)
+      end
+      # Make the reference to the related category using the join table 'post_categories'
+      @post.post_categories.clear
+      if pc_attributes = params[:post][:post_categories_attributes]
+        pc_attributes.each do |pc| 
+          @post.post_categories << PostCategory.new(pc.last) unless pc.last[:category_id].blank?
+        end
+      end
+      # Commit the post to the database
+      @post.save!
+      # Make the relation to category on the other side of the join
+      @post.post_categories.each do |pc|
+        category = Category.find_by_id(pc.category_id)
+        pc.category = category
+        pc.save
+      end
+      @post.categories(true)
       flash[:notice] = "Post Created"
       redirect_to(:action => 'list')
-    else    
-      # If save fails, redisplay the form so user can fix posts
-      # Create a list of categories to appear in the category
-      flash[:notice] = "Errors prevented the post from saving"
+    rescue ActiveRecord::RecordInvalid => e
+      # If save fails
+      # Display errors
+      @errors = e.record
+      flash[:notice] = "Errors prevented the post from saving #{@post.post_categories.inspect}"
+      # Render the view again
       @category_options = Category.all
-      @error_message_count = 2; @tag_count = 2; @category_count = 2
-      @error_message_count.times { @post.error_messages.build }
-      @tag_count.times { @post.tags.build }
-      @category_count.times { @post.categories.build }
       render('new')
-    end
-  end
-  
-  def create_solution
-    @solution = Post.new(:parent_id => params[:id].to_i, :title => "Solution to Post ID #{params[:id]}", :description => params[:post][:description])
-    @solution.post_type = 1
-    @solution.user = User.find_by_id(session[:user_id]) unless session[:user_id].blank?
-    if @solution.save
-      flash[:notice] = "Solution Created"
-      redirect_to(:action => 'show', :id => params[:id])
-    else    
-      # If save fails, redisplay the form so user can fix posts
-      # Create a list of categories to appear in the category
-      flash[:notice] = "Errors prevented the solution from saving #{params}"
-      @post = Post.find(params[:id])
-      @error_messages = @post.error_messages
-      @tags = @post.tags
-      @categories = @post.categories
-      render('show')
     end
   end
   
   def edit
     @post = Post.find_by_id(params[:id])
-    
-    @error_message_count = 0; @tag_count = 0; @category_count = 0
-    @error_message_count.times { @post.error_messages.build }
-    @tag_count.times { @post.tags.build }
-    @category_count.times { @post.categories.build }
-    
     @category_options = Category.all
   end
   
   def update
-    
-     # Find object using form parameters
-    @post = Post.find_by_id(params[:id])
-    
-    # Get arrays of all errors, tags and categories submitted from the form
-    @errors = []; @tags = []; @categories = []
-    get_objects_from_params(@errors, @tags, @categories)
-
-    # Flags indicating if the error messages and tags were updated correctly
-    # Category does not need to be checked because it is not added to by the form
-    error_messages_updated = true; tags_updated = true
-    objects_exist?(@errors, @tags, error_messages_updated, tags_updated)
-    
-    # Clear error tag and category attributes from the post object before saving
-    params[:post][:error_messages_attributes].clear
-    params[:post][:tags_attributes].clear
-    params[:post][:categories_attributes].clear
-    
-    # Update the object
-    if  error_messages_updated && tags_updated && @post.update_attributes(params[:post])
-      # if saves are successful, make the required relationships
-      # relate_to_post(@post, @errors, @tags, @categories)
-      # If update succeeds, redirect to the show action
+    begin
+      # Create a new post object from the form data
+      @post = Post.find_by_id(params[:id])
+      # Associate the author of the post
+      @post.user = User.find_by_id(session[:user_id]) if session[:user_id]
+      # Check the errors and tags do not already exist and update the object if they do
+      @post.error_messages.each_with_index do |error_message, i|
+        @post.error_messages[i] = ErrorMessage.find_or_initialize_by_description(error_message.description)
+      end
+      @post.tags.each_with_index do |tag, i|
+        @post.tags[i] = Tag.find_or_initialize_by_name(tag.name)
+      end
+      @post.post_categories.each_with_index do |pc, i|
+        @post.post_categories[i] = PostCategories.find_or_initialize_by_category_id(pc.category_id)
+      end
+      # Update the post
+      @post.update_attributes!(params[:post])
+      @post.categories(true)
       flash[:notice] = "Post Updated"
-      redirect_to(:action => 'show', :id => @post.id)
-    else
-      # If update fails, redisplay the form so user can fix posts
+      redirect_to(:action => 'show', :id => params[:id], :post_type => 0)
+    rescue ActiveRecord::RecordInvalid => e
+      # If save fails
+      # Display errors
+      @errors = e.record
+      flash[:notice] = "Errors prevented the post from saving #{@post.post_categories.inspect}"
+      # Render the view again
       @category_options = Category.all
-      render('edit')
-    end   
-    
+      render('new')
+    end    
   end
   
   def delete
@@ -158,6 +165,12 @@ class PostsController < ApplicationController
   end
   
   def destroy
+    pe = PostErrorMessage.find_by_post_id(params[:id])
+    pe.destroy if pe
+    pc = PostCategory.find_by_post_id(params[:id])
+    pc.destroy if pc
+    pt = PostTag.find_by_post_id(params[:id])
+    pt.destroy if pt
     Post.find(params[:id]).destroy
     flash[:notice] = "Post Deleted"
     redirect_to(:action => 'list')
@@ -165,50 +178,10 @@ class PostsController < ApplicationController
   
   private
   
-  def get_objects_from_params(errors, tags, categories)
-    params[:post][:error_messages_attributes].each do |error| 
-      errors << ErrorMessage.new(error.last) unless error.last[:description].blank?
-    end
-    params[:post][:tags_attributes].each do |tag| 
-      tags << Tag.new(tag.last) unless tag.last[:name].blank?
-    end    
-    params[:post][:categories_attributes].each do |category|
-      # Get the category object
-      categories << Category.find_by_name(category.last[:name]) unless category.last[:name].blank?
-    end 
-  end
-  
-  def objects_exist?(errors, tags, error_messages_updated, tags_updated)
-    # Check if the error messages already exist in the database
-    errors.each_with_index do |error, i|
-       # If the error message does not exist, save the record, else find the record
-      if error_message_exists = ErrorMessage.find_by_description(error.description)
-        errors[i] = error_message_exists
-      else
-        error_messages_updated = error.save
-      end
-    end
-    # Check if the tags already exist in the database
-    tags.each_with_index do |tag, i|
-       # If the tag does not exist, save the record, else find the record
-      if tag_exists = Tag.find_by_name(tag.name)
-        tags[i] = tag_exists
-      else
-        tags_updated = tag.save
-      end
-    end
-  end
-  
-  def relate_to_post(post, errors, tags, categories)
-      @errors.each do |error|
-        @post.error_messages << error
-      end
-      @tags.each do |tag|
-        @post.tags << tag
-      end
-      @categories.each do |category|
-        @post.categories << category unless category.name.blank?
-      end
+  # Before filters
+  # Checks that a post being viewed is not a solution
+  def confirm_not_solution
+    params[:post_type] && params[:post_type] == "0" ? true : redirect_to(:action => 'show', :id => params[:parent_id], :post_type => "0" ); false
   end
   
 end

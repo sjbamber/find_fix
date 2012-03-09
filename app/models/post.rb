@@ -26,11 +26,11 @@ class Post < ActiveRecord::Base
   validates_length_of :title, :maximum => 255
   
   # validates_presence_of :error_messages
-  # validates_presence_of :categories
-  # validates_associated :categories
+  # validates_presence_of :post_categories
+  # validates_associated :post_categories
   
-  # validates_presence_of :tags
-  # validates_associated :tags
+  #validates_presence_of :tags
+  validates_associated :tags#, :categories, :error_messages
   
   # post type does not get added from user input forms
   attr_protected :post_type

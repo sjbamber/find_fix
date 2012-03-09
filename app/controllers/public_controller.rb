@@ -4,6 +4,7 @@ class PublicController < ApplicationController
     
     get_category_list # Method in application controller, Gets a structured list of categories
     get_tag_list # Method in application controller, Gets a list of tags
+    @recent_problems = Post.order("posts.updated_at DESC").limit(10).where("post_type=0")
 
   end
 end

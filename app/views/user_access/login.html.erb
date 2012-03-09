@@ -20,3 +20,11 @@
   
   <% end %>
 </div>
+
+<% @right_header = "Help"%>
+
+<% content_for :right_bar do %>
+<p>Login here to post problems and suggest solutions.</p>
+
+<p>If you do not already have login credentials <%= link_to("create a new account", {:controller => 'users', :action => 'new'}) %>.</p>
+<% end %>

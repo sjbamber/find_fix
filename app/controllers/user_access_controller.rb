@@ -1,10 +1,12 @@
 class UserAccessController < ApplicationController
   
-  before_filter :confirm_logged_in, :except => [:login, :process_login, :logout]
+  before_filter :confirm_logged_in, :except => [:login, :process_login]
+  before_filter :confirm_admin_role, :only => :admin_menu
+  before_filter :confirm_logged_out, :only => :login
   
   def index
     menu
-    render('menu')
+    render('login')
   end
   
   def admin_menu

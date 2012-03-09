@@ -1,4 +1,4 @@
-<%= error_messages_for(@post) %>
+<%= error_messages_for(@errors) %>
 
     <div class="form-input">
 
@@ -10,23 +10,26 @@
         <%= f.label(:description) %>
         <%= f.text_area(:description, :size => "600x10") %>
       </div>
+      <% @post.error_messages.build if @post.error_messages.blank? %>
       <div class="form-field">
         <%= label(:error_messages, :description, "Error Message(s)") %> 
         <%= f.fields_for :error_messages do |e| %>   
 		      <%= e.text_field :description %>
   		<% end %>
       </div>
+      <% @post.post_categories.build if @post.post_categories.blank? %>
       <div class="form-field">
-        <%= label(:categories, :id, "Categories") %>
-        <%= f.fields_for :categories do |c| %>
-			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --', :selected => nil}) %>
+        <%= label(:post_categories, :category_id, "Categories") %>
+        <%= f.fields_for :post_categories do |c| %>
+			<%= c.collection_select(:category_id, @category_options, :id, :name, {:prompt => '-- Please Select a Category --', :selected => nil}) %>
 	    <% end %>
       </div>
+      <% @post.tags.build if @post.tags.blank? %>
       <div class="form-field">
         <%= label(:tags, :name, "Custom Tags") %>
         <%= f.fields_for :tags do |t| %>
 		      <%= t.text_field :name %>
   		<% end %>
-      </div>         
-
+      </div>
+     
     </div>

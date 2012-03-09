@@ -2,15 +2,11 @@ class UsersController < ApplicationController
   
   before_filter :confirm_logged_in, :except => [:index, :new, :create]
   before_filter :confirm_admin_role, :except => [:index, :new, :create]
+  before_filter :confirm_admin_or_logged_out, :only => [:index, :new, :create]
   
   def index
-    unless view_context.is_admin || !view_context.is_logged_in
-      flash[:notice] = "You are not permitted to access the requested page."
-      redirect_to(:controller => 'welcome', :action => 'index')   
-    else
       new
-      render('new')
-    end  
+      render('new') 
   end
   
   def list
@@ -18,12 +14,7 @@ class UsersController < ApplicationController
   end
   
   def new
-    unless view_context.is_admin || !view_context.is_logged_in
-      flash[:notice] = "You are not permitted to access the requested page."
-      redirect_to(:controller => 'welcome', :action => 'index')  
-    else
       @user = User.new
-    end
   end
   
   def create

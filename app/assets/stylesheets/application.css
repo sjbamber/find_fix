@@ -51,13 +51,23 @@ a:hover { color: #EEEEEE; }
 #info_bar { height: 3em; background: #4C2516; }
 #info_bar_content { width: 1000px; margin: 0 auto 0 auto;}
 
-#main { width: 1000px; margin: 20px auto 20px auto; }
-#main_header { height: 67px; background: url("content_header.png"); }
-#main_header h2 { color: #EEEEEE; padding: 20px  0 5px 20px;  margin: 0 0 0 40px; }
-#main_content { width: 100%; background: url("content_background.png") repeat-y transparent; }
-#content { width: 680px; padding: 35px;}
-#right_content { float: right; width: 220px;}
-#main_footer { height: 45px; background: url("content_footer.png");}
+#main { overflow: auto; display: inline-block; /* triggers hasLayout in IE */}
+#main { display:block; width: 1000px; margin: 20px auto 20px auto; }
+
+/* Main Content Area */
+#main_content{ width: 760px;}
+#content_header { height: 67px; width: 740px; padding: 0 0 0 20px; background: url("content_header.png"); }
+#content_header h2 { color: #EEEEEE; padding: 20px  0 5px 20px; }
+#content { width: 690px; background: url("content_background.png") repeat-y; padding: 10px 35px 10px 35px; min-height:300px;}
+#content_footer { height: 45px; width: 760px; background: url("content_footer.png"); }
+
+/* Right Hand Bar */
+#right_bar { float:right; }
+#right_content_header { height: 67px; padding-right: 25px; width: 215px; background: url("right_header.png");}
+#right_content_header h2 { text-align: center; color: #EEEEEE; padding: 20px  0 5px; }
+#right_bar_content { background: url("right_content_background.png") repeat-y; padding: 0 30px 0 20px; width: 190px; min-height:320px; text-align:justify;}
+#right_footer { height: 45px; width: 240px; background: url("right_footer.png");}
+
 
 #footer { clear: both; border-top: 1em solid #4C2516;
   background: url("footer_background.png") repeat-x #6c241c; }
@@ -74,14 +84,14 @@ a:hover { color: #EEEEEE; }
 
 .page_logo {float:left; margin-right: 20px;}
 
-.search_bar { font-size: 18px; }
+.search_bar { font-size: 16px; }
 .search_bar label { color: #EEEEEE;}
-.search_input {height: 30px; width: 350px; font-size: 18px;}
-.search_submit {height: 38px; width: 100px; font-size: 18px;}
+.search_input {height: 30px; width: 350px; font-size: 16px;}
+.search_submit {height: 38px; width: 100px; font-size: 16px;}
 
 .access_links {float:right; margin: 10px 20px 0 0;  }
 a.access{ color: #eeeeee; padding: 5px 10px 5px 10px; margin: 0 5px 0 5px; display:inline-block; width:101px; height: 22px;
-  background: url("nav_button.png") ; color: #eeeeee; font-size: 18px; text-decoration: none;  text-align: center;}
+  background: url("nav_button.png") ; color: #eeeeee; font-size: 17px; text-decoration: none;  text-align: center;}
 a.access:hover { background: url("nav_button_hover.png"); text-decoration: none; }
 a.navigation { height: 3em; font-size: 18px; text-decoration: none; padding: 0 10px 0 10px;
   position: relative; top: 10px;}
@@ -101,24 +111,25 @@ a.action:hover { background: #eeeeee; color: #6c241c;}
 
 /* Forms */
 form { width: 600px; margin: 0 auto 0 auto; }
-.form-input input { display:block; width:600px; height: 40px; }
+.form-input input { display:block; width:600px; height: 30px; }
 .form-input textarea {width:600px; font-family: Verdana,Lucida,Arial,Helvetica,sans-serif;}
 .form-input select { display:block; width:600px; height: 30px; }
 .form-field { padding: 10px 0 10px 0;}
-.form-field label { font-size: 18px; }
-.form-field input, select { margin: 10px 0 10px 0; font-size: 18px;}
+.form-field label { font-size: 16px; }
+.form-field input, select { margin: 10px 0 10px 0; font-size: 16px;}
 .form-buttons { text-align: center; margin-top: 10px;}
-.form-buttons input { font-size: 18px; padding: 10px;}
+.form-buttons input { font-size: 16px; padding: 10px;}
 
-.notice { height: 1.25em; padding: 0.5em; color: #6c241c;
+.notice { height: 1.25em; padding: 0.5em; color: #6c241c; text-align: center;
   background: url("notice_background.png") repeat-y transparent;  }
-.notice span {position:relative; left: 300px;}
-.back-link { font-size: 0.8em; margin-bottom: 1em; }
+
+.back-link { font-size: 1em; margin-bottom: 1em; }
 
 
-.list table { clear: both; width: 100%; }
+.list table {  width: 100%; }
 .list th { text-align: center; }
-.show table { clear: both; margin: 0 200px; width: 100%; }
+.list ul li { padding:0; }
+.show table { margin: 0 200px; width: 100%; }
 .show table tr th { white-space: nowrap; padding-right: 5px;}
 .show table tr td { border: none; }
 .show table td { height: 40px; }
@@ -137,7 +148,7 @@ form { width: 600px; margin: 0 auto 0 auto; }
 /* Errors */
 .fieldWithErrors label { color: #AA0000; }
 .fieldWithErrors input textarea { border: 1px solid #AA0000; }
-#errorExplanation { width: 600px; padding: 0; margin: 0 auto 15px auto; 
+#errorExplanation { width: 600px; padding: 0; margin-top: 10px; auto 15px auto; 
   border: 1px solid #AA0000; background-color: #EEEEEE; font-size: 14px; }
 #errorExplanation h2 { font-weight: bold; font-size: 18px;
   padding: 5px 5px 5px 15px; margin: 0; width: 580px;

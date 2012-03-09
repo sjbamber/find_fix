@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   
   # New validate method
   validates :name, :length => { :maximum => 60 }
-  validates :username, :presence => true, :length => { :within => 8..25 }, :uniqueness => true
+  validates :username, :presence => true, :length => { :within => 6..25 }, :uniqueness => true
   validates :email, :presence => true, :length => { :maximum => 100 }, :format => REGEX_EMAIL, :uniqueness => true
   validates_confirmation_of :email, :on => :create
   

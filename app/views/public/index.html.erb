@@ -1,6 +1,6 @@
 <% @page_title = "Home"%>
 <% @content_header = "Welcome"%>
-<% @alt_header = "Categories"%>
+
 
 <div id="information">
 <p>
@@ -23,6 +23,13 @@ You can browse or search for <%= link_to("existing problems", {:controller => 'p
  <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %> or  <%= link_to("create an account", {:controller => 'users', :action => 'new'}) %>. 
 </p>
 </div>
+
+<div id="recent_problems">
+	<h2>Recent Problems</h2><br />
+	<%= list_posts(@recent_problems)  %>
+</div>
+
+<% @right_header = "Categories"%>
 
 <% content_for :right_bar do %>
     <% @categories.each do |category| %>
