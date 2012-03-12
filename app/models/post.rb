@@ -14,22 +14,18 @@ class Post < ActiveRecord::Base
   has_many :post_error_messages
   has_many :error_messages, :through => :post_error_messages
   
+  # Accept nested attributes, enables nested assignment using fields for
+  # :reject_if => lambda {|a| a[:name].blank?} # ignores blank entries
   accepts_nested_attributes_for :tags, :categories, :reject_if => lambda {|a| a[:name].blank?}
   accepts_nested_attributes_for :error_messages, :reject_if => lambda {|a| a[:description].blank?}
-  accepts_nested_attributes_for :user, :comments, :votes
-  
-  # :reject_if => lambda {|a| a[:name].blank?} # Reject ignores blank entries
+  accepts_nested_attributes_for :comments, :votes
 
   # Validation
   validates_presence_of :post_type, :title, :description
   validates_length_of :title, :maximum => 255
   
-  # validates_presence_of :error_messages
-  # validates_presence_of :post_categories
-  # validates_associated :post_categories
-  
-  #validates_presence_of :tags
-  validates_associated :tags#, :categories, :error_messages
+  validates_presence_of :tags, :categories
+  validates_associated :tags, :categories, :error_messages
   
   # Prevents mass assignment, post type does not get added from user input forms
   attr_protected :post_type
@@ -38,7 +34,6 @@ class Post < ActiveRecord::Base
   self.per_page = 10
   
   # Custom Scopes
-  
   scope :sorted, order("posts.updated_at ASC")  
   scope :search, lambda {|query| where(["title LIKE ?", "%#{query}%"])}
   

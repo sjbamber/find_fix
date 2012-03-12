@@ -16,14 +16,14 @@ class User < ActiveRecord::Base
   attr_accessor :password
   
   REGEX_EMAIL = /^[a-zA-Z]([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*@([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*\.[a-zA-Z]*\.?[a-zA-Z]+$/
-  
+
   # New validate method
   validates :name, :length => { :maximum => 60 }
   validates :username, :presence => true, :length => { :within => 6..25 }, :uniqueness => true
   validates :email, :presence => true, :length => { :maximum => 100 }, :format => REGEX_EMAIL, :uniqueness => true
-  validates_confirmation_of :email, :on => :create
   
   # Only perform this validation on create to allow other attributes to be updated
+  validates_confirmation_of :email, :on => :create  
   validates_presence_of :password, :on => :create
   validates_length_of :password, :within => 8..25, :on => :create
   validates_confirmation_of :password, :on => :create

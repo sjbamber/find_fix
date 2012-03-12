@@ -100,6 +100,7 @@ class PostsController < ApplicationController
       end      
       @post.tags.each_with_index do |tag, i|
         @post.tags[i] = Tag.find_or_initialize_by_name(tag.name)
+        @post.tags[i].owners << @post.user
       end
       # Commit the post to the database
       @post.save!

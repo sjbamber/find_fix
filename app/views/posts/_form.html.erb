@@ -10,21 +10,21 @@
         <%= f.label(:description) %>
         <%= f.text_area(:description, :size => "600x10") %>
       </div>
-      <% @post.error_messages.build if @post.error_messages.blank? %>
+      <% 2.times { @post.error_messages.build } if @post.error_messages.blank? %>
       <div class="form-field">
         <%= label(:error_messages, :description, "Error Message(s)") %> 
         <%= f.fields_for :error_messages do |e| %>   
 		      <%= e.text_field :description %>
   		<% end %>
       </div>
-      <% @post.categories.build if @post.categories.blank? %>
+      <% 2.times { @post.categories.build } if @post.categories.blank? %>
       <div class="form-field">
         <%= label(:categories, :name, "Categories") %>
         <%= f.fields_for :categories do |c| %>
 			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --'}) %>
 	    <% end %>
       </div>
-      <% @post.tags.build if @post.tags.blank? %>
+      <% 2.times { @post.tags.build } if @post.tags.blank? %>
       <div class="form-field">
         <%= label(:tags, :name, "Custom Tags") %>
         <%= f.fields_for :tags do |t| %>
