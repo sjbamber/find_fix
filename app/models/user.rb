@@ -28,17 +28,6 @@ class User < ActiveRecord::Base
   validates_length_of :password, :within => 8..25, :on => :create
   validates_confirmation_of :password, :on => :create
   
-  # Standard validation methods
-  # validates_length_of :name, :maximum => 60
-  # validates_presence_of :email
-  # validates_length_of :email, :maximum => 100
-  # validates_uniqueness_of :email
-  # validates_format_of :email, :with => REGEX_EMAIL
-  # validates_confirmation_of :email
-  # validates_presence_of :username
-  # validates_length_of :username, :within => 8..25
-  # validates_uniqueness_of :username
-  
   scope :named, lambda {|uname| where(:username => uname)}
   scope :sorted, order("users.username ASC")
   

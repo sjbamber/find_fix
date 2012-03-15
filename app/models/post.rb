@@ -14,6 +14,8 @@ class Post < ActiveRecord::Base
   has_many :post_error_messages
   has_many :error_messages, :through => :post_error_messages
   
+  attr_accessor :validate_nested
+  
   # Accept nested attributes, enables nested assignment using fields for
   # :reject_if => lambda {|a| a[:name].blank?} # ignores blank entries
   accepts_nested_attributes_for :tags, :categories, :reject_if => lambda {|a| a[:name].blank?}
@@ -24,7 +26,12 @@ class Post < ActiveRecord::Base
   validates_presence_of :post_type, :title, :description
   validates_length_of :title, :maximum => 255
   
-  validates_presence_of :tags, :categories
+  # Validations for tags and categories
+  validates_presence_of :tags, :if => :validate_nested
+  validates_presence_of :categories, :if => :validate_nested
+
+  # validates_presence_of :tags, :on => :create
+  # validates_presence_of :categories, :on => :create
   validates_associated :tags, :categories, :error_messages
   
   # Prevents mass assignment, post type does not get added from user input forms

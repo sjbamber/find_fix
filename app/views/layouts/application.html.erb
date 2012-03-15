@@ -52,7 +52,7 @@ _____________________________________________
 			      <% if is_logged_in %>
 			      <%= link_to("Submit a New Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
 			      <% end %>
-			      <%= link_to("View Existing Problems", {:controller => 'posts', :action => 'list'}, :class => 'navigation posts') %>
+			      <%= link_to("View Existing Problems", {:controller => 'posts'}, :class => 'navigation posts') %>
 	      <div class="login_status">
 	    	<% if session[:user_id] %>      	
 	      		You are logged in as: <%= session[:username]%>

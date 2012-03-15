@@ -18,8 +18,9 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(params[:user])
-    if @user.save
+    begin
+      @user = User.new(params[:user])
+      @user.save!
       # If save succeeds, log the user in and redirect to the login page
       unless view_context.is_logged_in
         session[:user_id] = @user.id
@@ -31,9 +32,10 @@ class UsersController < ApplicationController
         flash[:notice] = "User account registered"
         redirect_to(:controller => 'users', :action => 'list' )
       end
-      
-    else
+    rescue ActiveRecord::RecordInvalid => e
       # If save fails, redisplay the form so user can fix posts
+      @errors = e.record
+      flash[:notice] = "User Registration Failed"
       render('new')
     end
   end
@@ -44,15 +46,18 @@ class UsersController < ApplicationController
   end
   
   def update
-     # Find object using form parameters
-    @user = User.find(params[:id])
-    # Update the object
-    if @user.update_attributes(params[:user])
+    begin
+      # Find object using form parameters
+      @user = User.find(params[:id])
+      # Update the object
+      @user.update_attributes!(params[:user])
       # If update succeeds, redirect back to the list
       flash[:notice] = "User Details Updated"
       redirect_to(:action => 'list')
-    else
+    rescue ActiveRecord::RecordInvalid => e
+      @errors = e.record
       # If update fails, redisplay the form so user can fix posts
+      flash[:notice] = "User Update Failed"
       render('edit')
     end     
   end

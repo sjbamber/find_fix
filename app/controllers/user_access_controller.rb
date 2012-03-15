@@ -1,11 +1,10 @@
 class UserAccessController < ApplicationController
   
-  before_filter :confirm_logged_in, :except => [:login, :process_login]
+  before_filter :confirm_logged_in, :except => [:index, :login, :process_login]
   before_filter :confirm_admin_role, :only => :admin_menu
-  before_filter :confirm_logged_out, :only => :login
+  before_filter :confirm_logged_out, :only => [:login, :process_login]
   
   def index
-    menu
     render('login')
   end
   
@@ -20,8 +19,7 @@ class UserAccessController < ApplicationController
   
   def process_login
     # Carries out the login procedure
-    permitted_user = User.authenticate(params[:username], params[:password])
-    if permitted_user
+    if permitted_user = User.authenticate(params[:username], params[:password])
       # Set the user to be logged in
       session[:user_id] = permitted_user.id
       session[:username] = permitted_user.username
@@ -30,11 +28,11 @@ class UserAccessController < ApplicationController
       if view_context.is_admin
         redirect_to(:action => 'admin_menu')
       else
-        redirect_to(:controller => 'posts')
+        redirect_to(:controller => 'posts', :action => 'index')
       end
     else 
       flash[:notice] = "Invalid Username or Password"
-      redirect_to(:action => 'login')
+      render('login')
     end
   end
   

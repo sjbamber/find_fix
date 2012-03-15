@@ -4,6 +4,8 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+<% SALT = "SaLt" unless defined?(SALT) %>
+
 testuser1:
   name: Test User
   email: testuser@mail.com
@@ -18,4 +20,14 @@ alice:
   name: Alice Smith
   email: asmith@mail.com
   username: asmith
+  salt: <%= SALT %>
+  hashed_password: <%= User.salt_and_hash("password", SALT) %>
   
+administrator:
+  name: Administrator
+  email: admin@mail.com
+  username: administrator
+  role: 2
+  salt: <%= SALT %>
+  hashed_password: <%= User.salt_and_hash("password", SALT) %>
+

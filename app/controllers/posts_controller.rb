@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   
-  before_filter :confirm_logged_in, :except => [:list, :show]
+  before_filter :confirm_logged_in, :except => [:index, :list, :show]
   before_filter :confirm_admin_role, :only => [:edit, :update, :delete, :destroy]
+  before_filter :confirm_params_id, :only => [:show, :create_solution, :edit, :update, :delete]
   before_filter :confirm_not_solution, :only => [:show]
-  before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete]
   
   def index
     list
@@ -11,12 +11,10 @@ class PostsController < ApplicationController
   end
   
   def list
-    
     case
     when params[:query] # Search function
       #@posts = Post.order("posts.updated_at DESC").where( ["title OR description LIKE ?", "%#{params[:query]}%"] )
-      @posts = Post.order("posts.updated_at DESC").where( ["description LIKE ? OR title LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres
-      
+      @posts = Post.order("posts.updated_at DESC").where( ["description LIKE ? OR title LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres     
       @posts.each_with_index do |post, i|
         if post.post_type == 1
           parent_post = Post.find_by_id(post.parent_id)
@@ -29,6 +27,7 @@ class PostsController < ApplicationController
       end
       @posts = @posts.compact
       @posts = @posts.paginate(:page => params[:page])
+      
     when params[:category_id]
       category = Category.find_by_id(params[:category_id])
       if category.blank? 
@@ -36,6 +35,7 @@ class PostsController < ApplicationController
       else  
         @posts = category.posts.paginate(:page => params[:page])
       end
+      
     when params[:tag_id]
       tag = Tag.find_by_id(params[:tag_id])
       if tag.blank? 
@@ -43,6 +43,7 @@ class PostsController < ApplicationController
       else  
         @posts = tag.posts.paginate(:page => params[:page])
       end
+      
     else
       # @posts = Post.order("posts.updated_at DESC").where(:post_type => 0)
       @posts = Post.paginate(:page => params[:page]).order("posts.updated_at DESC").where(:post_type => 0)
@@ -64,14 +65,14 @@ class PostsController < ApplicationController
       @solution.user = User.find_by_id(session[:user_id]) unless session[:user_id].blank?
       @solution.save!
       flash[:notice] = "Solution Created"
-      redirect_to(:action => 'show', :id => params[:id], :post_type => 0)
+      redirect_to(:action => 'show', :id => params[:id])
     rescue ActiveRecord::RecordInvalid => e
       # If save fails
       # Display errors
       @errors = e.record
       flash[:notice] = "Errors prevented the solution from saving"
       # Render the view again
-      @post = Post.find(params[:id])
+      @post = Post.find_by_id(params[:id])
       @solutions = Post.where(:parent_id => params[:id])
       render('show')
     end
@@ -90,7 +91,7 @@ class PostsController < ApplicationController
       # Create a new post object from the form data
       @post = Post.new(params[:post])
       # Associate the author of the post
-      @post.user = User.find_by_id(session[:user_id]) if session[:user_id]
+      @post.user = User.find_by_id(session[:user_id]) if session[:user_id]     
       # Check the errors, categories and tags do not already exist and update the object if they do
       @post.error_messages.each_with_index do |error_message, i|
         @post.error_messages[i] = ErrorMessage.find_or_initialize_by_description(error_message.description)
@@ -102,6 +103,8 @@ class PostsController < ApplicationController
         @post.tags[i] = Tag.find_or_initialize_by_name(tag.name)
         @post.tags[i].owners << @post.user
       end
+      # Ensure nested attributes get validated
+      @post.validate_nested = true
       # Commit the post to the database
       @post.save!
 
@@ -183,7 +186,13 @@ class PostsController < ApplicationController
   # Before filters
   # Checks that a post being viewed is not a solution
   def confirm_not_solution
-    params[:post_type] && params[:post_type] == "0" ? true : redirect_to(:action => 'show', :id => params[:parent_id], :post_type => "0" ); false
+    thispost = Post.find_by_id(params[:id])
+    if thispost.post_type && thispost.post_type == 0
+      return true
+    else
+      redirect_to(:action => 'show', :id => thispost.parent_id )
+      return false
+    end 
   end
   
 end
