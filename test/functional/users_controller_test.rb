@@ -56,10 +56,11 @@ fixtures :users
   
 ## Test creation of users when logged out and passed params from insert form
 
-  test "test create user with valid input when logged out" do
+  test "user creation is successful with valid input when user is logged out" do
     post :create, :user => { :name => "John Smith", :email => "jsmith1@uclan.ac.uk", :email_confirmation => "jsmith1@uclan.ac.uk",
                   :username => "jsmith1234", :password => "password", :password_confirmation => "password" }
     assert_redirected_to :controller => "posts", :action => "index"
+    assert_equal "jsmith1234", session[:username]
     assert_equal "User account registered. You are now signed in", flash[:notice]
   end
   

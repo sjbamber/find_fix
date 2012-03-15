@@ -1,7 +1,8 @@
 class CategoriesController < ApplicationController
     
-  before_filter :confirm_logged_in, :except => [:list, :show]
-  before_filter :confirm_admin_role, :except => [:list, :show]
+  before_filter :confirm_logged_in, :except => [:index, :list, :show]
+  before_filter :confirm_admin_role, :except => [:index, :list, :show]
+  before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete, :destroy]
   
   def index
     list
@@ -29,23 +30,28 @@ class CategoriesController < ApplicationController
   end
   
   def create
-    # Instantiate a new object using form parameters
-    @category = Category.new
-
-    if params[:category][:parent_id].blank?
-      @category = Category.new :name => params[:category][:name]
-    else
-      @category = Category.new :name => params[:category][:name], :parent_id => params[:category][:parent_id]
-    end    
-
-    # Save the object
-    if @category.save
+    begin
+      # Instantiate a new object using form parameters
+      
+      if params[:category]
+        if params[:category][:parent_id].blank?
+          @category = Category.new :name => params[:category][:name]
+        else
+          @category = Category.new :name => params[:category][:name], :parent_id => params[:category][:parent_id]
+        end
+      else
+        @category = Category.new
+      end  
+      # Save the object
+      @category.save!
       # If save succeeds, redirect to the list action
       flash[:notice] = "Category Created"
       redirect_to(:action => 'list')
-    else
+    rescue ActiveRecord::RecordInvalid => e
       # If save fails, redisplay the form so user can fix categories
+      @errors = e.record
       @category_options = Category.all.unshift( Category.new( :name => "No Parent" ) )
+      flash[:notice] = "Errors prevented the category from saving"
       render('new')
     end
     
@@ -58,30 +64,35 @@ class CategoriesController < ApplicationController
   end
   
   def update
-    # Find object using form parameters
-    @category = Category.find(params[:id])
-    
-    if @category.parent.blank? && params[:category][:parent_id].blank?
-      @category.name = params[:category][:name]
-    elsif params[:category][:parent_id].blank?
-      @category.name = params[:category][:name]
-      @category.ancestry.clear
-    elsif @category.parent.blank?
-      @category.name = params[:category][:name]
-      @category.parent_id = params[:category][:parent_id]
-    else 
-      @category.name = params[:category][:name]
-      @category.ancestry.clear
-      @category.parent_id = params[:category][:parent_id]
-    end 
-    # Update the object
-    if @category.save
+    begin
+      # Find object using form parameters
+      @category = Category.find(params[:id])
+      
+      if @category.parent.blank? && params[:category][:parent_id].blank?
+        @category.name = params[:category][:name]
+      elsif @category.parent && params[:category][:parent_id].blank?
+        @category.name = params[:category][:name]
+        @category.ancestry.clear
+        @category.parent_id = nil
+      elsif @category.parent.blank? && params[:category][:parent_id]
+        @category.name = params[:category][:name]
+        @category.parent_id = params[:category][:parent_id]
+      else 
+        @category.name = params[:category][:name]
+        @category.ancestry.clear
+        @category.parent_id = nil
+        @category.parent_id = params[:category][:parent_id]
+      end 
+      # Update the object
+      @category.save!
       # If update succeeds, redirect to the show action
-      flash[:notice] = "Category Updated #{params[:category][:parent]}"
+      flash[:notice] = "Category Updated"
       redirect_to(:action => 'show', :id => @category.id)
-    else
+    rescue ActiveRecord::RecordInvalid => e
       # If update fails, redisplay the form so user can fix categories
+      @errors = e.record
       @category_options = Category.all.unshift( Category.new( :name => "No Parent" ) )
+      flash[:notice] = "Errors prevented the category from updating"
       render('edit')
     end   
   end

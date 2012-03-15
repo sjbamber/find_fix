@@ -10,5 +10,5 @@ os:
 windows:
   name: Windows
   
-linux:
-  name: Linux
+xp:
+  name: Windows XP

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   
   before_filter :confirm_logged_in, :except => [:index, :list, :show]
   before_filter :confirm_admin_role, :only => [:edit, :update, :delete, :destroy]
-  before_filter :confirm_params_id, :only => [:show, :create_solution, :edit, :update, :delete]
+  before_filter :confirm_params_id, :only => [:show, :create_solution, :edit, :update, :delete, :destroy]
   before_filter :confirm_not_solution, :only => [:show]
   
   def index
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     case
     when params[:query] # Search function
       #@posts = Post.order("posts.updated_at DESC").where( ["title OR description LIKE ?", "%#{params[:query]}%"] )
-      @posts = Post.order("posts.updated_at DESC").where( ["description ILIKE ? OR title ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres     
+      @posts = Post.order("posts.updated_at DESC").where( ["description LIKE ? OR title LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres     
       @posts.each_with_index do |post, i|
         if post.post_type == 1
           parent_post = Post.find_by_id(post.parent_id)
@@ -60,7 +60,8 @@ class PostsController < ApplicationController
   
   def create_solution
     begin   
-      @solution = Post.new(:parent_id => params[:id].to_i, :title => "Solution to Post ID #{params[:id]}", :description => params[:post][:description])
+      params[:post] ? desc = params[:post][:description] : desc = ""
+      @solution = Post.new(:parent_id => params[:id].to_i, :title => "Solution to Post ID #{params[:id]}", :description => desc )
       @solution.post_type = 1
       @solution.user = User.find_by_id(session[:user_id]) unless session[:user_id].blank?
       @solution.save!
@@ -153,15 +154,15 @@ class PostsController < ApplicationController
       @post.save!
 
       flash[:notice] = "Post Updated"
-      redirect_to(:action => 'show', :id => params[:id], :post_type => 0)
+      redirect_to(:action => 'show', :id => params[:id])
     rescue ActiveRecord::RecordInvalid => e
       # If save fails
       # Display errors
       @errors = e.record
-      flash[:notice] = "Errors prevented the post from saving #{params}"
+      flash[:notice] = "Errors prevented the post from saving"
       # Render the view again
       @category_options = Category.all
-      render('new')
+      render('edit')
     end    
   end
   
