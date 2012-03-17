@@ -26,4 +26,4 @@ class Rack::PathInfoRewriter
  end
 end
 
-Rack::Handler::FastCGI.run  Rack::PathInfoRewriter.new(find-fix.com::Application)
+Rack::Handler::FastCGI.run  Rack::PathInfoRewriter.new(FindFix::Application)
