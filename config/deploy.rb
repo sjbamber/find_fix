@@ -3,7 +3,7 @@ default_run_options[:pty] = true
 # be sure to change these
 set :user, 'sjbamber'
 set :domain, 'find-fix.com'
-set :application, 'find_fix'
+set :application, 'find-fix'
 
 # the rest should be good
 set :repository,  "#{user}@#{domain}:git/#{application}.git"
