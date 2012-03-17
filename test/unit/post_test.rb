@@ -12,11 +12,19 @@ fixtures :posts, :tags, :categories
 
   # Test Validation Works
   test "post attributes must not be empty" do
+    @post.validate_nested = true
     assert @post.invalid?
     assert @post.errors[:title].any?, "Post title must be present"
     assert @post.errors[:description].any?, "Post description must be present"
     assert @post.errors[:categories].any?, "At least one post category must be present"
     assert @post.errors[:tags].any?, "At least one post tag must be present"
+  end
+  
+  test "post category and tag do not validate when vaildate nested is false" do
+    @post.validate_nested = false
+    assert @post.invalid?
+    assert @post.errors[:categories].blank?, "Category should not validate when vaildate nested is false"
+    assert @post.errors[:tags].blank?, "Tag should not validate when vaildate nested is false"
   end
 
   test "post title is a maximum of 255 characters" do
