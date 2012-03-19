@@ -65,7 +65,7 @@ fixtures :posts, :users, :error_messages, :categories, :tags
   test "post valid description to create solution" do  
     post :create_solution, { :id => @problem.id, :post => { :description => "solution test" } }, { :user_id => users(:alice).id }
     assert_redirected_to :controller => "posts", :action => "show", :id => @problem.id
-    assert_equal "Solution Created" , flash[:notice]
+    assert_equal "Fix Submitted" , flash[:notice]
   end
   
   test "post invalid description to create solution" do
@@ -108,7 +108,8 @@ fixtures :posts, :users, :error_messages, :categories, :tags
                     :categories_attributes => { "0" => { "name" => "Operating Systems" }}, 
                     :tags_attributes => { "0" => {"name" => "Tag1" }}}}, 
                   { :user_id => users(:alice).id }
-    assert_redirected_to :controller => "posts", :action => "list"
+    
+    assert_redirected_to :controller => "posts", :action => "show", :id => assigns(:post).id
     assert_equal "Post Created" , flash[:notice]
   end
   

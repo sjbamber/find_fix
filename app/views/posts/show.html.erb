@@ -1,5 +1,6 @@
-<% @page_title = "Detailed Post View"%>
+<% @page_title = @post.title %>
 <% @content_header = @post.title %>
+<% @page_description = @post.description %>
 
 <span class="back-link"><%= link_to("<< Back to List", {:action => 'list'}) %></span>
 
@@ -49,11 +50,13 @@
       Submitted By: <%=h @post.user ? @post.user.username : 'Unknown' %>
     </div>
     <div>
-      <p><b>Time Created:</b> <%=h @post.created_at %> - <b> Last Updated:</b> <%=h @post.updated_at %></p>
+      <p><b>Time Created:</b> <%=h @post.created_at.strftime("%H:%M %d/%m/%y") %> - <b> Last Updated:</b> <%=h @post.updated_at.strftime("%H:%M %d/%m/%y") %></p>
     </div>
 </div>    
   <br />  
   <!-- Solution List -->
+  <h2>There <%= @solutions.length == 1 ? 'is' : 'are'%> <%= pluralize(@solutions.length, "Fix")%> for this Problem</h2>
+  <br />
   <% @solutions.each_with_index do |solution, i| %>
     <div class="solution_score">
       <h3>Score</h3>
@@ -61,7 +64,7 @@
     </div>
     <div class="show_post <%= cycle('odd', 'even') %>">
       <div class="solution_display">
-      <h2>Solution <%=i+1%></h2>
+      
       	<p><%= solution.description %></p>  
       <br />   
       <p>Submitted By: <%= solution.user ? solution.user.username : 'Unknown' %></p>
@@ -84,26 +87,26 @@
 	    <%= error_messages_for(@errors) %>
 	    <div class="form-input">
 	      <div class="form-field">
-	        <%= f.label("Post a solution to this problem") %>
+	        <%= f.label("Post a fix to this problem") %>
 	        <%= f.text_area(:description, :size => "600x10") %>
 	      </div>        
 	    </div>
 	    
 	    <div class="form-buttons">
-	      <%= submit_tag("Submit Solution") %>
+	      <%= submit_tag("Submit Fix") %>
 	    </div>
 
 	<% end %>
   </div>
   <% else %>
   	<br />
-	  <p>To submit a new solution please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
+	  <p>To submit a new fix please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
   <% end %>
   
 <% @right_header = "Help"%>
 
 <% content_for :right_bar do %>
 <p>Details of the Problem including a summary, error messages(if any), the category the problem falls under and tags the author has fiven to the problem.</p>
-<p>Any suggested solutions are given below. If you are logged in you can suggest a solution of your own in the text box at the bootom of the page.</p>
+<p>Any suggested fixes are given below. If you are logged in you can suggest a fix of your own in the text box at the bootom of the page.</p>
 <% end %>
   

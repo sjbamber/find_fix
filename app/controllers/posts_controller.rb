@@ -65,7 +65,7 @@ class PostsController < ApplicationController
       @solution.post_type = 1
       @solution.user = User.find_by_id(session[:user_id]) unless session[:user_id].blank?
       @solution.save!
-      flash[:notice] = "Solution Created"
+      flash[:notice] = "Fix Submitted"
       redirect_to(:action => 'show', :id => params[:id])
     rescue ActiveRecord::RecordInvalid => e
       # If save fails
@@ -110,7 +110,7 @@ class PostsController < ApplicationController
       @post.save!
 
       flash[:notice] = "Post Created"
-      redirect_to(:action => 'list')
+      redirect_to(:action => 'show', :id => @post.id)
     rescue ActiveRecord::RecordInvalid => e
       # If save fails
       # Display errors

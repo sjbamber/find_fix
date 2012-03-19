@@ -16,7 +16,6 @@ development:
   pool: 5
   username: find_fix
   password: F1ndF1x
-  host: mysql.find-fix.com
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -30,7 +29,6 @@ test:
   pool: 5
   username: find_fix
   password: F1ndF1x
-  host: mysql.find-fix.com
   socket: /var/run/mysqld/mysqld.sock
 
 production:
@@ -41,5 +39,4 @@ production:
   pool: 5
   username: find_fix
   password: F1ndF1x
-  host: mysql.find-fix.com
   socket: /var/run/mysqld/mysqld.sock

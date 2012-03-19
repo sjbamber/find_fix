@@ -137,9 +137,15 @@ form { width: 600px; margin: 0 auto 0 auto; }
 
 /* List of posts */
 .list table {  width: 100%; }
-.list th { text-align: center; }
-.list ul li { padding:0; }
-.added_date {font-size: 12px;}
+.list tr { padding:0; }
+.list_details { font-size: 12px; padding:5px;}
+.list_details a { text-decoration:none; }
+a.list_title { font-size: 18px; color: #FF8888}
+a.list_title:hover { text-decoration:underline; }
+a.list_tags { display:inline-block; background: #aaaaaa; color:#1C1C1C; margin: 0 0 0 10px; padding: 0 5px 0 5px; }
+a.list_tags:hover { background: #eeeeee; }
+.list_metrics {text-align: center; vertical-align:middle; font-size: 18px;}
+.list_metrics p {font-size: 12px; padding:5px 0 5px 5px;}
 
 /* Alternates background colour between table rows in a list */
 .odd { background: #2c2c2c; }
