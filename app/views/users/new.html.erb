@@ -4,7 +4,7 @@
 <div class="user new">
 <%= error_messages_for(@errors) %>
 
-  <%= form_for(:user, :url => {:action => 'create'}) do |f| %>
+  <%= form_for(@user, :validate => true, :url => {:action => 'create'}) do |f| %>
   
     <div class="form-input">
 

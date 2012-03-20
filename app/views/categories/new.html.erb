@@ -5,7 +5,7 @@
 
 <div class="category new">
 
-  <%= form_for(:category, :url => {:action => 'create'}) do |f| %>
+  <%= form_for(@category, :validate => true, :url => {:action => 'create'}) do |f| %>
   
     <%= render(:partial => "form", :locals => {:f => f}) %>
     

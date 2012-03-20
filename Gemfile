@@ -29,6 +29,9 @@ gem 'ancestry'
 # Gem for pagination of form data
 gem 'will_paginate'
 
+# Gem for adding in line client side validation using jquery
+gem 'client_side_validations'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
