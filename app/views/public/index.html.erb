@@ -1,10 +1,9 @@
 <% @page_title = "Home"%>
-<% @content_header = "Welcome"%>
-
 <% description = "Welcome to Find Fix, a web application that allows you to record, discuss and search IT support problems and solutions." %>
 <% @page_description = description %>
 
 <div id="information">
+<% @content_header = "Welcome"%>
 <p>
 Welcome to Find Fix, a web application that allows you to record, discuss and search IT support problems and solutions. 
 </p>
@@ -27,13 +26,13 @@ You can browse or search for <%= link_to("existing problems", {:controller => 'p
 </div>
 
 <div id="recent_problems">
-	<h2>Recent Problems</h2><br />
+	<h2>Recent Problems</h2>
 	<%= list_posts(@recent_problems)  %>
 </div>
 
 <% @right_header = "Categories"%>
-
 <% content_for :right_bar do %>
+	<div class="categories">
     <% @categories.each do |category| %>
     <div class="category<%=category.depth%>">
     <ul>  
@@ -43,6 +42,7 @@ You can browse or search for <%= link_to("existing problems", {:controller => 'p
     </ul>   
     </div> 
     <% end %>
+    </div>
 	
 	<h2>Popular Tags</h2>
     <% @tags.each do |tag| %>

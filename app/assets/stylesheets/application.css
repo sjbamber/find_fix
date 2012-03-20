@@ -37,6 +37,7 @@ table tr th, table tr td { vertical-align: top; text-align: left;
 a, a:visited { color: #FF8888; }
 a { text-decoration: underline; }
 a:hover { color: #EEEEEE; }
+h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; }
 
 .clear { clear: both; }
 .center { text-align: center; }
@@ -58,19 +59,19 @@ a:hover { color: #EEEEEE; }
 
 /* Main Content Area */
 #main_content{ width: 760px;}
-#content_header { height: 67px; width: 740px; padding: 0 0 0 20px; background: url("content_header.png"); }
-#content_header h2 { color: #EEEEEE; padding: 20px  0 5px 20px; }
-#content { width: 690px; background: url("content_background.png") repeat-y; padding: 10px 35px 10px 35px; min-height:300px;}
+#content_header { height: 28px; width: 740px; padding: 0 0 0 20px; background: url("content_header.png"); }
+#content { width: 690px; background: url("content_background.png") repeat-y; padding: 0 35px 10px 35px; min-height:300px;}
+#content h2 { margin-bottom: 20px; }
 #content_footer { height: 45px; width: 760px; background: url("content_footer.png"); }
 
 /* Right Hand Bar */
 #right_bar { float:right; }
-#right_content_header { height: 67px; padding-right: 25px; width: 215px; background: url("right_header.png");}
-#right_content_header h2 { text-align: center; color: #EEEEEE; padding: 20px  0 5px; }
+#right_content_header { height: 28px; padding-right: 25px; width: 215px; background: url("right_header.png");}
 #right_bar_content { background: url("right_content_background.png") repeat-y; padding: 0 30px 0 20px; 
   width: 190px; min-height:320px; text-align:justify;}
-#right_bar_content h2 { text-align: center; color: #EEEEEE; padding: 20px  0 10px; }
+#right_bar_content h2 { text-align: center; margin-bottom: 10px; }
 #right_bar_content p {padding: 10px 0 10px 0;}
+#right_bar_content .categories {padding-bottom: 20px;}
 #right_footer { height: 45px; width: 240px; background: url("right_footer.png");}
 
 /* Footer */
@@ -130,7 +131,7 @@ form { width: 600px; margin: 0 auto 0 auto; }
 
 /* Notice that displays flash[:notice] messages */
 .notice { height: 1.25em; padding: 0.5em; color: #6c241c; text-align: center;
-  background: url("notice_background.png") repeat-y transparent;  }
+  background: url("notice_background.png") repeat-y transparent; }
 
 /* Link on several pages that sends users back to the previous page */
 .back-link { font-size: 1em; }
@@ -142,10 +143,10 @@ form { width: 600px; margin: 0 auto 0 auto; }
 .list_details a { text-decoration:none; }
 a.list_title { font-size: 18px; color: #FF8888}
 a.list_title:hover { text-decoration:underline; }
-a.list_tags { display:inline-block; background: #aaaaaa; color:#1C1C1C; margin: 0 0 0 10px; padding: 0 5px 0 5px; }
+a.list_tags { display:inline-block; background: #aaaaaa; color:#1C1C1C; margin: 0 0 0 10px; padding: 0 5px 0 5px; border-bottom: 1px solid #000000; border-right: 1px solid #000000; }
 a.list_tags:hover { background: #eeeeee; }
 .list_metrics {text-align: center; vertical-align:middle; font-size: 18px;}
-.list_metrics p {font-size: 12px; padding:5px 0 5px 5px;}
+.list_metrics p {font-size: 12px; padding:5px;}
 
 /* Alternates background colour between table rows in a list */
 .odd { background: #2c2c2c; }

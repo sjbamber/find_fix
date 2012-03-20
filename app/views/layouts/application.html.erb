@@ -69,9 +69,9 @@ _____________________________________________
 	 
 		  <div id="right_bar">
 		  	  <div id="right_content_header">
-	      		<h2><%= @right_header %></h2>
 	      	  </div>
 		      <div id="right_bar_content">
+		      	<h2><%= @right_header %></h2>
 		        <%= yield :right_bar %> 	
 		      </div>
 		      <div id="right_footer"></div>
@@ -80,7 +80,6 @@ _____________________________________________
 		    
 		  <div id="main_content">
 	      	<div id="content_header">
-	      	<h2><%= @content_header %></h2>
 	      	</div>	      
 		    <% if !flash[:notice].blank? %>
 		      <div class="notice">
@@ -88,6 +87,7 @@ _____________________________________________
 		      </div>
 		    <% end %>
 	      	<div id="content">
+	      		<h2><%= @content_header %></h2>
 	        	<%= yield %>
 	        </div>
 	        <div id="content_footer"></div>
