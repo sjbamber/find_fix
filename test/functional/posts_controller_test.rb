@@ -6,7 +6,6 @@ fixtures :posts, :users, :error_messages, :categories, :tags
 
   def setup
     @problem = posts(:problem1)
-    @solution = posts(:solution1)
     @problem.error_messages << error_messages(:error1)
     @problem.error_messages << error_messages(:error2)
     @problem.categories << categories(:os)
@@ -37,41 +36,6 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     get :show, {:id => @problem.id}
     assert_response :success
     assert_template :show
-  end  
-  # should redirect shown problems to their parent
-  test "get show with solution id" do
-    get :show, {:id => @solution.id}
-    assert_redirected_to :controller => "posts", :action => "show", :id => @solution.parent_id
-  end 
-
-## Test action create_solution
-  test "should not get create_solution when logged out" do
-    get :create_solution
-    assert_redirected_to :controller => "user_access", :action => "login"
-    assert_equal "Please log in." , flash[:notice]
-  end
-  
-  test "get create_solution without id when logged in" do
-    get :create_solution, {}, { :user_id => users(:alice).id }
-    assert_redirected_to :controller => "posts", :action => "list"
-  end
-  
-  test "get create_solution with problem id and no description posted when logged in" do
-    get :create_solution, { :id => @problem.id }, { :user_id => users(:alice).id }
-    assert_template :show
-    assert_equal "Errors prevented the solution from saving" , flash[:notice]
-  end  
-  
-  test "post valid description to create solution" do  
-    post :create_solution, { :id => @problem.id, :post => { :description => "solution test" } }, { :user_id => users(:alice).id }
-    assert_redirected_to :controller => "posts", :action => "show", :id => @problem.id
-    assert_equal "Fix Submitted" , flash[:notice]
-  end
-  
-  test "post invalid description to create solution" do
-    post :create_solution, { :id => @problem.id, :post => { :description => "" } }, { :user_id => users(:alice).id }
-    assert_template :show
-    assert_equal "Errors prevented the solution from saving" , flash[:notice]
   end
   
 ## Test action new

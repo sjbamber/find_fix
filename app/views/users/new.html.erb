@@ -2,6 +2,7 @@
 <% @content_header = "Register User Account"%>
 
 <div class="user new">
+<span class="required">*</span> indicates a required field<br /><br />
 <%= error_messages_for(@errors) %>
 
   <%= form_for(@user, :validate => true, :url => {:action => 'create'}) do |f| %>
@@ -9,27 +10,27 @@
     <div class="form-input">
 
 	 <div class="form-field">
-        <%= f.label(:name, "Name (optional)") %>
+        <%= f.label(:name, "Name") %>
         <%= f.text_field(:name) %>
      </div>
 	 <div class="form-field">
-        <%= f.label(:email, "Email Address") %>
+        <%= f.label(:email, "Email Address") %><span class="required">*</span>
         <%= f.text_field(:email) %>
      </div>
 	 <div class="form-field">
-        <%= f.label(:email_confirmation, "Confirm Email Address") %>
+        <%= f.label(:email_confirmation, "Confirm Email Address") %><span class="required">*</span>
         <%= f.text_field(:email_confirmation) %>
      </div>
 	 <div class="form-field">
-        <%= f.label(:username) %>
+        <%= f.label(:username) %><span class="required">*</span>
         <%= f.text_field(:username) %>
      </div>
 	 <div class="form-field">
-        <%= f.label(:password) %>
+        <%= f.label(:password) %><span class="required">*</span>
         <%= f.password_field(:password) %>
      </div>
 	 <div class="form-field">
-        <%= f.label(:password_confirmation, "Confirm Password") %>
+        <%= f.label(:password_confirmation, "Confirm Password") %><span class="required">*</span>
         <%= f.password_field(:password_confirmation) %>
      </div>   
         

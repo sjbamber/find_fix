@@ -3,6 +3,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   
   has_many :posts
+  has_many :solutions
   has_many :votes
   has_many :comments
   has_many :tag_ownerships

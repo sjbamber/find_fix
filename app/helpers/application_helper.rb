@@ -9,7 +9,7 @@ module ApplicationHelper
   end  
   
   def solution_count(post)
-    return Post.count(:conditions => ["parent_id = ?", post.id])
+    return Solution.count(:conditions => ["post_id = ?", post.id])
   end
   
   def is_logged_in

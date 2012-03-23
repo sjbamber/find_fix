@@ -1,15 +1,18 @@
+<span class="required">*</span> indicates a required field<br /><br />
 <%= error_messages_for(@errors) %>
-
+	
     <div class="form-input">
-
+	  
       <div class="form-field">
-        <%= f.label(:title) %>
+        <%= f.label(:title) %><span class="required">*</span>
         <%= f.text_field(:title) %>
       </div>
+      
       <div class="form-field">
-        <%= f.label(:description) %>
+        <%= f.label(:description) %><span class="required">*</span>
         <%= f.text_area(:description, :size => "600x10") %>
       </div>
+      
       <% 1.times { @post.error_messages.build } if @post.error_messages.blank? %>
       <div class="form-field">
         <%= label(:error_messages, :description, "Error Message(s)") %> 
@@ -17,16 +20,18 @@
 		      <%= e.text_field :description %>
   		<% end %>
       </div>
+      
       <% 1.times { @post.categories.build } if @post.categories.blank? %>
       <div class="form-field">
-        <%= label(:categories, :name, "Categories") %>
+        <%= label(:categories, :name, "Categories") %><span class="required">*</span>
         <%= f.fields_for :categories do |c| %>
 			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --'}) %>
 	    <% end %>
       </div>
+      
       <% 1.times { @post.tags.build } if @post.tags.blank? %>
       <div class="form-field">
-        <%= label(:tags, :name, "Custom Tags") %>
+        <%= label(:tags, :name, "Custom Tags") %><span class="required">*</span>
         <%= f.fields_for :tags do |t| %>
 		      <%= t.text_field :name %>
   		<% end %>

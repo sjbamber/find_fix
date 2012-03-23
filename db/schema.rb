@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304133345) do
+ActiveRecord::Schema.define(:version => 20120322212825) do
 
   create_table "categories", :force => true do |t|
     t.string   "name",       :null => false
@@ -66,18 +66,25 @@ ActiveRecord::Schema.define(:version => 20120304133345) do
   add_index "post_tags", ["post_id", "tag_id"], :name => "index_post_tags_on_post_id_and_tag_id"
 
   create_table "posts", :force => true do |t|
-    t.integer  "post_type",         :default => 0,     :null => false
-    t.integer  "parent_id"
     t.string   "title"
-    t.text     "description",                          :null => false
+    t.text     "description", :null => false
     t.integer  "vote_count"
-    t.boolean  "accepted_solution", :default => false
     t.integer  "user_id"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
+
+  create_table "solutions", :force => true do |t|
+    t.text     "description", :null => false
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "solutions", ["user_id", "post_id"], :name => "index_solutions_on_user_id_and_post_id"
 
   create_table "tag_ownerships", :force => true do |t|
     t.integer  "user_id"

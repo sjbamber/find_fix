@@ -1,10 +1,9 @@
 <% @page_title = "Create Post"%>
 <% @content_header = "Post New Problem"%>
 
-<%= link_to("<< Back to List", {:action => 'list'}, :class => 'back-link') %>
+
 
 <div class="post new">
-<br />
   <%= form_for(@post, :validate => true, :url => {:action => 'create'}) do |f| %>
   
     <%= render(:partial => "form", :locals => {:f => f}) %>

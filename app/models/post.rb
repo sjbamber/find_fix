@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   
   # Relationships
   belongs_to :user
+  has_many :solutions
   has_many :comments
   has_many :votes
   
@@ -23,7 +24,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :comments, :votes
 
   # Validation
-  validates_presence_of :post_type, :title, :description
+  validates_presence_of :title, :description
   validates_length_of :title, :maximum => 255
   
   # Validations for tags and categories
@@ -33,9 +34,6 @@ class Post < ActiveRecord::Base
   # validates_presence_of :tags, :on => :create
   # validates_presence_of :categories, :on => :create
   validates_associated :tags, :categories, :error_messages
-  
-  # Prevents mass assignment, post type does not get added from user input forms
-  attr_protected :post_type
   
   # Sets pagination value
   self.per_page = 10

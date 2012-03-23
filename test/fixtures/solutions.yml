@@ -4,6 +4,6 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-problem1:
-  title: Control Panel Applet cannot be loaded
-  description: Control Panel Applet cannot be loaded. Help!
+
+solution1:
+  description: Reboot and try again!

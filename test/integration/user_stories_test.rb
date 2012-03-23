@@ -66,7 +66,6 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     
     assert_equal "Problem Title", post.title
     assert_equal "Description of Problem", post.description
-    assert_equal 0, post.post_type
     assert_equal "jbloggs", post.user.username
     assert_equal "Problem Error", post.error_messages[0].description
     assert_equal "Another Error", post.error_messages[1].description
@@ -97,7 +96,7 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     assert_equal @user.id, session[:user_id] # (confirm logged in)
     
     # They cannot immediately see the problem they are looking for, so they search for the problem using the box at the top of the screen and enter some keywords. 
-    get "/posts/list?query=control+panel" # Enter keywords 'control panel
+    get "/posts/list?query=control+panel" # Enter keywords 'control panel'
     
     # They are directed to the list page containing results of the search. 
     assert_template "list"
@@ -110,18 +109,18 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     get "/posts/show/#{retrieved_post.id}"
     assert_response :success
     assert_template "show"
-    assert_select "div#content_header" do
+    assert_select "div#content" do
       assert_select "h2" , retrieved_post.title
     end  
     
     # They read the post, then enter details of what they believe to be a fix in the box provided and click ‘submit fix’.
-    post "posts/create_solution", {:id => retrieved_post.id, :post => { :description => "This is a great solution to the problem." } }, { :user_id => @user.id }
+    post "solutions/create", {:id => retrieved_post.id, :solution => { :description => "This is a great solution to the problem." } }, { :user_id => @user.id }
     # The page is refreshed to display the submitted fix to the user and they are given a notification that the fix has been submitted.
     assert_redirected_to :controller => "posts", :action => "show", :id => retrieved_post.id
-    assert_equal "Fix Submitted" , flash[:notice]
+    assert_equal "Fix Submitted Successfully", flash[:notice]
     
     # (Test the fix is stored in the DB)
-    fixes = Post.where("parent_id=#{retrieved_post.id}")
+    fixes = Solution.where("post_id=#{retrieved_post.id}")
     assert_equal 1, fixes.size
     fix = fixes[0]
     assert_equal "This is a great solution to the problem.", fix.description

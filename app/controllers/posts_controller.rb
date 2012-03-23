@@ -2,8 +2,7 @@ class PostsController < ApplicationController
   
   before_filter :confirm_logged_in, :except => [:index, :list, :show]
   before_filter :confirm_admin_role, :only => [:edit, :update, :delete, :destroy]
-  before_filter :confirm_params_id, :only => [:show, :create_solution, :edit, :update, :delete, :destroy]
-  before_filter :confirm_not_solution, :only => [:show]
+  before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete, :destroy]
   
   def index
     list
@@ -14,18 +13,7 @@ class PostsController < ApplicationController
     case
     when params[:query] # Search function
       #@posts = Post.order("posts.updated_at DESC").where( ["title OR description LIKE ?", "%#{params[:query]}%"] )
-      @posts = Post.order("posts.updated_at DESC").where( ["description ILIKE ? OR title ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres     
-      @posts.each_with_index do |post, i|
-        if post.post_type == 1
-          parent_post = Post.find_by_id(post.parent_id)
-          if @posts.include?(parent_post)
-            @posts[i] = nil
-          else
-            @posts[i] = parent_post
-          end       
-        end
-      end
-      @posts = @posts.compact
+      @posts = Post.order("posts.updated_at DESC").where( ["description LIKE ? OR title LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres     
       @posts = @posts.paginate(:page => params[:page])
       
     when params[:category_id]
@@ -46,38 +34,17 @@ class PostsController < ApplicationController
       
     else
       # @posts = Post.order("posts.updated_at DESC").where(:post_type => 0)
-      @posts = Post.paginate(:page => params[:page]).order("posts.updated_at DESC").where(:post_type => 0)
+      @posts = Post.paginate(:page => params[:page]).order("posts.updated_at DESC")
     end
   end
   
   def show
 
     @post = Post.find_by_id(params[:id])
-    @solutions = Post.where(:parent_id => params[:id])
-    @solution = Post.new
+    @solutions = Solution.where(:post_id => params[:id])
+    @solution = Solution.new
     
-  end
-  
-  def create_solution
-    begin   
-      params[:post] ? desc = params[:post][:description] : desc = ""
-      @solution = Post.new(:parent_id => params[:id].to_i, :title => "Solution to Post ID #{params[:id]}", :description => desc )
-      @solution.post_type = 1
-      @solution.user = User.find_by_id(session[:user_id]) unless session[:user_id].blank?
-      @solution.save!
-      flash[:notice] = "Fix Submitted"
-      redirect_to(:action => 'show', :id => params[:id])
-    rescue ActiveRecord::RecordInvalid => e
-      # If save fails
-      # Display errors
-      @errors = e.record
-      flash[:notice] = "Errors prevented the solution from saving"
-      # Render the view again
-      @post = Post.find_by_id(params[:id])
-      @solutions = Post.where(:parent_id => params[:id])
-      render('show')
-    end
-  end  
+  end 
   
   def new
     
@@ -180,20 +147,6 @@ class PostsController < ApplicationController
     Post.find(params[:id]).destroy
     flash[:notice] = "Post Deleted"
     redirect_to(:action => 'list')
-  end
-  
-  private
-  
-  # Before filters
-  # Checks that a post being viewed is not a solution
-  def confirm_not_solution
-    thispost = Post.find_by_id(params[:id])
-    if thispost.post_type && thispost.post_type == 0
-      return true
-    else
-      redirect_to(:action => 'show', :id => thispost.parent_id )
-      return false
-    end 
   end
   
 end

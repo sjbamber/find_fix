@@ -60,7 +60,7 @@
   <% @solutions.each_with_index do |solution, i| %>
     <div class="solution_score">
       <h3>Score</h3>
-      	<p><%= solution.vote_count ? solution.vote_count : '0' %></p>
+      	<p><%= '0' %></p>
     </div>
     <div class="show_post <%= cycle('odd', 'even') %>">
       <div class="solution_display">
@@ -81,9 +81,9 @@
   <% end %>
   
   <!-- New Solution Form -->
-  <% if is_logged_in && @post.post_type == 0%>
+  <% if is_logged_in %>
   <div class="solution_submit">
-  	<%= form_for(@solution, :url => {:action => 'create_solution', :id => @post.id}) do |f| %>
+  	<%= form_for(@solution, :url => {:controller => 'solutions', :action => 'create', :id => @post.id}) do |f| %>
 	    <%= error_messages_for(@errors) %>
 	    <div class="form-input">
 	      <div class="form-field">
