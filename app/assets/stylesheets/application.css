@@ -37,7 +37,7 @@ table tr th, table tr td { vertical-align: top; text-align: left;
 a, a:visited { color: #FF8888; }
 a { text-decoration: underline; }
 a:hover { color: #EEEEEE; }
-h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; }
+h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; text-shadow: 1px 1px #000000; }
 
 .clear { clear: both; }
 .center { text-align: center; }
@@ -61,7 +61,7 @@ h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; }
 #main_content{ width: 760px;}
 #content_header { height: 28px; width: 740px; padding: 0 0 0 20px; background: url("content_header.png"); }
 #content { width: 690px; background: url("content_background.png") repeat-y; padding: 0 35px 10px 35px; min-height:300px;}
-#content h2 { margin-bottom: 20px; }
+#content h2 { margin-bottom: 15px; }
 #content_footer { height: 45px; width: 760px; background: url("content_footer.png"); }
 
 /* Right Hand Bar */
@@ -71,7 +71,6 @@ h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; }
   width: 190px; min-height:320px; text-align:justify;}
 #right_bar_content h2 { text-align: center; margin-bottom: 10px; }
 #right_bar_content p {padding: 10px 0 10px 0;}
-#right_bar_content .categories {padding-bottom: 20px;}
 #right_footer { height: 45px; width: 240px; background: url("right_footer.png");}
 
 /* Footer */
@@ -82,7 +81,7 @@ h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; }
 
 /* Wrapper that forces the footer to the bottom of the page and also sets the background colour */
 #wrapper { min-height: 100%; height: auto !important; height: 100%; 
-  margin: 0 auto -6em; background: #1c1c1c; }
+  margin: 0 auto -6em; background: url("background.gif") repeat #1c1c1c; }
 #footer, #push { height: 5em; }
 
 
@@ -99,11 +98,11 @@ h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; }
 
 .access_links {float:right; margin: 10px 20px 0 0;  }
 a.access{ color: #eeeeee; padding: 7px 10px 5px 10px; margin: 0 5px 0 5px; display:inline-block; width:101px; height: 20px;
-  background: url("nav_button.png") #4c2516; color: #eeeeee; font-size: 16px; text-decoration: none;  text-align: center;}
+  background: url("nav_button.png") #4c2516; color: #eeeeee; font-size: 16px; text-decoration: none;  text-align: center; text-shadow: 1px 1px #000000;}
 a.access:hover { background: url("nav_button_hover.png") #391c11; text-decoration: none; }
 a.navigation { height: 3em; font-size: 18px; text-decoration: none; padding: 0 10px 0 10px;
-  position: relative; top: 10px;}
-a.navigation:hover {background: #eeeeee; color: #6c241c; text-decoration: none;}
+  position: relative; top: 10px; text-shadow: 1px 1px #000000;}
+a.navigation:hover {background: #eeeeee; color: #6c241c; text-decoration: none; text-shadow: none;}
 .login_status { color: #eeeeee; float:right; padding: 10px 20px 0 0; }
 
 /* large action buttons */
@@ -125,7 +124,7 @@ form { width: 640px; margin: 0 auto 0 auto; }
 .form-field { padding: 10px 0 10px 20px;}
 .form-field label { font-size: 16px; }
 .form-field input, select, textarea { width:600px; font-size: 16px;}
-.form-field .message { color: #FF0000; font-size:14px; font-family:Arial,Helvetica, Arial Narrow;}
+.message { padding-left: 5px; color: #FF0000; font-size:14px; font-family:Arial,Helvetica, Arial Narrow;}
 .form-field textarea { font-size: 16px; }
 .form-buttons { text-align: center; margin-top: 10px;}
 .form-buttons input { font-size: 16px; padding: 10px;}
@@ -147,7 +146,7 @@ form { width: 640px; margin: 0 auto 0 auto; }
 .list_details a { text-decoration:none; }
 a.list_title { font-size: 18px; color: #FF8888}
 a.list_title:hover { text-decoration:underline; }
-a.list_tags { display:inline-block; background: #aaaaaa; color:#1C1C1C; margin: 0 0 0 10px; padding: 0 5px 0 5px; border-bottom: 1px solid #000000; border-right: 1px solid #000000; }
+a.list_tags { font-size: 12px; display:inline-block; background: #aaaaaa; color:#1C1C1C; margin: 0 0 0 10px; padding: 0 5px 0 5px; border-bottom: 1px solid #000000; border-right: 1px solid #000000; text-decoration:none; }
 a.list_tags:hover { background: #eeeeee; }
 .list_metrics {text-align: center; vertical-align:middle; font-size: 18px;}
 .list_metrics p {font-size: 12px; padding:5px;}
@@ -168,5 +167,6 @@ a.list_tags:hover { background: #eeeeee; }
 #errorExplanation ul { margin-top: 0; margin-left: 25px; color: #333333;}
 #errorExplanation ul li { list-style: square; }
 
+.highlight { color: #FF8888; }
 
 

@@ -12,16 +12,40 @@ class PostsController < ApplicationController
   def list
     case
     when params[:query] # Search function
-      #@posts = Post.order("posts.updated_at DESC").where( ["title OR description LIKE ?", "%#{params[:query]}%"] )
-      @posts = Post.order("posts.updated_at DESC").where( ["description LIKE ? OR title LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%"] ) # Query works with postgres     
+      @posts = Post.sorted.search(params[:query])
       @posts = @posts.paginate(:page => params[:page])
       
     when params[:category_id]
       category = Category.find_by_id(params[:category_id])
-      if category.blank? 
+      categories = []
+      unless category.blank?
+        categories << category
+        #ancestors = category.ancestors
+        children = category.children        
+        # unless ancestors.blank?
+          # ancestors.each do |c|
+            # categories << c
+          # end
+        # end
+        unless children.blank?
+          children.each do |c|
+            categories << c
+          end
+        end        
+      end
+      
+      if categories.blank? 
         @posts = [].paginate(:page => params[:page])
       else  
-        @posts = category.posts.paginate(:page => params[:page])
+        @posts = []
+        categories.each do |c|
+          unless c.posts.blank?
+            c.posts.each do |post|
+              @posts << post
+            end
+          end
+        end
+        @posts = @posts.paginate(:page => params[:page])
       end
       
     when params[:tag_id]
@@ -43,7 +67,7 @@ class PostsController < ApplicationController
     @post = Post.find_by_id(params[:id])
     @solutions = Solution.where(:post_id => params[:id])
     @solution = Solution.new
-    
+    @comment = Comment.new
   end 
   
   def new

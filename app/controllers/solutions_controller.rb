@@ -20,6 +20,7 @@ class SolutionsController < ApplicationController
       # Render the view again
       @post = Post.find_by_id(params[:id])
       @solutions = Solution.where(:post_id => params[:id])
+      @comment = Comment.new
       render('posts/show')
     end
   end 

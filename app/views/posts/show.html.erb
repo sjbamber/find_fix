@@ -2,93 +2,22 @@
 <% @content_header = @post.title %>
 <% @page_description = @post.description %>
 
-<span class="back-link"><%= link_to("<< Back to List", {:action => 'list'}) %></span>
+<!-- Show Post -->
+<%= render(:partial => 'posts/show_post', :locals => {:post => @post}) %>
+<br />  
 
-<div class="problem_score">
-      <h3>Score</h3>
-      <p><%=h @post.vote_count ? @post.vote_count : '0' %></p>
-</div>
+<!-- Solution List -->
+<%= render(:partial => 'posts/show_solutions', :locals => {:solutions => @solutions}) %>  
 
-<div class="show_post">
-
-    <div class="problem_description">
-      <p><%=h @post.description %></p>
-    </div>
-    <div>
-      <h3>Error Messages</h3>
-      	<ul>
-      	<% for error_message in @post.error_messages %>
-      	<li> <%=h error_message.description %></li>
-      	<% end %> 
-      	</ul>	
-    </div>
-    <table>
-    <tr>
-    <td>
-    <div>
-      <h3>Categories</h3>
-      	<ul>
-      	<% for category in @post.categories %>
-      	<li> <%=h category.name %></li>
-      	<% end %>
-      	</ul> 
-    </div>
-    </td>
-    <td>
-    <div>
-      <h3>Tags</h3>
-      	<ul>
-      	<% for tag in @post.tags %>
-      	<li> <%=h tag.name %></li>
-      	<% end %> 
-      	</ul>
-    </div>
-    </td>
-    </tr>
-    </table>
-    <div>
-      Submitted By: <%=h @post.user ? @post.user.username : 'Unknown' %>
-    </div>
-    <div>
-      <p><b>Time Created:</b> <%=h @post.created_at.strftime("%H:%M %d/%m/%y") %> - <b> Last Updated:</b> <%=h @post.updated_at.strftime("%H:%M %d/%m/%y") %></p>
-    </div>
-</div>    
-  <br />  
-  <!-- Solution List -->
-  <h2>There <%= @solutions.length == 1 ? 'is' : 'are'%> <%= pluralize(@solutions.length, "Fix")%> for this Problem</h2>
-  <br />
-  <% @solutions.each_with_index do |solution, i| %>
-    <div class="solution_score">
-      <h3>Score</h3>
-      	<p><%= '0' %></p>
-    </div>
-    <div class="show_post <%= cycle('odd', 'even') %>">
-      <div class="solution_display">
-      
-      	<p><%= solution.description %></p>  
-      <br />   
-      <p>Submitted By: <%= solution.user ? solution.user.username : 'Unknown' %></p>
-      	<table><tr>
-          <td><%= link_to("Edit this solution", {:action => 'edit', :id => solution.id}, :class => 'solution_edit') if is_admin %></td>
-          <td><%= link_to("Delete this solution", {:action => 'delete', :id => solution.id}, :class => 'solution_delete') if is_admin %></td>
-      	</tr></table>
-      </div>
-    </div>
-    
-
-    
-    <br />
-  <% end %>
-  
-  <!-- New Solution Form -->
-  <% if is_logged_in %>
+<!-- New Solution Form -->
+<% if is_logged_in %>
   <div class="solution_submit">
-  	<%= form_for(@solution, :url => {:controller => 'solutions', :action => 'create', :id => @post.id}) do |f| %>
+  	<%= form_for(@solution, :validate => true, :url => {:controller => 'solutions', :action => 'create', :id => @post.id}) do |f| %>
 	    <%= error_messages_for(@errors) %>
 	    <div class="form-input">
 	      <div class="form-field">
-	        <%= f.label("Post a fix to this problem") %>
-	        <%= f.text_area(:description, :size => "600x10") %>
+	        <%= f.label("Post a new fix to this problem") %>
+	        <%= f.text_area(:description, :size => "600x5") %>
 	      </div>        
 	    </div>
 	    
@@ -97,12 +26,12 @@
 	    </div>
 
 	<% end %>
-  </div>
-  <% else %>
-  	<br />
-	  <p>To submit a new fix please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
-  <% end %>
-  
+</div>
+<% else %>
+<br /><p>To submit a new fix or post a comment please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
+<% end %>
+
+<!-- Right Bar -->
 <% @right_header = "Help"%>
 
 <% content_for :right_bar do %>

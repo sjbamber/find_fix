@@ -16,3 +16,9 @@
 //= require_tree .
 //= require rails.validations
 
+function toggle_section(section, text, state1, state2)
+{
+    $(section).toggle(300, 'linear');
+	$(text).text($(text).text() == state1 ? state2 : state1);
+	return false;
+}

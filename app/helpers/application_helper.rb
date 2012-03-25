@@ -12,6 +12,23 @@ module ApplicationHelper
     return Solution.count(:conditions => ["post_id = ?", post.id])
   end
   
+  def comment_count(post)
+    comments = []
+    
+    post.comments.each do |comment|
+        comments << comment
+    end    
+    
+    solutions = post.solutions
+    solutions.each do |solution|
+      solution.comments.each do |comment|
+        comments << comment
+      end
+    end
+
+    return comments.count
+  end
+  
   def is_logged_in
     session[:user_id] ? true : false
   end
@@ -23,5 +40,33 @@ module ApplicationHelper
   def is_post_list_page
     params[:controller] == "posts" && params[:action] == "list" ? true : false
   end
-
+  
+  def get_comments(post)
+    # Get comments for post
+    if post.class == Post
+        comments = Comment.where(["post_id = ?", post.id])
+    elsif post.class == Solution
+        comments = Comment.where(["solution_id = ?", post.id])
+    else
+        comments = nil
+    end
+    return comments
+  end  
+  
+  def show_comments(post)
+    # Get comments for post
+    comments = get_comments(post)
+    render(:partial => 'shared/list_comments', :locals => {:comments => comments})
+  end
+  
+  def show_comment_form(post)
+    if is_logged_in
+      render(:partial => 'shared/comment_form', :locals => {:post => post, :post_type => post.class})
+    end
+  end
+  
+  def get_tag_occurences (tag)
+    return PostTag.count(:conditions => ["tag_id = ?", tag.id])
+  end  
+  
 end

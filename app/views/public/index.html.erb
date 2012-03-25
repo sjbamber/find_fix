@@ -32,26 +32,41 @@ You can browse or search for <%= link_to("existing problems", {:controller => 'p
 
 <% @right_header = "Categories"%>
 <% content_for :right_bar do %>
+<%= javascript_include_tag :defaults %>
+
 	<div class="categories">
     <% @categories.each do |category| %>
-    <div class="category<%=category.depth%>">
+    <div class="category<%=category.depth%> category_id_<%=category.parent_id%>"
+    <% unless category.parent_id.blank? %>
+    	style="display:none"
+    <% end %>
+    >
+    
     <ul>  
       <li>
-      	<%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}) %>
+      	<% if category.has_children? %>
+	      	<%= link_to_function '+', "toggle_section('.category_id_#{category.id}','a.toggle_#{category.id}', '+', '-')", :class => "button_spacer toggle_button toggle_#{category.id}" %>
+	    <% else %>
+	    	<span class="button_spacer"></span>
+	    <% end %>
+	      	<%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}) %>
       </li>
     </ul>   
     </div> 
     <% end %>
     </div>
 	
+	<div class="tags">
 	<h2>Popular Tags</h2>
-    <% @tags.each do |tag| %>
-    <ul>      
+    <ul> 
+    <% @tags.each do |tag| %>      
       <li>
       	<%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}) %>
-      </li>
-    </ul>        
+      	<span>x<%= get_tag_occurences(tag) %></span>
+      </li>       
     <% end %>
+    </ul> 
+    </div>
 <% end %>
 
 

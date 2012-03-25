@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   
   # Checks that an id is passed in params
   def confirm_params_id
-    if params[:controller] == "solutions"
+    if params[:controller] == "solutions" || params[:controller] == "comments"
       params[:id] ? true : redirect_to(:controller => 'posts', :action => 'list'); false
     else
       params[:id] ? true : redirect_to(:action => 'list'); false
@@ -55,13 +55,5 @@ class ApplicationController < ActionController::Base
   end
   
   # ***End of Before Filters***
-  
-  def get_category_list
-    @categories = Category.sort_by_ancestry(Category.paginate(:page => params[:page]).all)
-  end
-  
-  def get_tag_list
-    @tags = Tag.order("(select count(*) from post_tags) DESC").limit(10)
-  end
   
 end
