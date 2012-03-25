@@ -28,14 +28,16 @@
       		
       	</table>
       <td class="list_metrics">
-      	<%= solution_count(post).to_s %>
+      	<% sol_count = solution_count(post)%>
+      	<%= sol_count.to_s %>
       	<br />
-      	<p>Fixes</p>
+      	<p><%= pluralize(sol_count, "fix").gsub(/^\d+\s/, "")  %></p>
       </td>
       <td class="list_metrics">
-      	<%= comment_count(post).to_s %>
+      	<% com_count = comment_count(post)%>
+      	<%= com_count.to_s %>
       	<br />
-      	<p>Comments</p>
+      	<p><%= pluralize(com_count, "comment").gsub(/^\d+\s/, "")  %></p>
       </td>      
       <% if is_admin && is_post_list_page %>
       <td class="actions">  

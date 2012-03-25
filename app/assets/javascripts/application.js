@@ -22,3 +22,19 @@ function toggle_section(section, text, state1, state2)
 	$(text).text($(text).text() == state1 ? state2 : state1);
 	return false;
 }
+
+// Code to implement the search clear button
+$(document).ready(function() {
+    // if text input field value is not empty show the "X" button
+    $("#search_input").keyup(function() {
+        $("#x").fadeIn();
+        if ($.trim($("#search_input").val()) == "") {
+            $("#x").fadeOut();
+        }
+    });
+    // on click of "X", delete input field value and hide "X"
+    $("#x").click(function() {
+        $("#search_input").val("");
+        $(this).hide();
+    });
+});
