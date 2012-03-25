@@ -1,5 +1,3 @@
-<%= javascript_include_tag :defaults %>
-
 <%= link_to_function "Comment on this post", "toggle_section('.#{post_type}_#{post.id}','a.toggle_#{post_type}_id#{post.id}', 'Comment on this post', 'Hide comment form')", :class => "toggle_#{post_type}_id#{post.id}" %>
 
 
