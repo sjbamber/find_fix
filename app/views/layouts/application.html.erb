@@ -39,9 +39,9 @@ _____________________________________________
 		      </div>
 		      
 		      <div id="search_bar">
-				<%= form_tag({:controller => 'posts', :action => 'list'}, :method => :get) do %>
-				  <%= text_field_tag(:query, "Search for a fix", :onfocus => "this.value=''; $(this).css('color','#000')", :onblur => "this.value='Search for a fix'; $(this).css('color','#999')", :id => 'search_input') %>
-				  <%= submit_tag("Search", :id => 'search_submit') %>
+				<%= form_tag({:controller => 'posts', :action => 'search'}, :method => :get) do %>
+				  <%= text_field_tag(:query, "Search for a fix", :onfocus => "this.value=''; $(this).css('color','#000')", :id => 'search_input') %>
+				  <%= submit_tag("search", :id => 'search_submit') %>
 				  <div id="delete"><span id="x">x</span></div>
 				<% end %>
 			  </div>
@@ -99,7 +99,7 @@ _____________________________________________
     </div>
     <div id="footer">
       <div id="footer_content">
-        <p id="copyright"><%=Time.now.strftime("%Y")%> &copy; Stephen J Bamber</p>
+        <p id="copyright"><%=Time.now.strftime("%Y")%> &copy; <a href="http://www.sjbamber.info">Stephen J Bamber</a></p>
       </div>
     </div>
   </body>

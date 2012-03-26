@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
+  include Tanker
   
-  before_filter :confirm_logged_in, :except => [:index, :list, :show]
+  before_filter :confirm_logged_in, :except => [:index, :list, :show, :search]
   before_filter :confirm_admin_role, :only => [:edit, :update, :delete, :destroy]
   before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete, :destroy]
   
@@ -9,14 +10,25 @@ class PostsController < ApplicationController
     render('list')
   end
   
+  def search
+    if params[:query]
+      # @posts = Post.sorted.search(params[:query])
+      # @posts = @posts.paginate(:page => params[:page]) 
+      @posts = Post.search_tank("#{params[:query].strip}*", :page => params[:page], :per_page => 10)
+      @snippets = Post.search_tank("#{params[:query].strip}*", :snippets => [:title, :description], :page => params[:page], :per_page => 10)
+    else
+      @posts = [].paginate(:page => params[:page])
+    end
+    @content_header = "Search Results for query: #{params[:query].strip}"
+    render('list')
+  end
+  
   def list
     case
-    when params[:query] # Search function
-      @posts = Post.sorted.search(params[:query])
-      @posts = @posts.paginate(:page => params[:page])
       
     when params[:category_id]
       category = Category.find_by_id(params[:category_id])
+      @content_header = "Problems for Category: #{category.name}"
       categories = []
       unless category.blank?
         categories << category
@@ -55,10 +67,11 @@ class PostsController < ApplicationController
       else  
         @posts = tag.posts.paginate(:page => params[:page])
       end
-      
+      @content_header = "Problems for Tag: #{tag.name}"
     else
       # @posts = Post.order("posts.updated_at DESC").where(:post_type => 0)
       @posts = Post.paginate(:page => params[:page]).order("posts.updated_at DESC")
+      @content_header = "All Problems"
     end
   end
   

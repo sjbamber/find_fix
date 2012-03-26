@@ -1,5 +1,8 @@
 class Post < ActiveRecord::Base
   
+  # include the Tanker module for search using IndexTank
+  include Tanker
+  
   # Relationships
   belongs_to :user
   has_many :solutions
@@ -36,5 +39,89 @@ class Post < ActiveRecord::Base
   # Custom Scopes for sort and search
   scope :sorted, order("posts.updated_at DESC")  
   scope :search, lambda {|query| where(["description LIKE ? OR title LIKE ?", "%#{query}%", "%#{query}%"])}
+
+  # Index post data for search
+  if ENV['RAILS_ENV'] === "production"
+    index = 'idx'
+  else
+    index = 'test'
+  end
+  
+  tankit index do
+    indexes :title
+    indexes :description
+    indexes :list_error_messages
+    indexes :list_categories
+    indexes :list_tags
+    indexes :list_solutions
+    indexes :list_comments
+    
+    # Variables available in scoring function
+    variables do
+      {
+      }
+    end
+    
+    # Scoring functions that can be
+    # referenced in your queries. 
+    # They're always referenced by their integer key:
+    functions do
+      {
+        0 => 'relevance',
+        1 => '-age'
+      }
+    end
+    
+  end
+  
+  # define the callbacks to update or delete the index upon saving and deleting records
+  after_save :update_tank_indexes
+  after_destroy :delete_tank_indexes
+  
+  # Process nested attributes into a flat string for use in the search index
+  def list_error_messages
+    list = ""
+    error_messages.each do |e|
+      list += e.description + " "
+    end
+    return list.strip
+  end
+
+  def list_categories
+    list = ""
+    categories.each do |c|
+      list += c.name + " "
+    end
+    return list.strip
+  end
+
+  def list_tags
+    list = ""
+    tags.each do |t|
+      list += t.name + " "
+    end
+    return list.strip
+  end
+  
+  def list_solutions
+    list = ""
+    solutions.each do |s|
+      list += s.description + " "
+    end
+    return list.strip
+  end
+  
+  def list_comments
+    list = ""
+    comments.each do |pc|
+      list += pc.comment + " "
+    end
+    solutions.each do |s|
+      s.comments.each do |sc|
+          list += sc.comment + " "
+      end
+    end
+    return list.strip
+  end
   
 end

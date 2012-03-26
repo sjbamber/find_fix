@@ -1,11 +1,13 @@
 <div class="post list">
 <table class="listing" summary="Post list">
-    <% posts.each do |post| %>
+    <% posts.each_with_index do |post, i| %>
     <tr class="<%= cycle('odd', 'even') %>">
 
       <td class="list_details">
-      	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id }, :class => "list_title") %>
+      	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id }, :class => "list_title") %><br />
+      	
       	<table>
+      		<%= "<tr><td colspan='2'> #{@snippets[i].description_snippet} </td></tr>".html_safe if params[:action] == 'search' %>
       		<tr>
       			<td width="200px">Created by: <%= post.user ? post.user.username : 'Unknown' %></td>
       				

@@ -1,0 +1,1 @@
+FindFix::Application.config.index_tank_url = 'http://:FnQdFRnOqQkaLm@ya1a.api.searchify.com'

@@ -32,6 +32,9 @@ gem 'will_paginate'
 # Gem for adding in line client side validation using jquery
 gem 'client_side_validations'
 
+# Gem for the search engine Indextank
+gem 'tanker'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -47,7 +50,7 @@ gem 'client_side_validations'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-# Deploy with Heroku
+# Deploy to Heroku (Hosting)
 gem 'heroku'
 
 group :production do

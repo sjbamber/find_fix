@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* Detailed View of a problem post */
+.list_details b {background: #fff191; color: #000000;}
+
 .show_post { width: 600px; }
 .show_post h2 { border-bottom: 1px solid #9a3329; }
 .show_post li { margin-left: 20px; }
@@ -49,10 +51,9 @@ input#comment_comment { width: 500px; }
       color: #FF8888;}
   .digg_pagination .page_info {
     color: white;
-    padding: 0.4em 0.6em;
+    padding: 0.4em 0;
     width: 22em;
-    margin-bottom: 0.3em;
-    text-align: center; }
+    margin-bottom: 0.3em; }
     .digg_pagination .page_info b {
       color: #000033;
       background: #6aa6ed;
