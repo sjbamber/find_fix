@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require_tree .
 //= require rails.validations
+//= require jquery.qtip
 
 function toggle_section(section, text, state1, state2)
 {
@@ -37,4 +38,32 @@ $(document).ready(function() {
         $("#search_input").val("");
         $(this).hide();
     });
+});
+
+// Add tooltips to link elements
+$(document).ready(function()
+{
+    // Match all elements with class link_tooltip and use data-tooltip to display tooltip text.
+    $('.tooltip').qtip({
+        content: function(){
+            return $(this).data('tooltip');
+        },
+		style: {
+			width: 200,
+			border: 0,
+			classes: "ui-tooltip-tipsy"
+		},
+        position: {
+            corner: {   target: 'rightMiddle',
+                        tooltip: 'leftMiddle'
+                    },
+            adjust: { x: -5, y: -5 }
+        }
+    });
+});
+
+// Yes/No Confirmation box
+$("#yesno").easyconfirm({locale: { title: 'Select Yes or No', button: ['No','Yes']}});
+$("#yesno").click(function() {
+	alert("You clicked yes");
 });

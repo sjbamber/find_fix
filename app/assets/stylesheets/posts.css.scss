@@ -15,7 +15,9 @@
 div.post_footer { font-size: 14px; line-height: 18px; text-align:justify; padding:0; }
 .post_footer ul { padding:0; list-style-type:square;}
 .score { text-align:center; width: 40px; padding: 5px; }
-.score p { font-size: 18px; }
+.score span { font-size: 18px; display:block; padding: 5px 0 5px 0;}
+.score form {width:40px;}
+.score input {width: 30px; background: #666666; border: 1px solid #000; color: #eeeeee;}
 .solution_submit form {  }
 
 .comment_list { margin-top: 10px;}

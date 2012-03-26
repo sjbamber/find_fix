@@ -7,7 +7,7 @@
 <br />  
 
 <!-- Solution List -->
-<%= render(:partial => 'posts/show_solutions', :locals => {:solutions => @solutions}) %>  
+<%= render(:partial => 'posts/show_solutions', :locals => {:solutions => @solutions, :post => @post}) %>  
 
 <!-- New Solution Form -->
 <% if is_logged_in %>
@@ -28,7 +28,7 @@
 	<% end %>
 </div>
 <% else %>
-<br /><p>To submit a new fix or post a comment please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
+<br /><p>To submit a new fix, post a comment or vote please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
 <% end %>
 
 <!-- Right Bar -->

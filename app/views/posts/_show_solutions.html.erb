@@ -3,11 +3,9 @@
 <% solutions.each_with_index do |solution, i| %>
   <table><tr>
 	<td>
-    <div class="score">
-      Score
-      <p><%= '0' %></p>
-    </div>
-    </td><td>
+     <%= show_score(solution, post.id) %>
+    </td>
+    <td>
     <div class="show_post">
       <div class="post_display">
       

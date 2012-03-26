@@ -91,6 +91,7 @@ h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; text-s
 
 .page_logo {float:left; margin-right: 20px;}
 
+/* Search */
 #search_bar { display: inline-block; font-size: 16px; width: 430px; position: relative; top: 10px; }
 #search_bar form {  width: 460px; }
 #search_input {height: 25px; line-height: 25px; width: 350px; font-size: 16px; color: #999999; padding-left: 5px;}
@@ -153,7 +154,7 @@ a.list_title:hover { text-decoration:underline; }
 a.list_tags { font-size: 12px; display:inline-block; background: #aaaaaa; color:#1C1C1C; margin: 0 0 0 10px; padding: 0 5px 0 5px; border-bottom: 1px solid #000000; border-right: 1px solid #000000; text-decoration:none; }
 a.list_tags:hover { background: #eeeeee; }
 .list_metrics {text-align: center; vertical-align:middle; font-size: 18px;}
-.list_metrics p {font-size: 12px; padding:5px;}
+.list_metrics p {font-size: 11px; padding:5px 0 5px 0; width: 40px; font-family:Arial,Helvetica, Arial Narrow;}
 
 /* Alternates background colour between table rows in a list */
 .odd { background: #2c2c2c; }

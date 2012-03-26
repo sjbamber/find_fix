@@ -1,10 +1,7 @@
 <table>
 	<tr>
 		<td>
-			<div class="score">
-			      Score
-			      <p><%=h post.vote_count ? post.vote_count : '0' %></p>
-			</div>
+			<%= show_score(post, post.id) %>
 		</td>
 		
 		<td>

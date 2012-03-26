@@ -81,6 +81,7 @@ class PostsController < ApplicationController
     @solutions = Solution.where(:post_id => params[:id])
     @solution = Solution.new
     @comment = Comment.new
+
   end 
   
   def new

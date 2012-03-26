@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323145029) do
+ActiveRecord::Schema.define(:version => 20120326155610) do
 
   create_table "categories", :force => true do |t|
     t.string   "name",       :null => false
@@ -128,8 +128,12 @@ ActiveRecord::Schema.define(:version => 20120323145029) do
     t.integer  "vote_type_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "solution_id"
+    t.integer  "comment_id"
   end
 
+  add_index "votes", ["comment_id"], :name => "index_votes_on_comment_id"
+  add_index "votes", ["solution_id"], :name => "index_votes_on_solution_id"
   add_index "votes", ["user_id", "post_id", "vote_type_id"], :name => "index_votes_on_user_id_and_post_id_and_vote_type_id"
 
 end

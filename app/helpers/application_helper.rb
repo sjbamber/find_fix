@@ -29,6 +29,19 @@ module ApplicationHelper
     return comments.count
   end
   
+  def vote_count(post)
+    votecount = 0
+    post.votes(true)
+    post.votes.each do |vote|
+      if vote.vote_type.name == 'positive'
+        votecount+=1
+      elsif vote.vote_type.name == 'negative'
+        votecount-=1
+      end
+    end
+    return votecount
+  end
+  
   def is_logged_in
     session[:user_id] ? true : false
   end
