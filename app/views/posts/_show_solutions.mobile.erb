@@ -1,14 +1,16 @@
 <h3>There <%= solutions.length == 1 ? 'is' : 'are'%> <%= pluralize(solutions.length, "Fix")%> posted for this Problem</h3>
-
+<div class="show_post">
 <% solutions.each_with_index do |solution, i| %>
 <div class="collapsible_button" data-role="collapsible" data-collapsed="true">
-	<h3>Show Solution <%= i+1 %></h3>
+	<h3>Show Fix <%= i+1 %></h3>
 	 <p class="small-text">Submitted By: <%= solution.user ? solution.user.username : 'Unknown' %> <%= time_ago_in_words(solution.updated_at.to_time) %> ago</p>
-      	<p><%= solution.description %></p> 
+      	<div class="post_display"><p><%= solution.description %></p></div>
       	<%= show_score(solution, post.id) %>
 	          <%= link_to("Edit this solution", {:action => 'edit', :id => solution.id}, :class => 'solution_edit') if is_admin %>
 	          <%= link_to("Delete this solution", {:action => 'delete', :id => solution.id}, :class => 'solution_delete') if is_admin %>
     <%= show_comments(solution) %>
     <%= show_comment_form(solution) %>
+    <hr />
 </div>
 <% end %>
+</div>

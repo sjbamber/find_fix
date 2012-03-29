@@ -3,9 +3,13 @@
  * Included in the directory is the jQuery mobile custom theme built using ThemeRoller http://www.jquerymobile.com/themeroller
  * and the jquery mobile required structure
 */
+.center {
+	text-align:center;
+}
 
 h2 {
-	margin:0 0 0.1em 0;
+	padding-bottom: 5px;
+	margin:0;
 	text-align: center;
 }
 
@@ -17,7 +21,7 @@ h3 {
 p { 
 	margin:0;
 	text-align: justify;
-	padding: 0 5px 0.6em 5px
+	padding: 0.6em 5px 0.6em 5px;
 }
 
 p.small-text {
@@ -25,8 +29,8 @@ p.small-text {
 }
 
 #header {
+	border:0;
 	padding: 0.2em 0 0.2em 0;
-	border-bottom: 0.2em solid #4C2516;
 }
 
 img.page_logo {
@@ -36,18 +40,23 @@ img.page_logo {
 }
 
 #content {
-	padding: 0 0.2em 0 0.2em;
+	padding: 1em 0.2em 1em 0.2em;
 }
 
 #search {
 	padding: 0.2em;
-	border-bottom: 0.2em solid #4C2516;
 	background: #6c241d;
-	margin-bottom: 0.4em;
+	margin: 0;
 }
 
-#search input {
-	width: 100%;
+#login_status {
+	background: #4C2516;
+	padding: 0.2em 0 0.2em 0;
+}
+
+#login_status p {
+	padding:0 5px 0 5px;
+	text-align: center;
 }
 
 #info {
@@ -59,7 +68,9 @@ img.page_logo {
 }
 
 #footer {
-	padding: 0.2em;
+	border-top: 0.5em solid #4C2516;
+	padding: 0.2em 0 0.2em 0;
+	text-align: center;
 }
 
 .collapsible_button h3{
@@ -70,6 +81,37 @@ img.page_logo {
 .collapsible_button h3 a{
 	text-align: center;
 }
+
+/* List */
+
+.odd {
+	background: #666666;
+}
+
+.even {
+	background: #333333;
+}
+
+.post_list, .post_list p.small-text {
+	text-align:center;
+}
+
+.post_list .ui-btn {
+	margin:0;
+}
+
+.post_list {
+	margin: 1.6em 5px 1.6em 5px;
+	
+}
+
+.post_list b {
+	text-decoration: none;
+	background: #FFF191;
+	color: #000000;
+	text-shadow: none;
+}
+
 
 /* List Pagination */
 .pagination {
@@ -96,11 +138,8 @@ img.page_logo {
     .pagination a:hover, .pagination a:focus {
       text-decoration: underline; }
       
-/* New post form */
-
-#new_post input, #new_post textarea, #new_post select {
-	width: 100%;
-	margin-bottom: 0.5em;
+.page_info {
+	text-align: center;
 }
       
 /* Cient Side Validation */
@@ -109,20 +148,46 @@ img.page_logo {
 	color: #ee0000; 
 }
 
-#new_post label, .field_with_errors, .field_with_errors label {
+/* all forms */
+#new_user label, #new_post label, .field_with_errors, .field_with_errors label {
 	display: inline;
 }
 
-/* Login Form */
-
-#login input {
+#search input, #new_user input, #login input, #new_post input, #new_post textarea, #new_post select  {
 	width: 100%;
+	margin-bottom: 0.5em;
+}
+
+/* New Post Screen */
+
+#new_post textarea {
+		width: 100%;
+		height: 150px;
 }
 
 /* Show Post Screen */
 
-	.show_post {
+	.show_post .small-text {
+		background: #EEEEEE;
+		color: #000000;
+		text-shadow: none;
+		padding: 0.2em 0 0.2em 0;
+	}
+	
+	.show_post, .show_post .small-text {
 		text-align: center;
+	}
+	
+	/* Description */
+	.post_display {
+		padding:0;
+		margin: 0.5em 0.2em 0.5em 0.5em;
+		background: #666;	
+		white-space: pre-line;	
+	}
+	
+	p.description {
+		padding: 0.6em;
 	}
 	
 	/* Score */
@@ -149,4 +214,5 @@ img.page_logo {
 	
 	.new_solution textarea {
 		width: 100%;
+		height: 150px;
 	}	

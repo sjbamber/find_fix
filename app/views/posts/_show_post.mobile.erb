@@ -1,9 +1,8 @@
 <div class="show_post">
 	<p class="small-text">Submitted by <%= post.user ? post.user.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</p>
-	<h3>Description</h3>
-	<p><%= post.description %></p>
+	<div class="post_display"><p class="description"><%= post.description %></p></div>
 	<%= show_score(post, post.id) %>
-	<div class="collapsible_button" data-role="collapsible" data-collapsed="true">			    
+	<div class="collapsible_button" data-role="collapsible" data-collapsed="true" data-mini="true">			    
 		<h3>Error Messages</h3>
 		<ul data-role="listview" data-inset="true">
 		<% for error_message in post.error_messages %>
@@ -13,7 +12,7 @@
 	</div>
 				      	
 				      	
-	<div class="collapsible_button" data-role="collapsible" data-collapsed="true">
+	<div class="collapsible_button" data-role="collapsible" data-collapsed="true" data-mini="true">
         <h3>Categories</h3>
       	<ul data-role="listview" data-inset="true">
       	<% for category in post.categories %>
@@ -22,7 +21,7 @@
       	</ul>
     </div>
     
-	<div class="collapsible_button" data-role="collapsible" data-collapsed="true">
+	<div class="collapsible_button" data-role="collapsible" data-collapsed="true" data-mini="true">
       	<h3>Tags</h3>
       	<ul data-role="listview" data-inset="true">
       	<% for tag in post.tags %>

@@ -1,0 +1,12 @@
+<% @page_title = "Admin Menu" %>
+<% @content_header = "Admin Menu"%>
+
+<div class="admin_menu">
+
+  <ul>
+    <li><%= link_to("Manage Posts", :controller => 'posts', :action => 'list') %></li>
+    <li><%= link_to("Manage Categories", :controller => 'categories', :action => 'list') %></li>
+    <li><%= link_to("Manage Users", :controller => 'users', :action => 'list') %></li>
+  </ul>
+   
+</div>

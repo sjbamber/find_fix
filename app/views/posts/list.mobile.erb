@@ -1,16 +1,10 @@
 <% @page_title = "Problem List" %>
-
-<ul data-role="listview" data-inset="true">
-  <% for post in @posts %>
-    <li>
-      <%= link_to h(post.title), {:controller => "posts", :action => "show", :id => post.id} %>
-    </li>
-  <% end %>
-</ul>
-
-<div class="pagination">
-    <div class="page_info">
+<div class="page_info">
       <%= page_entries_info @posts, :model => "Problem", :html => false  %>
-    </div>
+</div>
+<p>Click on the problem title for more detail</p>
+<%= list_posts(@posts)  %>
+
+<div class="pagination">   
     <%= will_paginate @posts, :container => false %>
 </div>

@@ -1,60 +1,43 @@
-<div class="post list">
-<table class="listing" summary="Post list">
     <% posts.each_with_index do |post, i| %>
-    <tr class="<%= cycle('odd', 'even') %>">
+    <div class="post_list">
 
-      <td class="list_details">
-      	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id }, :class => "list_title") %><br />
-      	
-      	<table>
-      		<%= "<tr><td colspan='2'> #{@snippets[i].description_snippet} </td></tr>".html_safe if params[:action] == 'search' %>
-      		<tr>
-      			<td width="200px">Created by: <%= post.user ? post.user.username : 'Unknown' %></td>
-      				
-      			<td>
-      			  Categories:
-      			  <% post.categories.each do |category| %>
-		      	  	<span><%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}, :class => "list_tags") %></span>
-		      	  <% end %>
-		      	</td>
-      		</tr>
-      		<tr>
-      			<td>Last updated: <%= time_ago_in_words(post.updated_at.to_time) %> ago</td>
-      			<td>
-      			  Tags:
-		      	  <% post.tags.each do |tag| %>
-      	  			<span><%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}, :class => "list_tags") %></span>
-      	  		  <% end %>
-		        </td>
-      		</tr>
-      		
-      	</table>
-     	
-      <td class="list_metrics">
-      	<% sol_count = solution_count(post)%>
-      	<%= sol_count.to_s %>
-      	<br />
-      	<p><%= pluralize(sol_count, "fix").gsub(/^\d+\s/, "")  %></p>
-      </td>
-      <td class="list_metrics">
-      	<% com_count = comment_count(post)%>
-      	<%= com_count.to_s %>
-      	<br />
-      	<p><%= pluralize(com_count, "comment").gsub(/^\d+\s/, "")  %></p>
-      </td>
-      <td class="list_metrics">
-      	<% post_score = vote_count(post)%>
-      	<%= post_score.to_s %>
-      	<br />
-      	<p><%= "score" %></p>
-      </td>  
+      	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id }, 'data-role' => 'button', "data-icon" => "arrow-r") %>
+      	<div class="<%= cycle('odd', 'even') %>">
+      	  <%= "<p>#{@snippets[i].description_snippet} </p>".html_safe if params[:action] == 'search' %>  	
+      	  
+    	  <p class="center">  				
+		  Categories:
+		  <% post.categories.each do |category| %>
+      	  	<span><%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}, :class => "list_tags") %></span>
+      	  <% end %>
+      	  </p>
+      	  
+      	  <p class="center">
+		  Tags:
+      	  <% post.tags.each do |tag| %>
+  			<span><%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}, :class => "list_tags") %></span>
+  		  <% end %>
+  		  </p>
+  		  <p class="center">
+  		  <span>
+	      	<% sol_count = solution_count(post)%>
+	      	<%= "Fixes:"  %>
+	      	<%= sol_count.to_s %>
+	      </span>	
+	      <span>
+	      	<% post_score = vote_count(post)%>
+	      	<%= " / Score:" %>
+	      	<%= post_score.to_s %>
+	      </span>
+	      </p>
+	      <p class="small-text">Submitted by <%= post.user ? post.user.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</p> 
+      	</div>
       <% if is_admin && is_post_list_page %>
-      <td class="actions">  
+      <div class="actions">  
         <%= link_to("Edit", {:action => 'edit', :id => post.id}, :class => 'action edit') if is_logged_in %>
         <%= link_to("Delete", {:action => 'delete', :id => post.id}, :class => 'action delete') if is_admin %>
-      </td>
-      <% end %>
-    </tr>
-    <% end %>
-</table>
-</div>
+      </div>
+      <% end %>        
+    </div>
+    <% end %>  
+    

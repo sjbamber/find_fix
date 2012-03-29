@@ -39,11 +39,7 @@ _____________________________________________
 			  
 		<% end %>
 		
-		<div id="content" data-role="content">
-			  <% if is_admin %>
-		      	  <%= link_to("Admin Menu", {:controller => 'user_access', :action => 'admin_menu'}, :class => 'access logout') %>
-		      <% end %>
-		      
+		<div id="login_status">   
 		      <p class="small-text"> You are currently logged
 		      <% if is_logged_in %>
 		      	 in as <%= session[:username] %>: 
@@ -52,7 +48,12 @@ _____________________________________________
 			      out: <%= link_to("Login", {:controller => 'user_access', :action => 'login'} ) %>
 		      <% end %>
 		      </p>
-
+		</div>
+		
+		<div id="content" data-role="content">
+		  <% if is_admin %>
+	      	  <%= link_to("Admin Menu", {:controller => 'user_access', :action => 'admin_menu'}, :class => 'access logout') %>
+	      <% end %>
 		
 	   	    <% unless flash.empty? %>
 	        <div id="info">

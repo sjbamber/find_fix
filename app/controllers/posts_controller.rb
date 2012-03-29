@@ -16,10 +16,11 @@ class PostsController < ApplicationController
       # @posts = @posts.paginate(:page => params[:page]) 
       @posts = Post.search_tank("#{params[:query].strip}*", :page => params[:page], :per_page => 10)
       @snippets = Post.search_tank("#{params[:query].strip}*", :snippets => [:title, :description], :page => params[:page], :per_page => 10)
+      @content_header = "Search Results for query: #{params[:query].strip}"
     else
+      @content_header = "Search Results for query: "
       @posts = [].paginate(:page => params[:page])
     end
-    @content_header = "Search Results for query: #{params[:query].strip}"
     render('list')
   end
   

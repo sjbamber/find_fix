@@ -13,7 +13,7 @@
   	<%= form_for(@solution, :validate => true, :url => {:controller => 'solutions', :action => 'create', :id => @post.id}) do |f| %>
 	    <%= error_messages_for(@errors) %>
 	        <%= f.label("Post a new fix to this problem") %>
-	        <%= f.text_area(:description, :size => "600x5", "data-theme" => "d") %>
+	        <%= f.text_area(:description, "data-theme" => "d", :class => "new_fix_textbox") %>
 	      <%= submit_tag("Submit Fix") %>
 
 	<% end %>
