@@ -1,24 +1,7 @@
-<%= link_to_function "Comment on this post", "toggle_section('.#{post_type}_#{post.id}','a.toggle_#{post_type}_id#{post.id}', 'Comment on this post', 'Hide comment form')", :class => "toggle_#{post_type}_id#{post.id}" %>
-
-
-<div class="comment_form <%= post_type %>_<%= post.id %>" style="display:none" >
+<div class="collapsible_button" data-role="collapsible" data-collapsed="true">
+  	<h3>Comment on this post</h3>
   	<%= form_for(@comment, :validate => true, :url => {:controller => 'comments', :action => 'create', :id => post.id, :problem_id => @post.id, :post_type => post.class }) do |f| %>
 	    <%= error_messages_for(@errors) %>
-	    <%= f.text_field(:comment) %>
-	    <%= submit_tag("Submit") %>
-	    
-
+	    <%= f.text_field(:comment, "data-theme" => "d") %>
 	<% end %>
 </div>
-
-<noscript>
-<div class="comment_form <%= post_type %>_<%= post.id %>">
-  	<%= form_for(@comment, :validate => true, :url => {:controller => 'comments', :action => 'create', :id => post.id, :problem_id => @post.id, :post_type => post.class }) do |f| %>
-	    <%= error_messages_for(@errors) %>
-	    <%= f.text_field(:comment) %>
-	    <%= submit_tag("Submit") %>
-	    
-
-	<% end %>
-</div>
-</noscript>

@@ -4,29 +4,20 @@
 
 <!-- Show Post -->
 <%= render(:partial => 'posts/show_post', :locals => {:post => @post}) %>
-<br />  
-
+<hr /><br />
 <!-- Solution List -->
 <%= render(:partial => 'posts/show_solutions', :locals => {:solutions => @solutions, :post => @post}) %>  
 
 <!-- New Solution Form -->
 <% if is_logged_in %>
-  <div class="solution_submit">
   	<%= form_for(@solution, :validate => true, :url => {:controller => 'solutions', :action => 'create', :id => @post.id}) do |f| %>
 	    <%= error_messages_for(@errors) %>
-	    <div class="form-input">
-	      <div class="form-field">
 	        <%= f.label("Post a new fix to this problem") %>
-	        <%= f.text_area(:description, :size => "600x5") %>
-	      </div>        
-	    </div>
-	    
-	    <div class="form-buttons">
+	        <%= f.text_area(:description, :size => "600x5", "data-theme" => "d") %>
 	      <%= submit_tag("Submit Fix") %>
-	    </div>
 
 	<% end %>
-</div>
+
 <% else %>
-<br /><p>To submit a new fix, post a comment or vote please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
+<p>To submit a new fix, post a comment or vote please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
 <% end %>

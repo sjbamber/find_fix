@@ -1,21 +1,9 @@
 <% unless comments == [] %>
-<div class="comment_list">
-<table class="listing" summary="Comments list">
-    <tr>
-      <td>
-      	<strong>Comments:</strong>
-	  </td>
-	</tr>  
-	  
+<h3>Comments:</h3>	  
     <% comments.each do |comment| %>
-    <tr>
-
-      <td>
+      <p>
       	<%= comment.comment %> - 
       	<span class="highlight"><%= comment.user ? comment.user.username + " - " : "anonymous - " %><%= comment.updated_at.strftime("#{comment.updated_at.day.ordinalize} %b %y at %l:%M%P") %></span>
-	  </td>
-	</tr>
+	  </p>
 	<% end %>
-</table>
-</div>
 <% end %>

@@ -22,6 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery_mobile_rails'
 
 # Required for tree structure in Category
 gem 'ancestry'

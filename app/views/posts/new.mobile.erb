@@ -1,14 +1,16 @@
 <% @page_title = "New Problem" %>
+<% @content_header = "Post a New Problem" %>
 <%= form_for(@post, :validate => true, :url => {:action => 'create'}) do |f| %>
   
 <span class="required">*</span> indicates a required field<br /><br />
 <%= error_messages_for(@errors) %>
-
+		<span class="required">*</span>
         <%= f.label(:title) %>
-        <%= f.text_field(:title, "placeholder" => "Enter a Title", "data-theme" => "d") %><span class="required">*</span>
-
+        <%= f.text_field(:title, "placeholder" => "Enter a Title", "data-theme" => "d") %>
+        
+		<span class="required">*</span>
         <%= f.label(:description) %>
-        <%= f.text_area(:description, :size => "600x10", "placeholder" => "Enter a Description", "data-theme" => "d") %><span class="required">*</span>
+        <%= f.text_area(:description, :size => "600x10", "placeholder" => "Enter a Description", "data-theme" => "d") %>
 
       
       <% 1.times { @post.error_messages.build } if @post.error_messages.blank? %>
@@ -20,18 +22,18 @@
 
       
       <% 1.times { @post.categories.build } if @post.categories.blank? %>
-
+		<span class="required">*</span>
         <%= label(:categories, :name, "Categories") %>
         <%= f.fields_for :categories do |c| %>
-			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-Select a Category-'}, "data-theme" => "d") %><span class="required">*</span>
+			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-Select a Category-'}, "data-theme" => "d") %>
 	    <% end %>
 
       
       <% 1.times { @post.tags.build } if @post.tags.blank? %>
-
+		<span class="required">*</span>
         <%= label(:tags, :name, "Custom Tags") %>
         <%= f.fields_for :tags do |t| %>
-		      <%= t.text_field :name, "placeholder" => "Enter a keyword to tag the problem", "data-theme" => "d" %><span class="required">*</span>
+		      <%= t.text_field :name, "placeholder" => "Enter a keyword to tag the problem", "data-theme" => "d" %>
   		<% end %>
     
     <%= submit_tag("Submit Post") %>

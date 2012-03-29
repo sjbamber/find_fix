@@ -18,12 +18,10 @@ _____________________________________________
     <meta name="description=" content="<%= @page_description %>" />
     
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<%= stylesheet_link_tag('/mobile/jQueryMobile/themes/find-fix-mobile.min.css') %>
-	<%= stylesheet_link_tag('/mobile/jQueryMobile/jquery.mobile.structure-1.0.1.min.css') %>
-	<%= stylesheet_link_tag('/mobile/mobile.css', :media => 'all') %>	
-	<%= javascript_include_tag('http://code.jquery.com/jquery-1.6.4.min.js') %>
-	<%= javascript_include_tag('/mobile/jQueryMobile/jquery.mobile-1.0.1.min.js') %>
-	<%= javascript_include_tag('mobile') %>
+	<%= stylesheet_link_tag('mobile/find-fix-mobile.min.css') %>
+	<%= stylesheet_link_tag('mobile/jquery.mobile.structure-1.0.1.min.css') %>
+	<%= stylesheet_link_tag('mobile/mobile') %>
+	<%= javascript_include_tag('mobile/mobile') %>
   </head>
   <body>
     <div data-role="page" data-title=<%= @page_title %> data-theme="a" data-content-theme="a">
@@ -46,7 +44,7 @@ _____________________________________________
 		      	  <%= link_to("Admin Menu", {:controller => 'user_access', :action => 'admin_menu'}, :class => 'access logout') %>
 		      <% end %>
 		      
-		      <p> You are currently logged
+		      <p class="small-text"> You are currently logged
 		      <% if is_logged_in %>
 		      	 in as <%= session[:username] %>: 
 		      	 <%= link_to("Logout", {:controller => 'user_access', :action => 'logout'} ) %>
@@ -57,7 +55,7 @@ _____________________________________________
 
 		
 	   	    <% unless flash.empty? %>
-	        <div class="info">
+	        <div id="info">
 	        <%- flash.each do |name, msg| -%>
 	          <%= content_tag :div, msg, :id => "flash_#{name}" %>
 	        <%- end -%>
@@ -67,8 +65,8 @@ _____________________________________________
 	      <%= yield %>
 	    </div><!-- content -->
 	    
-	    <div data-role="footer">
-	    	<%= link_to "Go to Desktop Site", root_url(:mobile => 0), "data-role" => "button", "data-icon" => "arrow-u", :rel => "external" %>
+	    <div id="footer" data-role="footer">
+	    	<%= link_to "Go to Desktop Site", root_url(:mobile => 0), "data-role" => "button", "data-icon" => "arrow-u", "data-theme" => "d", :rel => "external" %>
 	    </div>  
 	    
     </div><!-- page -->

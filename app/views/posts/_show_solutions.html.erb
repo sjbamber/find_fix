@@ -1,4 +1,4 @@
-<h2>There <%= solutions.length == 1 ? 'is' : 'are'%> <%= pluralize(solutions.length, "Possible Fix")%> for this Problem</h2>
+<h2>There <%= solutions.length == 1 ? 'is' : 'are'%> <%= pluralize(solutions.length, "Fix")%> posted for this Problem</h2>
 <br />
 <% solutions.each_with_index do |solution, i| %>
   <table><tr>
@@ -12,7 +12,7 @@
       	<p><%= solution.description %></p> 
       	<br />   
 	    <div class="post_footer">
-	      <strong>Submitted By:</strong> <%= solution.user ? solution.user.username : 'Unknown' %>
+	      <strong>Submitted By:</strong> <%= solution.user ? solution.user.username : 'Unknown' %> <%= time_ago_in_words(solution.updated_at.to_time) %>
 	      	<table><tr>
 	          <td><%= link_to("Edit this solution", {:action => 'edit', :id => solution.id}, :class => 'solution_edit') if is_admin %></td>
 	          <td><%= link_to("Delete this solution", {:action => 'delete', :id => solution.id}, :class => 'solution_delete') if is_admin %></td>

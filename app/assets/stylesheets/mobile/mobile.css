@@ -1,0 +1,152 @@
+/*
+ * This CSS file includes styles for the mobile version of the application
+ * Included in the directory is the jQuery mobile custom theme built using ThemeRoller http://www.jquerymobile.com/themeroller
+ * and the jquery mobile required structure
+*/
+
+h2 {
+	margin:0 0 0.1em 0;
+	text-align: center;
+}
+
+h3 {
+	padding: 0 5px 0 5px;
+	margin:0 0 0.1em 0;
+}
+
+p { 
+	margin:0;
+	text-align: justify;
+	padding: 0 5px 0.6em 5px
+}
+
+p.small-text {
+	font-size: 0.7em;
+}
+
+#header {
+	padding: 0.2em 0 0.2em 0;
+	border-bottom: 0.2em solid #4C2516;
+}
+
+img.page_logo {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#content {
+	padding: 0 0.2em 0 0.2em;
+}
+
+#search {
+	padding: 0.2em;
+	border-bottom: 0.2em solid #4C2516;
+	background: #6c241d;
+	margin-bottom: 0.4em;
+}
+
+#search input {
+	width: 100%;
+}
+
+#info {
+	background: #EEEEEE;
+	text-align: center;
+	color:#000000;
+	padding: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+#footer {
+	padding: 0.2em;
+}
+
+.collapsible_button h3{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.collapsible_button h3 a{
+	text-align: center;
+}
+
+/* List Pagination */
+.pagination {
+  background: transparent;
+  text-align: center;
+  padding: 1em;
+  cursor: default; }
+  .pagination a, .pagination span {
+    padding: 0.2em 0.3em; }
+  .pagination .disabled {
+    color: #aaaaaa; }
+  .pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background-color: #bebebe;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    line-height: 1.5;
+    text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px; }
+  .pagination a {
+    text-decoration: none;
+    color: black; }
+    .pagination a:hover, .pagination a:focus {
+      text-decoration: underline; }
+      
+/* New post form */
+
+#new_post input, #new_post textarea, #new_post select {
+	width: 100%;
+	margin-bottom: 0.5em;
+}
+      
+/* Cient Side Validation */
+
+.required, .message { 
+	color: #ee0000; 
+}
+
+#new_post label, .field_with_errors, .field_with_errors label {
+	display: inline;
+}
+
+/* Login Form */
+
+#login input {
+	width: 100%;
+}
+
+/* Show Post Screen */
+
+	.show_post {
+		text-align: center;
+	}
+	
+	/* Score */
+	
+	.score {
+		text-align: center;
+	}
+	
+	.score .score_count{
+	    font-size: 2em;
+	}
+	
+	/* comments */
+	
+	.highlight {
+		color: #ff8888;
+	}
+	
+	.new_comment input {
+		width: 100%;
+	}
+	
+	/* solution */
+	
+	.new_solution textarea {
+		width: 100%;
+	}	

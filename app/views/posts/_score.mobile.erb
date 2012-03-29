@@ -1,7 +1,7 @@
 <div class="score">
-	  <% tiptext = get_vote_tiptext(post) %>
-      <p>Score</p>
-      <%= button_to("+", {:controller => 'votes', :action => 'create', :id => post.id, :vote_type => "positive", :problem_id => problem_id, :post_type => post.class}, :class => "tooltip", "data-tooltip" => tiptext['positive'], :onclick => "return confirm(\"You are about to submit a positive vote for this #{post.class.to_s.downcase!}\")") if is_logged_in %>
-      <span><%= vote_count(post) %></span>   
-      <%= button_to("-", {:controller => 'votes', :action => 'create', :id => post.id, :vote_type => "negative", :problem_id => problem_id, :post_type => post.class}, :class => "tooltip", "data-tooltip" => tiptext['negative'], :onclick => "return confirm(\"You are about to submit a negative vote for this #{post.class.to_s.downcase!}\")") if is_logged_in %>
+      <h3>Score</h3>
+      <div><%= link_to("+", {:controller => 'votes', :action => 'create', :id => post.id, :vote_type => "positive", :problem_id => problem_id, :post_type => post.class}, "data-role" => "button", "data-inline" => "true", "data-mini" => "true", :onclick => "return confirm(\"You are about to submit a positive vote for this #{post.class.to_s.downcase!}\")") if is_logged_in %>
+      <span class="score_count"><%= vote_count(post) %></span>
+      <%= link_to("-", {:controller => 'votes', :action => 'create', :id => post.id, :vote_type => "negative", :problem_id => problem_id, :post_type => post.class}, "data-role" => "button", "data-inline" => "true", "data-mini" => "true", :onclick => "return confirm(\"You are about to submit a negative vote for this #{post.class.to_s.downcase!}\")") if is_logged_in %>
+	</div>
 </div>
