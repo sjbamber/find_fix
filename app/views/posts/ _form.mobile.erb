@@ -1,0 +1,40 @@
+<span class="required">*</span> indicates a required field<br /><br />
+<%= error_messages_for(@errors) %>
+	
+    <ul class="rounded">
+	  
+       <li>
+        <%= f.label(:title) %><span class="required">*</span>
+        <%= f.text_field(:title) %>
+       </li>
+      
+      <li>
+        <%= f.label(:description) %><span class="required">*</span>
+        <%= f.text_area(:description, :size => "600x10") %>
+      </li>
+      
+      <% 1.times { @post.error_messages.build } if @post.error_messages.blank? %>
+       <li>
+        <%= label(:error_messages, :description, "Error Message(s)") %> 
+        <%= f.fields_for :error_messages do |e| %>   
+		      <%= e.text_field :description %>
+  		<% end %>
+      </li>
+      
+      <% 1.times { @post.categories.build } if @post.categories.blank? %>
+       <li>
+        <%= label(:categories, :name, "Categories") %><span class="required">*</span>
+        <%= f.fields_for :categories do |c| %>
+			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --'}) %>
+	    <% end %>
+      </li>
+      
+      <% 1.times { @post.tags.build } if @post.tags.blank? %>
+       <li>
+        <%= label(:tags, :name, "Custom Tags") %><span class="required">*</span>
+        <%= f.fields_for :tags do |t| %>
+		      <%= t.text_field :name %>
+  		<% end %>
+      </li>
+     
+    </ul>

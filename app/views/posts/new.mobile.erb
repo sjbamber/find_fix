@@ -1,0 +1,39 @@
+<% @page_title = "New Problem" %>
+<%= form_for(@post, :validate => true, :url => {:action => 'create'}) do |f| %>
+  
+<span class="required">*</span> indicates a required field<br /><br />
+<%= error_messages_for(@errors) %>
+
+        <%= f.label(:title) %>
+        <%= f.text_field(:title, "placeholder" => "Enter a Title", "data-theme" => "d") %><span class="required">*</span>
+
+        <%= f.label(:description) %>
+        <%= f.text_area(:description, :size => "600x10", "placeholder" => "Enter a Description", "data-theme" => "d") %><span class="required">*</span>
+
+      
+      <% 1.times { @post.error_messages.build } if @post.error_messages.blank? %>
+
+        <%= label(:error_messages, :description, "Error Message(s)") %> 
+        <%= f.fields_for :error_messages do |e| %>   
+		      <%= e.text_field :description , "placeholder" => "Enter an Error Message", "data-theme" => "d"%>
+  		<% end %>
+
+      
+      <% 1.times { @post.categories.build } if @post.categories.blank? %>
+
+        <%= label(:categories, :name, "Categories") %>
+        <%= f.fields_for :categories do |c| %>
+			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-Select a Category-'}, "data-theme" => "d") %><span class="required">*</span>
+	    <% end %>
+
+      
+      <% 1.times { @post.tags.build } if @post.tags.blank? %>
+
+        <%= label(:tags, :name, "Custom Tags") %>
+        <%= f.fields_for :tags do |t| %>
+		      <%= t.text_field :name, "placeholder" => "Enter a keyword to tag the problem", "data-theme" => "d" %><span class="required">*</span>
+  		<% end %>
+    
+    <%= submit_tag("Submit Post") %>
+    
+  <% end %>

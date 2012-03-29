@@ -23,7 +23,7 @@ light grey/white:  	#EEEEEE
 /* Structure */
 
 html { height: 100%; width: 100%; }
-body { width: 100%; min-width: 980px; height: 100%; margin: 0; padding: 0; 
+body { width: 100%; min-width: 1024px; height: 100%; margin: 0; padding: 0; 
   font: 14px Verdana,Lucida,Arial,Helvetica,sans-serif; color: #EEEEEE; }
 p, td, ul, ol, li, dl, dt, dd { 
   font-family: Verdana,Lucida,Arial,Helvetica,sans-serif; }
@@ -55,7 +55,7 @@ h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; text-s
 #info_bar_content { width: 1000px; margin: 0 auto 0 auto;}
 
 #main { overflow: auto; display: inline-block; /* triggers hasLayout in IE */}
-#main { display:block; width: 1000px; margin: 20px auto 20px auto; }
+#main { display:block; width: 1024px; margin: 20px auto 20px auto; }
 
 /* Main Content Area */
 #main_content{ width: 760px;}
@@ -65,7 +65,7 @@ h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; text-s
 #content_footer { height: 45px; width: 760px; background: url("content_footer.png"); }
 
 /* Right Hand Bar */
-#right_bar { float:right; }
+#right_bar { float:right; width: 240px; }
 #right_content_header { height: 28px; padding-right: 25px; width: 215px; background: url("right_header.png");}
 #right_bar_content { background: url("right_content_background.png") repeat-y; padding: 0 30px 0 20px; 
   width: 190px; min-height:320px; text-align:justify;}

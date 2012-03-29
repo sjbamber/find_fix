@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::Base
+  before_filter :prepare_for_mobile
   protect_from_forgery
-
-  protected
   
-  # ***Before Filters***
+  protected
   
   def confirm_logged_in
     unless session[:user_id]
@@ -55,5 +54,21 @@ class ApplicationController < ActionController::Base
   end
   
   # ***End of Before Filters***
+  
+  private
+  
+  def mobile_device?
+    if session[:mobile_param]
+      session[:mobile_param] == "1"
+    else
+      request.user_agent =~ /Mobile|webOS|iPhone/
+    end
+  end
+  helper_method :mobile_device?
+  
+  def prepare_for_mobile
+    session[:mobile_param] = params[:mobile] if params[:mobile]
+    request.format = :mobile if mobile_device?
+  end
   
 end

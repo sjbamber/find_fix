@@ -1,0 +1,16 @@
+
+	<% @page_title = "Home" %>
+	<%= link_to "Create New Problem", {:controller => "posts", :action => "new"}, 'data-role' => 'button', 'data-icon' => 'plus' if is_logged_in%>
+	<h2>Recent Problems</h2>
+	<ul data-role="listview" data-inset="true">
+	  <% for post in @recent_problems %>
+	    <li>
+	      <%= link_to h(post.title), {:controller => "posts", :action => "show", :id => post.id} %>
+	    </li>
+	  <% end %>
+	</ul>
+	<%= link_to "View all Problems", {:controller => "posts", :action => "list"}, 'data-role' => 'button', 'data-icon' => 'grid'%>
+
+
+
+

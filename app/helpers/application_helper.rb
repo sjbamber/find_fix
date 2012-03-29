@@ -1,5 +1,9 @@
 module ApplicationHelper
   
+  def show_title?
+    @page_title
+  end
+  
   def error_messages_for( object )
     render(:partial => 'shared/errors_to_display', :locals => {:object => object})    
   end

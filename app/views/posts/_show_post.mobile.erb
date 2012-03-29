@@ -1,0 +1,39 @@
+<table>
+	<tr>
+		<td>
+			<%= show_score(post, post.id) %>
+		</td>
+		
+		<td>
+			<div class="show_post">
+			
+			    <div class="post_display">
+			      <p><%=h post.description %></p>
+				    <div class="post_footer">
+				      <strong>Error Messages:</strong>
+				      	<ul>
+				      	<% for error_message in post.error_messages %>
+				      	<li> <%=h error_message.description %></li>
+				      	<% end %> 
+				      	</ul>
+				      	<span>Submitted by <%= post.user ? post.user.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</span>
+				    </div>
+			    </div>
+			    <div>
+			      <strong>Categories:</strong>
+			      	<% for category in post.categories %>
+			      		<span><%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}, :class => "list_tags") %></span>
+			      	<% end %>
+			    </div>
+			    <div>
+			      <strong>Tags:</strong>
+			      	<% for tag in post.tags %>
+			      		<span><%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}, :class => "list_tags") %></span>
+			      	<% end %> 
+			    </div>			   	 
+			    <%= show_comments(post) %>
+			    <%= show_comment_form(post) %> 
+			</div>
+		</td>
+	</tr>
+</table>

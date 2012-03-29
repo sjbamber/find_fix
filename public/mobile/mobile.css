@@ -1,0 +1,38 @@
+#header {
+	padding: 0.2em 0 0.2em 0;
+	border-bottom: 0.2em solid #4C2516;
+}
+
+img.page_logo {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#content {
+	padding: 0 0.2em 0 0.2em;
+}
+
+#search {
+	padding: 0.2em;
+	border-bottom: 0.2em solid #4C2516;
+	background: #6c241d;
+	margin-bottom: 0.4em;
+}
+
+#search input {
+	width: 100%;
+}
+
+.ui-li .ui-btn-text a.ui-link-inherit {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+}
+
+.ui-btn {
+	margin-left:0;
+	margin-right:0;
+}
+
+/* New post form */

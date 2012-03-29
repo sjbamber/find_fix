@@ -1,0 +1,78 @@
+<!--
+_____________________________________________
+
+	Find Fix - A wiki for search and discussion of IT support issues
+    AUTHOR: Stephen J Bamber
+	EMAIL: sjbamber@uclan.ac.uk
+	MOBILE VERSION
+_____________________________________________
+
+-->
+
+<!DOCTYPE html">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= @page_title %> - Find Fix</title>
+    <meta name="author" content="Stephen Bamber" />
+    <meta name="description=" content="<%= @page_description %>" />
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<%= stylesheet_link_tag('/mobile/jQueryMobile/themes/find-fix-mobile.min.css') %>
+	<%= stylesheet_link_tag('/mobile/jQueryMobile/jquery.mobile.structure-1.0.1.min.css') %>
+	<%= stylesheet_link_tag('/mobile/mobile.css', :media => 'all') %>	
+	<%= javascript_include_tag('http://code.jquery.com/jquery-1.6.4.min.js') %>
+	<%= javascript_include_tag('/mobile/jQueryMobile/jquery.mobile-1.0.1.min.js') %>
+	<%= javascript_include_tag('mobile') %>
+  </head>
+  <body>
+    <div data-role="page" data-title=<%= @page_title %> data-theme="a" data-content-theme="a">
+     
+	    <div id="header" data-role="header">  
+	       <%= link_to "home", {:controller => 'public', :action => 'index'}, "data-role" => "button", "data-icon" => "home", "data-theme" => "d", "data-iconpos" => "notext" %>
+	       <%= image_tag('find_fix_logo_mobile.png', :alt => 'Find Fix Logo', :class => 'page_logo') %>
+	       <%= link_to "back", nil, 'data-rel' => 'back', 'data-role' => 'button', "data-icon" => "arrow-l", "data-theme" => "d", "data-iconpos" => "notext" unless current_page? root_path %>
+	    </div>
+	    	
+		<%= form_tag({:controller => 'posts', :action => 'search'}, :method => :get, :id => "search") do %>
+			  
+				  <%= label_tag(:query, "Search for a fix", :class => "ui-hidden-accessible" )%>
+				  <%= text_field_tag(:query, "", "data-theme" => "d", :name => "query", "placeholder" => "Search for a Fix") %>
+			  
+		<% end %>
+		
+		<div id="content" data-role="content">
+			  <% if is_admin %>
+		      	  <%= link_to("Admin Menu", {:controller => 'user_access', :action => 'admin_menu'}, :class => 'access logout') %>
+		      <% end %>
+		      
+		      <p> You are currently logged
+		      <% if is_logged_in %>
+		      	 in as <%= session[:username] %>: 
+		      	 <%= link_to("Logout", {:controller => 'user_access', :action => 'logout'} ) %>
+		      <% else %>
+			      out: <%= link_to("Login", {:controller => 'user_access', :action => 'login'} ) %>
+		      <% end %>
+		      </p>
+
+		
+	   	    <% unless flash.empty? %>
+	        <div class="info">
+	        <%- flash.each do |name, msg| -%>
+	          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+	        <%- end -%>
+	        </div>
+	      <% end %>
+	      <h2><%= @content_header %></h2>
+	      <%= yield %>
+	    </div><!-- content -->
+	    
+	    <div data-role="footer">
+	    	<%= link_to "Go to Desktop Site", root_url(:mobile => 0), "data-role" => "button", "data-icon" => "arrow-u", :rel => "external" %>
+	    </div>  
+	    
+    </div><!-- page -->
+    
+  </body>
+</html>
+

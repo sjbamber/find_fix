@@ -28,7 +28,7 @@ class UserAccessController < ApplicationController
       if view_context.is_admin
         redirect_to(:action => 'admin_menu')
       else
-        redirect_to(:controller => 'posts', :action => 'index')
+        redirect_to(:controller => 'public', :action => 'index')
       end
     else 
       flash[:notice] = "Invalid Username or Password"

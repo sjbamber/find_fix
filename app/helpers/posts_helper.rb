@@ -4,7 +4,7 @@ module PostsHelper
       render(:partial => 'score', :locals => {:post => post, :problem_id => problem_id})
   end  
   
-  def get_tiptext(post)
+  def get_vote_tiptext(post)
     tiptext = { 'positive' => "", 'negative' => "" }
     if post.class == Post
       tiptext['positive'] = 'This problem description is useful. It is clear and well investigated'

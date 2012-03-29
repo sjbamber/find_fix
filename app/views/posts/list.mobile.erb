@@ -1,0 +1,9 @@
+<% @page_title = "All Problems" %>
+
+<ul data-role="listview" data-inset="true">
+  <% for post in @posts %>
+    <li>
+      <%= link_to h(post.title), {:controller => "posts", :action => "show", :id => post.id} %>
+    </li>
+  <% end %>
+</ul>
