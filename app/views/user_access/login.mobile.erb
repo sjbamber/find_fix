@@ -5,14 +5,16 @@
 	<%= form_tag({:controller => 'user_access', :action => 'process_login'}, :id => 'login') do %>
 
 		     <%= label_tag(:username) %>
-		     <%= text_field_tag(:username, "", "data-theme" => "d",) %>
+		     <%= text_field_tag(:username, "", "data-theme" => "d") %>
 
 		     <%= label_tag(:password) %>
-		     <%= password_field_tag(:password, "", "data-theme" => "d",) %>
+		     <%= password_field_tag(:password, "", "data-theme" => "d") %>
 
 	
 
 	<%= submit_tag "Log In", 'data-role' => 'button' %>
+	
+	<p>Don't have an existing account? - <%= link_to("Register for a new account", {:controller => 'users', :action => 'new'}) %></p>
 
 
   <% end %>
