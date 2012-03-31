@@ -1,7 +1,7 @@
 <div class="show_post">
 	<p class="small-text">Submitted by <%= post.user ? post.user.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</p>
 	<div class="post_display"><p class="description"><%= post.description %></p></div>
-	<%= show_score(post, post.id) %>
+	<%= show_voting(post, post.id) %>
 	<div class="collapsible_button" data-role="collapsible" data-collapsed="true" data-mini="true">			    
 		<h3>Error Messages</h3>
 		<ul data-role="listview" data-inset="true">
@@ -30,6 +30,11 @@
       	</ul>
     </div>
 	   	 
-    <%= show_comments(post) %>
-    <%= show_comment_form(post) %>
+    <div class="comments_<%=post.class%><%=post.id%>">
+    	<% unless post.comments.size == 0 %> 
+	    	<strong>Comments:</strong>		   	 
+	    	<%= render post.comments, :post_id => post.id   %>
+	    <% end %>
+    </div>
+    <%= show_comment_form(post, post.id) %>
 </div>

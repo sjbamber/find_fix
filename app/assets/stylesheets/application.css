@@ -77,7 +77,8 @@ h2 { font-size: 20px; border-bottom: 1px solid #993120; padding-bottom:0; text-s
 #footer { clear: both; border-top: 1em solid #4C2516;
   background: url("footer_background.png") repeat-x #6c241c; }
 #footer_content { color: #EEEEEE; text-align: right; width: 1000px; margin: 0 auto 0 auto; padding-top: 1em;}
-#footer p { margin: 0; padding: 0.5em 1em; }
+#footer p { margin: 0; padding: 1em 1em 0 1em; }
+#mobile_site_link { float: left; }
 
 /* Wrapper that forces the footer to the bottom of the page and also sets the background colour */
 #wrapper { min-height: 100%; height: auto !important; height: 100%; 
@@ -151,7 +152,8 @@ form { width: 640px; margin: 0 auto 0 auto; }
 .list_details a { text-decoration:none; }
 a.list_title { font-size: 18px; color: #FF8888}
 a.list_title:hover { text-decoration:underline; }
-a.list_tags { font-size: 12px; display:inline-block; background: #aaaaaa; color:#1C1C1C; margin: 0 0 0 10px; padding: 0 5px 0 5px; border-bottom: 1px solid #000000; border-right: 1px solid #000000; text-decoration:none; }
+a.list_tags { font-size: 12px; display:inline-block; background: #aaaaaa; color:#1C1C1C; margin: 0 0 0 10px; 
+	padding: 0 5px 0 5px; border-bottom: 1px solid #000000; border-right: 1px solid #000000; text-decoration:none; }
 a.list_tags:hover { background: #eeeeee; }
 .list_metrics {text-align: center; vertical-align:middle; font-size: 18px;}
 .list_metrics p {font-size: 11px; padding:5px 0 5px 0; width: 40px; font-family:Arial,Helvetica, Arial Narrow;}
@@ -173,5 +175,5 @@ a.list_tags:hover { background: #eeeeee; }
 #errorExplanation ul li { list-style: square; }
 
 .highlight { color: #FF8888; }
-
-
+.modal_message {background:#BEBEBE;}
+.set_height_250px {height: 250px;}

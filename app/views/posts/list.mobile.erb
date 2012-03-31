@@ -1,10 +1,6 @@
 <% @page_title = "Problem List" %>
-<div class="page_info">
-      <%= page_entries_info @posts, :model => "Problem", :html => false  %>
-</div>
-<p>Click on the problem title for more detail</p>
-<%= list_posts(@posts)  %>
 
-<div class="pagination">   
-    <%= will_paginate @posts, :container => false %>
+
+<div id="posts">
+ 	<%= render 'list_posts', :posts => @posts %>
 </div>

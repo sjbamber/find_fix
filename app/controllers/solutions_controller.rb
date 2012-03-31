@@ -9,19 +9,44 @@ class SolutionsController < ApplicationController
       @solution.user = User.find_by_id(session[:user_id])
       @solution.post = Post.find_by_id(params[:id])
       @solution.save!
-      
-      flash[:notice] = "Fix Submitted Successfully"
-      redirect_to(:controller => 'posts', :action => 'show', :id => params[:id])
+      respond_to do |format|
+        format.html { 
+          flash[:notice] = "Fix Submitted Successfully"
+          redirect_to(:controller => 'posts', :action => 'show', :id => params[:id])
+        }
+        format.mobile { 
+          flash[:notice] = "Fix Submitted Successfully"
+          redirect_to(:controller => 'posts', :action => 'show', :id => params[:id])
+        }
+        format.js {
+          @notice = "Fix Submitted Successfully"
+          @comment = Comment.new
+        }
+      end  
     rescue ActiveRecord::RecordInvalid => e
       # If save fails
       # Display errors
       @errors = e.record
-      flash[:notice] = "Errors prevented the solution from saving"
-      # Render the view again
-      @post = Post.find_by_id(params[:id])
-      @solutions = Solution.where(:post_id => params[:id])
       @comment = Comment.new
-      render('posts/show')
+      respond_to do |format|
+        format.html { 
+          flash[:notice] = "Errors prevented the solution from saving"
+          # Render the view again
+          @post = Post.find_by_id(params[:id])
+          @solutions = Solution.where(:post_id => params[:id])
+          render('posts/show')
+        }
+        format.mobile { 
+          flash[:notice] = "Errors prevented the solution from saving"
+          # Render the view again
+          @post = Post.find_by_id(params[:id])
+          @solutions = Solution.where(:post_id => params[:id])
+          render('posts/show')
+        }
+        format.js {
+          @notice = "Errors prevented the solution from saving"
+        }
+      end
     end
   end 
 end

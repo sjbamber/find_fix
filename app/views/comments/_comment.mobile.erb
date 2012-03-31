@@ -1,0 +1,4 @@
+<div id="comment<%=comment.id%>" class="comment">
+  	<%= comment.comment %> - 
+  	<span class="highlight"><%= comment.user ? comment.user.username + " - " : "anonymous - " %><%= comment.updated_at.strftime("#{comment.updated_at.day.ordinalize} %b %y at %l:%M%P") %></span>
+</div>

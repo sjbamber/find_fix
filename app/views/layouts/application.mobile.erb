@@ -20,8 +20,11 @@ _____________________________________________
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<%= stylesheet_link_tag('mobile/find-fix-mobile.min.css') %>
 	<%= stylesheet_link_tag('mobile/jquery.mobile.structure-1.0.1.min.css') %>
+	<%= stylesheet_link_tag('mobile/jquery.mobile.simpledialog.min.css') %>
 	<%= stylesheet_link_tag('mobile/mobile') %>
 	<%= javascript_include_tag('mobile/mobile') %>
+	<%= javascript_include_tag('mobile/jquery.mobile.simpledialog.min.js') %>
+	<%= csrf_meta_tag %>
   </head>
   <body>
     <div data-role="page" data-title=<%= @page_title %> data-theme="a" data-content-theme="a">

@@ -1,0 +1,7 @@
+
+$('<%= escape_javascript( render @solution, :post => @solution.post )%>')
+  .appendTo('.solutions')
+  .hide()
+  .fadeIn('slow');
+  
+show_dialog('#solution_success');

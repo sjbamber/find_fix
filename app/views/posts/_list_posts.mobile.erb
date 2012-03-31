@@ -1,3 +1,13 @@
+	<div class="page_info">
+	      <%= page_entries_info @posts, :model => "Problem", :html => false  %>
+	</div>
+	<div class="pagination">   
+	    <%= will_paginate @posts, :container => false %>
+	</div>
+	<span class="loadingScreen"></span>
+
+<p>Click on the problem title for more detail</p>
+
     <% posts.each_with_index do |post, i| %>
     <div class="post_list">
 
@@ -39,5 +49,10 @@
       </div>
       <% end %>        
     </div>
-    <% end %>  
+    <% end %>
+    
+<div class="pagination">   
+    <%= will_paginate @posts, :container => false %>
+</div>
+<span class="loadingScreen"></span>
     

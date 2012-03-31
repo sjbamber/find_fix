@@ -1,0 +1,27 @@
+<!-- Comment Form -->
+<script>confirm_submit("#comment_confirm", ".comment_submit");</script>
+<div id="comment_confirm" title="Submit Comment" style="display: none;">Are you sure you wish to submit this comment?</div>
+<div id="comment_success" title="Comment Submitted" style="display: none;">The comment was submitted successfully</div>
+
+<% if is_logged_in %>
+	<%= link_to_function "Comment on this post", "toggle_section('#comment_form_#{post_type}_#{post.id}','#toggle_#{post_type}_id#{post.id}', 'Comment on this post', 'Hide comment form')", :id => "toggle_#{post_type}_id#{post.id}" %>
+	
+	<div class="comment_form" id="comment_form_<%= post_type %>_<%= post.id %>" style="display:none" >
+	  	<%= form_for(@comment, :validate => true, :remote => true, :url => {:controller => 'comments', :action => 'create', :id => post.id, :problem_id => problem_id, :post_type => post.class }) do |f| %>
+		    <%= error_messages_for(@errors) %>
+		    <%= f.text_field(:comment) %>
+		    <%= submit_tag("Submit", :class => 'comment_submit') %>	
+		<% end %>
+	</div>
+	<noscript>
+	<div class="comment_form" id="comment_form_<%= post_type %>_<%= post.id %>">
+	  	<%= form_for(@comment, :validate => true, :url => {:controller => 'comments', :action => 'create', :id => post.id, :problem_id => problem_id, :post_type => post.class }) do |f| %>
+		    <%= error_messages_for(@errors) %>
+		    <%= f.text_field(:comment) %>
+		    <%= submit_tag("Submit") %>
+		<% end %>
+	</div>
+	</noscript>
+<% end %>
+
+

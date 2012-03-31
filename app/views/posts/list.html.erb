@@ -1,12 +1,7 @@
 <% @page_title = "Problem List"%>
-  
-  <%= list_posts(@posts)  %>
 
-<div class="digg_pagination">
-    <div class="page_info">
-      <%= page_entries_info @posts, :model => "Problem", :html => false  %>
-    </div>
-    <%= will_paginate @posts, :container => false %>
+<div id="posts">
+ 	<%= render 'list_posts', :posts => @posts %>
 </div>
 
 <% @right_header = "Help"%>

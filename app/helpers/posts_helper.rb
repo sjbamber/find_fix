@@ -1,9 +1,5 @@
 module PostsHelper
   
-  def show_score(post, problem_id)
-      render(:partial => 'score', :locals => {:post => post, :problem_id => problem_id})
-  end  
-  
   def get_vote_tiptext(post)
     tiptext = { 'positive' => "", 'negative' => "" }
     if post.class == Post

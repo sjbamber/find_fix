@@ -17,12 +17,60 @@
 //= require rails.validations
 //= require jquery.qtip
 
-function toggle_section(section, text, state1, state2)
+// Function to toggle visibility of a section using a link
+function toggle_section(section, link, state1, state2)
 {
     $(section).toggle(300, 'linear');
-	$(text).text($(text).text() == state1 ? state2 : state1);
+	$(link).text($(link).text() == state1 ? state2 : state1);
 	return false;
 }
+
+// Displays a dialog box containing the information in dialog_id upon pressing submit_id
+function confirm_submit(dialog_id, submit_id)
+{
+  // Form submit confirmation
+  var currentForm;
+  $(document).ready(function() {
+        $(dialog_id).dialog({
+            resizable: false,
+            height: 160,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                'Yes': function() {
+                    $(this).dialog('close');
+                    currentForm.submit();
+                },
+                'No': function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+        
+        $(submit_id).click(function() {
+          currentForm = $(this).closest('form');
+          $(dialog_id).dialog('open');
+          return false;
+        });
+    
+  });
+}
+
+// Displays an information dialog containing content in dialog_id
+function show_dialog(dialog_id, notice)
+{
+    $(dialog_id).dialog({
+            resizable: false,
+            height: 160,
+            modal: true,
+            buttons: {
+                'OK': function() {
+                    $(this).dialog('close');
+                }
+            }
+    });
+}
+
 
 // Code to implement the search clear button
 $(document).ready(function() {
@@ -40,10 +88,10 @@ $(document).ready(function() {
     });
 });
 
-// Add tooltips to link elements
+// Add tooltips to link elements using the qtip plugin
 $(document).ready(function()
 {
-    // Match all elements with class link_tooltip and use data-tooltip to display tooltip text.
+    // Match all elements with class tooltip and use data-tooltip to display tooltip text.
     $('.tooltip').qtip({
         content: function(){
             return $(this).data('tooltip');
@@ -60,10 +108,4 @@ $(document).ready(function()
             adjust: { x: -5, y: -5 }
         }
     });
-});
-
-// Yes/No Confirmation box
-$("#yesno").easyconfirm({locale: { title: 'Select Yes or No', button: ['No','Yes']}});
-$("#yesno").click(function() {
-	alert("You clicked yes");
 });

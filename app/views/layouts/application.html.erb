@@ -20,6 +20,7 @@ _____________________________________________
     <%= stylesheet_link_tag('application', :media => 'all') %>
     <%= stylesheet_link_tag('mobile') if mobile_device? %>
     <%= javascript_include_tag('application') %>
+    <%= csrf_meta_tag %>
   </head>
   <body>
   	<div id="wrapper">
@@ -54,9 +55,9 @@ _____________________________________________
 	     <div id="info_bar_content">
 			      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home') %>
 			      <% if is_logged_in %>
-			      <%= link_to("Submit a New Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
+			      <%= link_to("Submit a Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') %>
 			      <% end %>
-			      <%= link_to("View Existing Problems", {:controller => 'posts'}, :class => 'navigation posts') %>
+			      <%= link_to("View Problems", {:controller => 'posts'}, :class => 'navigation posts') %>
 	      <div class="login_status">
 	    	<% if session[:user_id] %>      	
 	      		You are logged in as: <%= session[:username]%>
@@ -100,14 +101,14 @@ _____________________________________________
     </div>
     <div id="footer">
       <div id="footer_content">
-		<p>
+		<p id="mobile_site_link">
 		  <% if mobile_device? %>
 		    <%= link_to "Full Site", :mobile => 0 %>
 		  <% else %>
 		    <%= link_to "Mobile Site", :mobile => 1 %>
 		  <% end %>
 		</p>
-        <p id="copyright"><%=Time.now.strftime("%Y")%> &copy; <a href="http://www.sjbamber.info">Stephen J Bamber</a></p>
+        <p id="copyright">Site Design &copy; <%=Time.now.strftime("%Y")%> <a href="http://www.sjbamber.info">Stephen J Bamber</a></p>
       </div>
     </div>
   </body>

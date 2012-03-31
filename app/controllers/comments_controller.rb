@@ -19,11 +19,22 @@ class CommentsController < ApplicationController
       else  
         comment_error = true
       end
-      #respond_to do |format|
+          @post_type = params[:post_type]
+          @this_id = params[:id]     
         # Associate with comment or post
         if !comment_error && params[:problem_id] && @comment.save
-          flash[:notice] = "Comment Submitted Successfully" 
-          redirect_to(:controller => 'posts', :action => 'show', :id => params[:problem_id])
+
+          respond_to do |format|
+            format.html { 
+              flash[:notice] = "Comment Submitted Successfully" 
+              redirect_to(:controller => 'posts', :action => 'show', :id => params[:problem_id])
+            }
+            format.mobile { 
+              flash[:notice] = "Comment Submitted Successfully" 
+              redirect_to(:controller => 'posts', :action => 'show', :id => params[:problem_id])
+            }            
+            format.js
+          end
         else 
           # If save fails
           # Display errors  

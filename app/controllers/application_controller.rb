@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_filter :prepare_for_mobile
   protect_from_forgery
+  before_filter :prepare_for_mobile
+  
   
   protected
   
@@ -68,7 +69,9 @@ class ApplicationController < ActionController::Base
   
   def prepare_for_mobile
     session[:mobile_param] = params[:mobile] if params[:mobile]
-    request.format = :mobile if mobile_device?
+    if mobile_device?
+      request.format == :js ? request.format = :js : request.format = :mobile
+    end
   end
   
 end

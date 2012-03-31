@@ -27,7 +27,7 @@
 
 <div id="recent_problems">
 	<h2>Recent Problems</h2>
-	<%= list_posts(@recent_problems)  %>
+	<%= render 'posts/list_posts', :posts => @recent_problems %>
 </div>
 
 <% @right_header = "Categories"%>

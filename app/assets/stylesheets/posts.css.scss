@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* Detailed View of a problem post */
 .list_details b {background: #fff191; color: #000000;}
+.listing { margin: 10px 0 10px 0; }
 
 .show_post { width: 600px; }
 .show_post h2 { border-bottom: 1px solid #9a3329; }
@@ -18,55 +19,48 @@ div.post_footer { font-size: 14px; line-height: 18px; text-align:justify; paddin
 .score span { font-size: 18px; display:block; padding: 5px 0 5px 0;}
 .score form {width:40px;}
 .score input {width: 30px; background: #666666; border: 1px solid #000; color: #eeeeee;}
-.solution_submit form {  }
 
-.comment_list { margin-top: 10px;}
-.comment_list table { width: 100%; }
-.comment_list tr { border-bottom: 1px dotted #aaaaaa; }
+input.vote_positive { color: #00CC00; }
+input.vote_negative { color: #CC0000; }
+
+.comments { margin-top: 5px; }
+.comment {padding: 5px 0 5px 0; border-bottom: 1px dotted #aaaaaa; }
+.comment .score p, .comment .score form, .comment .score form div, .comment .score span {
+  display:inline-block;
+}
+.comment table { width: 100%; }
+.comment_col { width: 79%; padding:0; }
+.comment_col p {padding:0; white-space: pre-wrap; }
+.vote_col {width: 21%; padding:0;}
+.comment .score { display:inline; }
+.comment .score p.score_text { display: none; }
+.comment .score span.score_value { font-size: 14px; }
+.comment .score .vote_positive, .comment .score .vote_negative { background: none; border:0; }
 
 .comment_form form { width: 100%; margin:0;}
 .comment_form .message { display:block; }
 input#comment_comment { width: 500px; }
 
 /* Pagination Styling from http://mislav.uniqpath.com/will_paginate/ */
-.digg_pagination {
-  padding-top: 20px;
+.pagination {
   cursor: default;
   /* self-clearing method: */ }
-  .digg_pagination a, .digg_pagination span, .digg_pagination em {
+  .pagination a, .pagination span, .pagination em {
     padding: 0.2em 0.5em;
     display: block;
     float: left;
     margin-right: 1px; }
-  .digg_pagination .disabled {
+  .pagination .disabled {
     color: #999999; }
-  .digg_pagination .current {
+  .pagination .current {
     font-style: normal;
     font-weight: bold;
     background: #DD5555;
     color: white;
     border: 1px solid #FF0000; }
-  .digg_pagination a {
+  .pagination a {
     text-decoration: none;
     color: #eeeeee; }
-    .digg_pagination a:hover, .digg_pagination a:focus {
+    .pagination a:hover, .pagination a:focus {
       color: #FF8888;}
-  .digg_pagination .page_info {
-    color: white;
-    padding: 0.4em 0;
-    width: 22em;
-    margin-bottom: 0.3em; }
-    .digg_pagination .page_info b {
-      color: #000033;
-      background: #6aa6ed;
-      padding: 0.1em 0.25em; }
-  .digg_pagination:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden; }
-  * html .digg_pagination {
-    height: 1%; }
-  *:first-child + html .digg_pagination {
-    overflow: hidden; }
+

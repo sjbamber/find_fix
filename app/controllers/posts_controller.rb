@@ -79,9 +79,10 @@ class PostsController < ApplicationController
   def show
 
     @post = Post.find_by_id(params[:id])
-    @solutions = Solution.where(:post_id => params[:id])
+    @solutions = @post.solutions
     @solution = Solution.new
     @comment = Comment.new
+    @vote = Vote.new
 
   end 
   

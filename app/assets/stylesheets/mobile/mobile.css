@@ -202,6 +202,12 @@ img.page_logo {
 	
 	/* comments */
 	
+	.comment {
+		text-align: left;
+		padding: 5px;
+		border-bottom: 1px dotted #aaaaaa;
+	}
+	
 	.highlight {
 		color: #ff8888;
 	}

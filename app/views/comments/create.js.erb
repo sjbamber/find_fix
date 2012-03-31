@@ -1,0 +1,6 @@
+$('<%= escape_javascript( render @comment, :post_id => @this_id )%>')
+  .appendTo('.comments_<%=@post_type%><%=@this_id%>')
+  .hide()
+  .fadeIn('slow');
+  
+show_dialog("#comment_success", 'Comment posted successfully');

@@ -1,0 +1,11 @@
+<div id="comment<%=comment.id%>" class="comment">
+  	<table><tr>
+  	  <td class="comment_col">	
+	  	<p><%= comment.comment %></p>
+	  	<span class="highlight"><%= comment.user ? comment.user.username + " - " : "anonymous - " %><%= comment.updated_at.strftime("#{comment.updated_at.day.ordinalize} %b %y at %l:%M%P") %></span>
+	  </td>
+	  <td class="vote_col">	
+		<%= show_voting(comment, post_id) %>
+	  </td>
+	</tr></table>
+</div>

@@ -1,3 +1,5 @@
+<!-- Comment Form -->
+<% if is_logged_in %>
 <div class="collapsible_button" data-role="collapsible" data-collapsed="true">
   	<h3>Comment on this post</h3>
   	<%= form_for(@comment, :validate => true, :url => {:controller => 'comments', :action => 'create', :id => post.id, :problem_id => @post.id, :post_type => post.class }) do |f| %>
@@ -5,3 +7,4 @@
 	    <%= f.text_field(:comment, "data-theme" => "d") %>
 	<% end %>
 </div>
+<% end %>

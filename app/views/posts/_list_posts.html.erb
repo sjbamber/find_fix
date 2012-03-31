@@ -1,4 +1,14 @@
 <div class="post list">
+<% if params[:controller] == "posts" %>
+	<div class="pagination">
+	    <div class="page_info">
+	      <%= page_entries_info posts, :model => "Problem", :html => false  %>
+	    </div>
+	    <%= will_paginate posts, :container => false %>
+	</div>
+	<span class="loadingScreen"></span>
+<% end %>
+<br />
 <table class="listing" summary="Post list">
     <% posts.each_with_index do |post, i| %>
     <tr class="<%= cycle('odd', 'even') %>">
@@ -57,4 +67,15 @@
     </tr>
     <% end %>
 </table>
+
+<% if params[:controller] == "posts" && posts.count > 10 %>
+	<div class="pagination">
+	    <div class="page_info">
+	      <%= page_entries_info posts, :model => "Problem", :html => false  %>
+	    </div>
+	    <%= will_paginate posts, :container => false %>
+	</div>
+	<span class="loadingScreen"></span>
+<% end %>
+	<br />
 </div>

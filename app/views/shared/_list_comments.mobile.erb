@@ -1,9 +1,0 @@
-<% unless comments == [] %>
-<h3>Comments</h3>	  
-    <% comments.each do |comment| %>
-      <p>
-      	<%= comment.comment %> - 
-      	<span class="highlight"><%= comment.user ? comment.user.username + " - " : "anonymous - " %><%= comment.updated_at.strftime("#{comment.updated_at.day.ordinalize} %b %y at %l:%M%P") %></span>
-	  </p>
-	<% end %>
-<% end %>

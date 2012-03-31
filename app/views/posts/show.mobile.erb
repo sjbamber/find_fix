@@ -5,19 +5,17 @@
 <!-- Show Post -->
 <%= render(:partial => 'posts/show_post', :locals => {:post => @post}) %>
 <hr /><br />
-<!-- Solution List -->
-<%= render(:partial => 'posts/show_solutions', :locals => {:solutions => @solutions, :post => @post}) %>  
+
+<!-- Solution List --> 
+<h2>There <%= @solutions.length == 1 ? 'is' : 'are'%> <%= pluralize(@solutions.length, "Fix")%> posted for this Problem</h2>
+<div class="solutions">
+	<%= render @solutions, :post => @post %>
+</div>
 
 <!-- New Solution Form -->
 <% if is_logged_in %>
-  	<%= form_for(@solution, :validate => true, :url => {:controller => 'solutions', :action => 'create', :id => @post.id}) do |f| %>
-	    <%= error_messages_for(@errors) %>
-	        <%= f.label("Post a new fix to this problem") %>
-	        <%= f.text_area(:description, "data-theme" => "d", :class => "new_fix_textbox") %>
-	      <%= submit_tag("Submit Fix") %>
-
-	<% end %>
-
+<%= error_messages_for(@errors) %>
+<%= render(:partial => 'solutions/form', :locals => {:solution => @solution, :post => @post}) %>
 <% else %>
-<p>To submit a new fix, post a comment or vote please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
+<br /><p>To submit a new fix, post a comment or vote please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>
 <% end %>

@@ -7,28 +7,57 @@ class VotesController < ApplicationController
     @vote = Vote.new
     if params[:problem_id] &&  params[:vote_type] && params[:post_type]
       vote_exists = false
-      vote_type = VoteType.find_by_name(params[:vote_type])
-      @vote.vote_type = vote_type
+      author_vote = false
+      @post_type = params[:post_type].to_s.downcase
+      @post_id = params[:id]
+      
+      votetype = VoteType.find_by_name(params[:vote_type])
+      @vote.vote_type = votetype
       @vote.user_id = session[:user_id]
       if params[:post_type] == "Post"
-        @vote.post_id = params[:id]
+        @vote.post = Post.find_by_id(params[:id])
+        @vote_object = @vote.post
         vote_exists = true unless Vote.where("post_id=#{params[:id]} AND user_id=#{session[:user_id]}").blank?
+        author_vote = true if @vote.user_id == @vote.post.user_id
       elsif params[:post_type] == "Solution"
-        @vote.solution_id = params[:id]
+        @vote.solution = Solution.find_by_id(params[:id])
+        @vote_object = @vote.solution
         vote_exists = true unless Vote.where("solution_id=#{params[:id]} AND user_id=#{session[:user_id]}").blank?
+        author_vote = true if @vote.user_id == @vote.solution.user_id
       elsif params[:post_type] == "Comment"
-        @vote.comment_id = params[:id]
+        @vote.comment = Comment.find_by_id(params[:id])
+        @vote_object = @vote.comment
         vote_exists = true unless Vote.where("comment_id=#{params[:id]} AND user_id=#{session[:user_id]}").blank?
+        author_vote = true if @vote.user_id == @vote.comment.user_id
       else
         @vote = Vote.new
       end
-      if !vote_exists && @vote.save
-        flash[:notice] = "Vote Successful"
-        redirect_to(:controller => 'posts', :action => 'show', :id => params[:problem_id])
+      if !vote_exists && !author_vote && @vote.save
+        respond_to do |format|
+          format.html { 
+            flash[:notice] = "Vote Successful"
+            redirect_to(:controller => 'posts', :action => 'show', :id => params[:problem_id])
+          }
+          format.js {
+            @vote_failed = false
+            @notice = "Vote Successful"           
+          }
+        end
       else  
-        flash[:notice] = "Vote Failed"
-        flash[:notice] += ". You have already voted on this #{params[:post_type].to_s.downcase!}" if vote_exists
-        redirect_to(:controller => 'posts', :action => 'show', :id => params[:problem_id])
+        respond_to do |format|
+          format.html { 
+            flash[:notice] = "Vote Failed"
+            flash[:notice] += ". You have already voted on this #{@post_type}" if vote_exists
+            flash[:notice] += ". You cannot vote on a #{@post_type} that you created." if author_vote
+            redirect_to(:controller => 'posts', :action => 'show', :id => params[:problem_id])
+          }
+          format.js {
+            @vote_failed = true
+            @notice = "Vote Failed"
+            @notice += ". You have already voted on this #{@post_type}" if vote_exists
+            @notice += ". You cannot vote on a #{@post_type} that you created." if author_vote
+          }
+        end
       end
     else
       flash[:notice] = "An error occured"

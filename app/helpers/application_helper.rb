@@ -8,10 +8,6 @@ module ApplicationHelper
     render(:partial => 'shared/errors_to_display', :locals => {:object => object})    
   end
   
-  def list_posts( posts )
-    render(:partial => 'shared/list_posts', :locals => {:posts => posts})    
-  end  
-  
   def solution_count(post)
     return Solution.count(:conditions => ["post_id = ?", post.id])
   end
@@ -46,6 +42,10 @@ module ApplicationHelper
     return votecount
   end
   
+  def show_voting(post, problem_id)
+      render(:partial => 'votes/vote', :locals => {:post => post, :problem_id => problem_id})
+  end  
+  
   def is_logged_in
     session[:user_id] ? true : false
   end
@@ -58,28 +58,8 @@ module ApplicationHelper
     params[:controller] == "posts" && params[:action] == "list" ? true : false
   end
   
-  def get_comments(post)
-    # Get comments for post
-    if post.class == Post
-        comments = Comment.where(["post_id = ?", post.id])
-    elsif post.class == Solution
-        comments = Comment.where(["solution_id = ?", post.id])
-    else
-        comments = nil
-    end
-    return comments
-  end  
-  
-  def show_comments(post)
-    # Get comments for post
-    comments = get_comments(post)
-    render(:partial => 'shared/list_comments', :locals => {:comments => comments})
-  end
-  
-  def show_comment_form(post)
-    if is_logged_in
-      render(:partial => 'shared/comment_form', :locals => {:post => post, :post_type => post.class})
-    end
+  def show_comment_form(post, problem_id)
+    render(:partial => 'comments/form', :locals => {:post => post, :post_type => post.class, :problem_id => problem_id})
   end
   
   def get_tag_occurences (tag)

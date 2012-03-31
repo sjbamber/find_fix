@@ -1,9 +1,7 @@
-<h2>There <%= solutions.length == 1 ? 'is' : 'are'%> <%= pluralize(solutions.length, "Fix")%> posted for this Problem</h2>
-<br />
-<% solutions.each_with_index do |solution, i| %>
+<div id="solution<%= solution.id %>" class="solution">
   <table><tr>
 	<td>
-     <%= show_score(solution, post.id) %>
+     <%= show_voting(solution, post.id) %>
     </td>
     <td>
     <div class="show_post">
@@ -12,7 +10,7 @@
       	<p><%= solution.description %></p> 
       	<br />   
 	    <div class="post_footer">
-	      Submitted by <%= solution.user ? solution.user.username : 'Unknown' %> <%= time_ago_in_words(solution.updated_at.to_time) %>
+	      Submitted by <%= solution.user ? solution.user.username : 'Unknown' %> <%= time_ago_in_words(solution.updated_at.to_time) %> ago
 	      	<table><tr>
 	          <td><%= link_to("Edit this solution", {:action => 'edit', :id => solution.id}, :class => 'solution_edit') if is_admin %></td>
 	          <td><%= link_to("Delete this solution", {:action => 'delete', :id => solution.id}, :class => 'solution_delete') if is_admin %></td>
@@ -21,9 +19,14 @@
       </div>
       
     </div>
-    <%= show_comments(solution) %>
-    <%= show_comment_form(solution) %> 
+    <div class="comments comments_<%=solution.class%><%=solution.id%>">
+    	<% unless solution.comments.size == 0 %> 
+	    	<strong>Comments:</strong>	
+	    	<%= render solution.comments, :post_id => solution.id   %>
+	    <% end %>
+    </div>
+    <%= show_comment_form(solution, post.id) %>
    </td>
    </tr></table>
-<br /><hr /><br />
-<% end %>
+   <br /><hr /><br />
+</div>

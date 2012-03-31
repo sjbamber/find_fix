@@ -1,0 +1,15 @@
+<script>
+confirm_submit("#vote_positive_confirm", ".vote_positive");
+confirm_submit("#vote_negative_confirm", ".vote_negative");
+</script>
+<div id="vote_positive_confirm" title="Submit Positive Vote" style="display: none;">Do you wish to submit a positive vote for this <%= post.class.to_s.downcase %>?</div>
+<div id="vote_negative_confirm" title="Submit Negative Vote" style="display: none;">Do you wish to submit a negative vote for this <%= post.class.to_s.downcase %>?</div>
+<div id="vote_notification" title="Vote Notification" style="display: none;"></div>
+
+<div class="score">
+	  <% tiptext = get_vote_tiptext(post) %>
+      <p class="score_text">Score </p>
+      <%= button_to("&#10004".html_safe, {:controller => 'votes', :action => 'create', :id => post.id, :vote_type => "positive", :problem_id => problem_id, :post_type => post.class}, :remote => true, :class => "tooltip vote_positive", "data-tooltip" => tiptext['positive']) if is_logged_in %>
+      <span class="score_value" id="score_<%=post.class.to_s.downcase%><%=post.id%>"><%= vote_count(post) %></span>   
+      <%= button_to("&#10008".html_safe, {:controller => 'votes', :action => 'create', :id => post.id, :vote_type => "negative", :problem_id => problem_id, :post_type => post.class}, :remote => true, :class => "tooltip vote_negative", "data-tooltip" => tiptext['negative']) if is_logged_in %>
+</div>
