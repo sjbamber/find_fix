@@ -2,8 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* Detailed View of a problem post */
-.list_details b {background: #fff191; color: #000000;}
+
 .listing { margin: 10px 0 10px 0; }
+.snippet { padding: 10px; font-size: 14px; line-height: 130%; }
+.snippet b { background: #4C2516;}
 
 .show_post { width: 600px; }
 .show_post h2 { border-bottom: 1px solid #9a3329; }

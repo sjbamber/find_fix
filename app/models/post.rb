@@ -48,23 +48,43 @@ class Post < ActiveRecord::Base
   end
   
   tankit index do
+  # Index values for search purposes
     indexes :title
     indexes :description
-    indexes :list_error_messages
-    indexes :list_categories
-    indexes :list_tags
-    indexes :list_solutions
-    indexes :list_comments
+    # index nested values
+    indexes :error_message_descriptions do
+      error_messages.map {|error_message| error_message.description }
+    end
+    indexes :category_names do
+      categories.map {|category| category.name }
+    end
+    indexes :tag_names do
+      tags.map {|tag| tag.name }
+    end
+    indexes :solution_descriptions do
+      solutions.map {|solution| solution.description }
+    end
+    indexes :post_comments do
+      comments.map {|comment| comment.comment }
+    end
+    indexes :solutions_comments do
+      # Gets a list of all comments on nested solutions, reject is required to remove blank array elements generated
+      solutions.map {|solution| solution.comments.map {|comment| comment.comment}}.reject{ |c| c.empty? }
+    end
+    
+    # Index values for display purposes
+    indexes :updated_at
+    indexes :user_id
     
     # Variables available in scoring function
     variables do
       {
+        0 => solutions.count, # number of solutions in a post
+        1 => comments.count   # number of comments in a post
       }
     end
     
-    # Scoring functions that can be
-    # referenced in your queries. 
-    # They're always referenced by their integer key:
+    # Scoring functions
     functions do
       {
         0 => 'relevance',
@@ -78,50 +98,5 @@ class Post < ActiveRecord::Base
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes
   
-  # Process nested attributes into a flat string for use in the search index
-  def list_error_messages
-    list = ""
-    error_messages.each do |e|
-      list += e.description + " "
-    end
-    return list.strip
-  end
-
-  def list_categories
-    list = ""
-    categories.each do |c|
-      list += c.name + " "
-    end
-    return list.strip
-  end
-
-  def list_tags
-    list = ""
-    tags.each do |t|
-      list += t.name + " "
-    end
-    return list.strip
-  end
-  
-  def list_solutions
-    list = ""
-    solutions.each do |s|
-      list += s.description + " "
-    end
-    return list.strip
-  end
-  
-  def list_comments
-    list = ""
-    comments.each do |pc|
-      list += pc.comment + " "
-    end
-    solutions.each do |s|
-      s.comments.each do |sc|
-          list += sc.comment + " "
-      end
-    end
-    return list.strip
-  end
   
 end

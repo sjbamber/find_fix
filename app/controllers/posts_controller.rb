@@ -11,11 +11,17 @@ class PostsController < ApplicationController
   end
   
   def search
-    if params[:query]
-      # @posts = Post.sorted.search(params[:query])
-      # @posts = @posts.paginate(:page => params[:page]) 
-      @posts = Post.search_tank("#{params[:query].strip}*", :page => params[:page], :per_page => 10)
-      @snippets = Post.search_tank("#{params[:query].strip}*", :snippets => [:title, :description], :page => params[:page], :per_page => 10)
+    if params[:query] && !params[:query].blank? # Check a query has been sent
+      q = params[:query].split.join(" ") # Set the query to a variable and remove leading and trailing whitespace between words
+      q = q.sub( " ", "* " ) # Add wildcard characters after each word
+      
+      # Define search string that queries only listed attributes of the index and weights them accordingly using ^(weight)
+      search_string = "title:(#{q}*) OR description:(#{q}*) OR error_message_descriptions:(#{q}*)"\
+                      " OR category_names:(#{q}*) OR tag_names:(#{q}*)"\
+                      " OR solution_descriptions:(#{q}*) OR post_comments:(#{q}*) OR solutions_comments:(#{q}*)"
+                      
+      @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
+                                  :fetch => [:title, :updated_at, :user_id], :page => params[:page], :function => 0)
       @content_header = "Search Results for query: #{params[:query].strip}"
     else
       @content_header = "Search Results for query: "
@@ -26,51 +32,25 @@ class PostsController < ApplicationController
   
   def list
     case
-      
-    when params[:category_id]
+    
+    when params[:category_id] && !params[:category_id].blank? 
+      # Search on the category specified and any child categories if there are any.
       category = Category.find_by_id(params[:category_id])
-      @content_header = "Problems for Category: #{category.name}"
-      categories = []
-      unless category.blank?
-        categories << category
-        #ancestors = category.ancestors
-        children = category.children        
-        # unless ancestors.blank?
-          # ancestors.each do |c|
-            # categories << c
-          # end
-        # end
-        unless children.blank?
-          children.each do |c|
-            categories << c
-          end
-        end        
-      end
-      
-      if categories.blank? 
-        @posts = [].paginate(:page => params[:page])
-      else  
-        @posts = []
-        categories.each do |c|
-          unless c.posts.blank?
-            c.posts.each do |post|
-              @posts << post
-            end
-          end
+      search_categories = category.name.to_s
+      children = category.children
+      unless children.blank?
+        children.each do |child|
+          search_categories += " OR #{child.name}"
         end
-        @posts = @posts.paginate(:page => params[:page])
       end
+      @content_header = "Problems for Category: #{category.name.to_s}"
+      @posts = Post.search_tank("category_names:(#{search_categories}*)", :page => params[:page], :function => 1)
+       
+    when params[:tag_name] && !params[:tag_name].blank?
+      @content_header = "Problems for Tag: #{params[:tag_name].strip}"
+      @posts = Post.search_tank("tag_names:(#{params[:tag_name].strip}*)", :page => params[:page], :function => 1)
       
-    when params[:tag_id]
-      tag = Tag.find_by_id(params[:tag_id])
-      if tag.blank? 
-        @posts = [].paginate(:page => params[:page])
-      else  
-        @posts = tag.posts.paginate(:page => params[:page])
-      end
-      @content_header = "Problems for Tag: #{tag.name}"
     else
-      # @posts = Post.order("posts.updated_at DESC").where(:post_type => 0)
       @posts = Post.paginate(:page => params[:page]).order("posts.updated_at DESC")
       @content_header = "All Problems"
     end

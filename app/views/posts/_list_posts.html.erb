@@ -17,14 +17,18 @@
       	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id }, :class => "list_title") %><br />
       	
       	<table>
-      		<%= "<tr><td colspan='2'> #{@snippets[i].description_snippet} </td></tr>".html_safe if params[:action] == 'search' %>
+      		<% if params[:query] && !params[:query].blank? %>
+			    <% snippeted_attributes = post.description_snippet.to_s + " " + post.error_message_descriptions_snippet.to_s + " " + \
+			     post.solution_descriptions_snippet.to_s + " " + post.post_comments_snippet.to_s + " " + post.solutions_comments_snippet.to_s %>
+	      		<%= "<tr><td class=\"snippet\" colspan='2'>#{snippeted_attributes}</td></tr>".html_safe %>
+	        <% end %>
       		<tr>
       			<td width="200px">Created by: <%= post.user ? post.user.username : 'Unknown' %></td>
       				
       			<td>
       			  Categories:
-      			  <% post.categories.each do |category| %>
-		      	  	<span><%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}, :class => "list_tags") %></span>
+      			  <% post.post_categories.each do |post_category| %>
+		      	  	<span><%= link_to(post_category.category.name, {:controller => 'posts', :action => 'list', :category_id => post_category.category_id}, :class => "list_tags") %></span>
 		      	  <% end %>
 		      	</td>
       		</tr>
@@ -32,8 +36,8 @@
       			<td>Last updated: <%= time_ago_in_words(post.updated_at.to_time) %> ago</td>
       			<td>
       			  Tags:
-		      	  <% post.tags.each do |tag| %>
-      	  			<span><%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}, :class => "list_tags") %></span>
+		      	  <% post.post_tags.each do |post_tag| %>
+      	  			<span><%= link_to(post_tag.tag.name, {:controller => 'posts', :action => 'list', :tag_name => post_tag.tag.name}, :class => "list_tags") %></span>
       	  		  <% end %>
 		        </td>
       		</tr>

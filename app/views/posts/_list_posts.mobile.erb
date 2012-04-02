@@ -13,7 +13,11 @@
 
       	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id }, 'data-role' => 'button', "data-icon" => "arrow-r") %>
       	<div class="<%= cycle('odd', 'even') %>">
-      	  <%= "<p>#{@snippets[i].description_snippet} </p>".html_safe if params[:action] == 'search' %>  	
+      		<% if params[:query] && !params[:query].blank? %>
+			    <% snippeted_attributes = post.description_snippet.to_s + " " + post.error_message_descriptions_snippet.to_s + " " + \
+			     post.solution_descriptions_snippet.to_s + " " + post.post_comments_snippet.to_s + " " + post.solutions_comments_snippet.to_s %>
+	      		<%= "<p class=\"snippet\">#{snippeted_attributes}</p>".html_safe %>
+	        <% end %>
       	  
     	  <p class="center">  				
 		  Categories:

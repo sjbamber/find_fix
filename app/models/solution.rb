@@ -7,4 +7,13 @@ class Solution < ActiveRecord::Base
   
   validates_presence_of :description
   
+  # define the callbacks to update the index upon saving and deleting records
+  after_save :update_post_index
+  after_destroy :update_post_index
+  
+  private
+  
+  def update_post_index
+    Tanker.batch_update([post])
+  end
 end

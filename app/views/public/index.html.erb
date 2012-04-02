@@ -60,7 +60,7 @@
     <ul> 
     <% @tags.each do |tag| %>      
       <li>
-      	<%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}) %>
+      	<%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_name => tag.name}) %>
       	<span>x<%= get_tag_occurences(tag) %></span>
       </li>       
     <% end %>
