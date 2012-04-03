@@ -4,7 +4,7 @@
 
 
 <div class="post new">
-  <%= form_for(@post, :validate => true, :url => {:action => 'create'}) do |f| %>
+  <%= nested_form_for(@post, :validate => true, :url => {:action => 'create'}) do |f| %>
   
     <%= render(:partial => "form", :locals => {:f => f}) %>
     

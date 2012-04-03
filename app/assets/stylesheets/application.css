@@ -123,7 +123,7 @@ a.action:hover { background: #eeeeee; color: #6c241c;}
   padding: 1px 2px; margin: 2px 10px; font-size: 0.7em; }
 
 /* Forms */
-form { width: 640px; margin: 0 auto 0 auto; }
+form { width: 660px; margin: 0 auto 0 auto; }
 .form-input input { height: 25px; }
 .form-input textarea { font-family: Verdana,Lucida,Arial,Helvetica,sans-serif;}
 .form-input select { height: 30px; }

@@ -1,40 +1,50 @@
 <span class="required">*</span> indicates a required field<br /><br />
 <%= error_messages_for(@errors) %>
 	
-    <div class="form-input">
+<div class="form-input">
+  
+	  <div class="form-field">
+	    <%= f.label(:title) %><span class="required">*</span> 
+	    <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter a brief one line summary of the problem you are having here") %>
+	    <%= f.text_field(:title) %>
+	  </div>
 	  
-      <div class="form-field">
-        <%= f.label(:title) %><span class="required">*</span>
-        <%= f.text_field(:title) %>
-      </div>
-      
-      <div class="form-field">
-        <%= f.label(:description) %><span class="required">*</span>
-        <%= f.text_area(:description, :size => "600x10") %>
-      </div>
-      
-      <% 1.times { @post.error_messages.build } if @post.error_messages.blank? %>
-      <div class="form-field">
-        <%= label(:error_messages, :description, "Error Message(s)") %> 
-        <%= f.fields_for :error_messages do |e| %>   
-		      <%= e.text_field :description %>
-  		<% end %>
-      </div>
-      
-      <% 1.times { @post.categories.build } if @post.categories.blank? %>
-      <div class="form-field">
-        <%= label(:categories, :name, "Categories") %><span class="required">*</span>
-        <%= f.fields_for :categories do |c| %>
+	  <div class="form-field">
+	    <%= f.label(:description) %><span class="required">*</span>
+	    <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter as much detail as you can about the problem you are having here") %>
+	    <%= f.text_area(:description, :size => "600x10") %>
+	  </div>
+	  
+	  <div class="form-field">
+	    <%= label(:error_messages, :description, "Error Message(s)") %><span class="required">*</span> 	    
+			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter any error messages you recieve here. You can add multiple error messages by clicking the button below. Click the cross beside the field to remove it if required") %>	    
+		<%= f.fields_for :error_messages do |e| %>
+			<%= e.text_field :description %>
+			<%= e.link_to_remove "X", :class => "tooltip error_remove", "data-tooltip" => "Click to remove this field"%>
+		<% end %>
+			
+		<p><%= f.link_to_add "Add another error message", :error_messages %></p>
+	  </div>
+	  
+	  <div class="form-field">
+	    <%= label(:categories, :name, "Categories") %><span class="required">*</span>
+	    			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Select a category here that is most relevant to your problem. You can add multiple categories by clicking the button below. Click the cross beside the field to remove it if required") %>
+	    <%= f.fields_for :categories do |c| %>
 			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --'}) %>
-	    <% end %>
-      </div>
-      
-      <% 1.times { @post.tags.build } if @post.tags.blank? %>
-      <div class="form-field">
-        <%= label(:tags, :name, "Custom Tags") %><span class="required">*</span>
-        <%= f.fields_for :tags do |t| %>
-		      <%= t.text_field :name %>
-  		<% end %>
-      </div>
-     
-    </div>
+			<%= c.link_to_remove "X", :class => "tooltip category_remove", "data-tooltip" => "Click to remove this field" %>
+		<% end %>
+		<p><%= f.link_to_add "Add another category", :categories %></p>
+	  </div>
+	  
+	  <div class="form-field">
+	    <%= label(:tags, :name, "Custom Tags") %><span class="required">*</span>
+	    			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter any keywords here that summarise your problem. You can add multiple tags by clicking the button below. Click the cross beside the field to remove it if required") %>
+		<%= f.fields_for :tags do |t| %>	
+			<%= t.text_field :name %>
+			<%= t.link_to_remove "X", :class => "tooltip tag_remove", "data-tooltip" => "Click to remove this field" %>
+		<% end %>
+ 		<p><%= f.link_to_add "Add another tag", :tags %></p>
+	  </div>
+	  
+  
+</div>

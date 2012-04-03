@@ -16,6 +16,7 @@
 //= require_directory .
 //= require rails.validations
 //= require jquery.qtip
+//= require jquery_nested_form
 
 // Function to toggle visibility of a section using a link
 function toggle_section(section, link, state1, state2)
@@ -97,7 +98,7 @@ $(document).ready(function()
             return $(this).data('tooltip');
         },
 		style: {
-			width: 200,
+			width: 290,
 			border: 0,
 			classes: "ui-tooltip-tipsy"
 		},
@@ -108,4 +109,16 @@ $(document).ready(function()
             adjust: { x: -5, y: -5 }
         }
     });
+});
+
+$(document).ready(function()
+{
+	$(function() {
+		$('.fields .error_remove:first').css('display', 'none');
+		$('.fields .category_remove:first').css('display', 'none');
+		$('.fields .tag_remove:first').css('display', 'none');
+		$( "a.add_nested_fields", ".new" ).button();
+		$( "input:submit", ".form-buttons" ).button();
+		$( "input:submit", ".comment_form" ).button();
+	});
 });

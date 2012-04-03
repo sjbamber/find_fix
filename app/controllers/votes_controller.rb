@@ -35,7 +35,7 @@ class VotesController < ApplicationController
       if !vote_exists && !author_vote && @vote.save
         respond_to do |format|
           format.html { 
-            flash[:notice] = "Vote Successful"
+            flash[:notice] = "#{params[:post_type].to_s} Vote Successful"
             redirect_to(:controller => 'posts', :action => 'show', :id => params[:problem_id])
           }
           format.js {

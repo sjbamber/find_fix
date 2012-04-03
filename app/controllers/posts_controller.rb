@@ -69,9 +69,11 @@ class PostsController < ApplicationController
   def new
     
     @post = Post.new
-    # Create a list of categories to appear in the category
-    @category_options = Category.all
-    
+    # Create a list of categories to appear in the category drop down
+    @category_options = Category.sort_by_ancestry(Category.all)
+    @post.error_messages.build
+    @post.categories.build
+    @post.tags.build      
   end
   
   def create
@@ -107,6 +109,9 @@ class PostsController < ApplicationController
       @post.error_messages.each_with_index do |error_message, i|; @post.error_messages[i].id = nil; end
       @post.categories.each_with_index do |category, i|; @post.categories[i].id = nil; end
       @post.tags.each_with_index do |tag, i|; @post.tags[i].id = nil; end
+      @post.error_messages.build if @post.error_messages.blank?
+      @post.categories.build if @post.categories.blank?
+      @post.tags.build if @post.tags.blank?
       # Render the view again
       @category_options = Category.all
       render('new')

@@ -1,24 +1,83 @@
-// Place all the styles related to the posts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-/* Detailed View of a problem post */
+/* Styles relating post views */
 
-.listing { margin: 10px 0 10px 0; }
-.snippet { padding: 10px; font-size: 14px; line-height: 130%; }
-.snippet b { background: #4C2516;}
+/* New */
+.form-field p{
+  padding:0;
+}
 
-.show_post { width: 600px; }
-.show_post h2 { border-bottom: 1px solid #9a3329; }
-.show_post li { margin-left: 20px; }
-.show_post div { padding-bottom: 5px; }
+.add_nested_fields span.ui-button-text{
+  padding: 1px 5px 1px 5px;
+  width: 250px;
+}
+.fields input, .fields select{
+  margin: 2px 0 2px 0;
+}
+.remove_nested_fields{
+  text-decoration:none;
+  font-size:20px; 
+  display: inline;
+}
 
-.show_post div.post_display { padding: 15px 20px 15px 20px; }
-.post_display { background:#666666; font-size: 16px; line-height: 22px; text-align:justify; white-space: pre-line; margin-top: 10px; 
-  margin-bottom: 10px;  border-bottom: 1px solid #1c1c1c; border-right: 1px solid #1c1c1c; }
-div.post_footer { font-size: 14px; line-height: 18px; text-align:justify; padding:0; }
-.post_footer ul { padding:0; list-style-type:square;}
-.score { text-align:center; width: 40px; padding: 5px; }
-.score span { font-size: 18px; display:block; padding: 5px 0 5px 0;}
+/* List and Search */
+.listing { 
+  margin: 10px 0 10px 0; 
+}
+.snippet { 
+  padding: 10px; 
+  font-size: 14px; 
+  line-height: 130%; 
+}
+.snippet b { 
+  background: #4C2516;
+}
+
+/* Show */
+.show_post {
+  width: 600px; 
+}
+.show_post h2 { 
+  border-bottom: 1px solid #9a3329; 
+}
+.show_post li { 
+  margin-left: 20px; 
+}
+.show_post div { 
+  padding-bottom: 5px; 
+}
+.show_post div.post_display { 
+  padding: 15px 20px 15px 20px; 
+}
+.post_display { 
+  background:#666666; 
+  font-size: 16px; 
+  line-height: 22px; 
+  text-align:justify; 
+  white-space: pre-line; 
+  margin-top: 10px; 
+  margin-bottom: 10px;  
+  border-bottom: 1px solid #1c1c1c; 
+  border-right: 1px solid #1c1c1c; 
+}
+div.post_footer { 
+  font-size: 14px; 
+  line-height: 18px; 
+  text-align:justify; 
+  padding:0; 
+}
+.post_footer ul { 
+  padding:0; 
+  list-style-type:square;
+}
+.score { 
+  text-align:center; 
+  width: 40px; 
+  padding: 5px; 
+}
+.score span { 
+  font-size: 18px; 
+  display:block; 
+  padding: 5px 0 5px 0;
+}
 .score form {width:40px;}
 .score input {width: 30px; background: #666666; border: 1px solid #000; color: #eeeeee;}
 
@@ -41,7 +100,7 @@ input.vote_negative { color: #CC0000; }
 
 .comment_form form { width: 100%; margin:0;}
 .comment_form .message { display:block; }
-input#comment_comment { width: 500px; }
+input#comment_comment { width: 500px; height: 28px; font-size: 16px;}
 
 /* Pagination Styling from http://mislav.uniqpath.com/will_paginate/ */
 .pagination {
@@ -65,4 +124,3 @@ input#comment_comment { width: 500px; }
     color: #eeeeee; }
     .pagination a:hover, .pagination a:focus {
       color: #FF8888;}
-

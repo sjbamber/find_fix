@@ -1,6 +1,6 @@
 <% @page_title = "New Problem" %>
 <% @content_header = "Post a New Problem" %>
-<%= form_for(@post, :validate => true, :url => {:action => 'create'}) do |f| %>
+<%= nested_form_for(@post, :validate => true, :url => {:action => 'create'}) do |f| %>
   
 <span class="required">*</span> indicates a required field<br /><br />
 <%= error_messages_for(@errors) %>
@@ -12,29 +12,28 @@
         <%= f.label(:description) %>
         <%= f.text_area(:description, :size => "600x10", "placeholder" => "Enter a Description", "data-theme" => "d") %>
 
-      
-      <% 1.times { @post.error_messages.build } if @post.error_messages.blank? %>
-
         <%= label(:error_messages, :description, "Error Message(s)") %> 
         <%= f.fields_for :error_messages do |e| %>   
 		      <%= e.text_field :description , "placeholder" => "Enter an Error Message", "data-theme" => "d"%>
+		      <%= e.link_to_remove "X", :class => "tooltip", "data-tooltip" => "Click to remove this field"%>
   		<% end %>
+  		<p><%= f.link_to_add "Add another error message", :error_messages %></p>
 
-      
-      <% 1.times { @post.categories.build } if @post.categories.blank? %>
 		<span class="required">*</span>
         <%= label(:categories, :name, "Categories") %>
         <%= f.fields_for :categories do |c| %>
 			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-Select a Category-'}, "data-theme" => "d") %>
+			<%= c.link_to_remove "X" %>
 	    <% end %>
-
-      
-      <% 1.times { @post.tags.build } if @post.tags.blank? %>
+		<p><%= f.link_to_add "Add another category", :categories %></p>
+		
 		<span class="required">*</span>
         <%= label(:tags, :name, "Custom Tags") %>
         <%= f.fields_for :tags do |t| %>
-		      <%= t.text_field :name, "placeholder" => "Enter a keyword to tag the problem", "data-theme" => "d" %>
+		      <%= t.text_field :name, "placeholder" => "Enter a keyword / tag", "data-theme" => "d" %>
+		      <%= t.link_to_remove "X" %>
   		<% end %>
+  		<%= f.link_to_add "Add another tag", :tags %>
     
     <%= submit_tag("Submit Post") %>
     

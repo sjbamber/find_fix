@@ -1,0 +1,6 @@
+<%= f.fields_for :categories do |c| %>
+	<div>
+		<%= link_to("Remove", "#delete", :class => "delete-category") %>
+		<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --'}) %>
+	</div>
+<% end %>

@@ -5,7 +5,7 @@
 
 <div class="post new">
 
-  <%= form_for(@post, :validate => true, :url => {:action => 'update', :id => @post.id}) do |f| %>
+  <%= nested_form_for(@post, :validate => true, :url => {:action => 'update', :id => @post.id}) do |f| %>
   
 	<%= render(:partial => "form", :locals => {:f => f}) %>
     

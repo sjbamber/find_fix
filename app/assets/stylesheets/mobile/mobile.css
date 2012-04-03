@@ -164,6 +164,26 @@ img.page_logo {
 		height: 150px;
 }
 
+#new_post .fields input, #new_post .fields select{
+  width: 85%;
+  display: inline;
+}
+.remove_nested_fields{
+  display: inline;
+  width: 15%;
+  text-decoration:none;
+  font-size: 1.2em; 
+}
+
+#new_post p {
+  padding:0;
+}
+
+.add_nested_fields{
+  display: block;
+  margin-bottom: 1em;
+}
+
 /* Show Post Screen */
 
 	.show_post .small-text {

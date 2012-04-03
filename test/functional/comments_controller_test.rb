@@ -6,8 +6,10 @@ fixtures :posts, :solutions, :comments, :users
 
   def setup
     @user = users(:alice)
-    @solution = solutions(:solution1)
     @problem = posts(:problem1)
+    @solution = solutions(:solution1)
+    @solution.post = @problem
+    @solution.save
     @comment = comments(:comment1)
   end
   
@@ -28,15 +30,27 @@ fixtures :posts, :solutions, :comments, :users
     assert_template 'posts/show'
     assert_equal "Errors prevented the comment from saving" , flash[:notice]
   end  
-  
-  test "post valid comment to create" do  
-    post :create, { :id => @solution.id, :problem_id => @problem.id, :post_type => 'Solution', :comment => { :comment => "test comment" } }, { :user_id => @user.id }
+
+  test "post valid post comment to create" do  
+    post :create, { :id => @problem.id, :problem_id => @problem.id, :post_type => @problem.class, :comment => { :comment => "test comment" } }, { :user_id => @user.id }
     assert_equal "Comment Submitted Successfully", flash[:notice]
     assert_redirected_to :controller => "posts", :action => "show", :id => @problem.id
   end
   
-  test "post invalid comment to create" do
-    post :create, { :id => @solution.id, :problem_id => @problem.id, :post_type => 'Solution', :comment => { :comment => "" } }, { :user_id => @user.id }
+  test "post valid solution comment to create" do  
+    post :create, { :id => @solution.id, :problem_id => @problem.id, :post_type => @solution.class, :comment => { :comment => "test comment" } }, { :user_id => @user.id }
+    assert_equal "Comment Submitted Successfully", flash[:notice]
+    assert_redirected_to :controller => "posts", :action => "show", :id => @problem.id
+  end
+
+  test "post invalid post comment to create" do
+    post :create, { :id => @problem.id, :problem_id => @problem.id, :post_type => @problem.class, :comment => { :comment => "" } }, { :user_id => @user.id }
+    assert_template 'posts/show'
+    assert_equal "Errors prevented the comment from saving" , flash[:notice]
+  end
+  
+  test "post invalid solution comment to create" do
+    post :create, { :id => @solution.id, :problem_id => @problem.id, :post_type => @solution.class, :comment => { :comment => "" } }, { :user_id => @user.id }
     assert_template 'posts/show'
     assert_equal "Errors prevented the comment from saving" , flash[:notice]
   end

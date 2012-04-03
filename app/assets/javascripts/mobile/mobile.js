@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require jquery.mobile
 //= require rails.validations
+//= require jquery_nested_form
 //= require_directory .
 
 // Displays an information dialog containing content in dialog_id

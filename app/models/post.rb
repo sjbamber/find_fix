@@ -20,9 +20,12 @@ class Post < ActiveRecord::Base
   
   # Accept nested attributes, enables nested assignment using fields for
   # :reject_if => lambda {|a| a[:name].blank?} # ignores blank entries
-  accepts_nested_attributes_for :tags, :categories, :reject_if => lambda {|a| a[:name].blank?}
-  accepts_nested_attributes_for :error_messages, :reject_if => lambda {|a| a[:description].blank?}
+  accepts_nested_attributes_for :tags, :reject_if => lambda {|a| a[:name].blank?}, :allow_destroy => true
+  accepts_nested_attributes_for :categories, :reject_if => lambda {|a| a[:name].blank?}, :allow_destroy => true
+  accepts_nested_attributes_for :error_messages, :reject_if => lambda {|a| a[:description].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :comments, :votes
+  # The generated nested attributes are required for mass assignment
+  attr_accessible :title, :description, :error_messages_attributes, :categories_attributes, :tags_attributes
 
   # Validation
   validates_presence_of :title, :description
@@ -32,6 +35,8 @@ class Post < ActiveRecord::Base
   validates_presence_of :categories, :if => :validate_nested
   # Perform associated validation on nested attribute models
   validates_associated :tags, :categories, :error_messages
+  # Checks if the limit of nested attributes has been exceeded
+  validate :maximum_nested_attributes
   
   # Sets pagination value for listed posts
   self.per_page = 10
@@ -97,6 +102,21 @@ class Post < ActiveRecord::Base
   # define the callbacks to update or delete the index upon saving and deleting records
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes
+  
+  private
+
+  # Validation methods for nested attributes
+  def maximum_nested_attributes
+    if self.categories.size > 5
+      self.errors.add(:base, "A problem can only contain a maximum of 4 categories")
+    end
+    if self.error_messages.size > 4
+      self.errors.add(:base, "A problem can only contain a maximum of 4 error messages")
+    end
+    if self.tags.size > 5
+      self.errors.add(:base, "A problem can only contain a maximum of 5 tags")
+    end        
+  end
   
   
 end

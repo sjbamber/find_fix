@@ -7,3 +7,7 @@
 problem1:
   title: Control Panel Applet cannot be loaded
   description: Control Panel Applet cannot be loaded. Help!
+
+problem2:
+  title: Cannot see start menu
+  description: My start menu has disappeared

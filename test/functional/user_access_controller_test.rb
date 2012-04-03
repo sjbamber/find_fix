@@ -75,7 +75,7 @@ fixtures :users
   test "test login of standard user is successful with correct username and password" do
     alice = users(:alice)
     post :process_login, :username => alice.username, :password => 'password'
-    assert_redirected_to :controller => "posts", :action => "index"
+    assert_redirected_to :controller => "public", :action => "index"
     assert_equal "You are now logged in" , flash[:notice]
     assert_equal alice.id, session[:user_id]
   end

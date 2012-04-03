@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   
   # Checks that an id is passed in params
   def confirm_params_id
-    if params[:controller] == "solutions" || params[:controller] == "comments"
+    if params[:controller] == "solutions" || params[:controller] == "comments" || params[:controller] == "votes"
       params[:id] ? true : redirect_to(:controller => 'posts', :action => 'list'); false
     else
       params[:id] ? true : redirect_to(:action => 'list'); false

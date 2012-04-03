@@ -11,26 +11,32 @@
 
 	 <div class="form-field">
         <%= f.label(:name, "Name") %>
+        <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter your name here. This information is entirely optional and used only for display purposes") %>
         <%= f.text_field(:name) %>
      </div>
 	 <div class="form-field">
         <%= f.label(:email, "Email Address") %><span class="required">*</span>
+        <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter your email address here. The email must be valid e.g. mail@findfix.com") %>
         <%= f.text_field(:email) %>
      </div>
 	 <div class="form-field">
         <%= f.label(:email_confirmation, "Confirm Email Address") %><span class="required">*</span>
+        <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Re-enter the email entered above to confirm its correctness") %>        
         <%= f.text_field(:email_confirmation) %>
      </div>
 	 <div class="form-field">
         <%= f.label(:username) %><span class="required">*</span>
+        <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter a username to identify yourself in the future. Usernames must be between 6 and 25 characters") %>        
         <%= f.text_field(:username) %>
      </div>
 	 <div class="form-field">
         <%= f.label(:password) %><span class="required">*</span>
+        <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter a password for your account to identify yourself in the future. Passwords must be between 8 and 25 characters") %>        
         <%= f.password_field(:password) %>
      </div>
 	 <div class="form-field">
         <%= f.label(:password_confirmation, "Confirm Password") %><span class="required">*</span>
+        <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Re-enter the password entered above to confirm its correctness") %>        
         <%= f.password_field(:password_confirmation) %>
      </div>   
         

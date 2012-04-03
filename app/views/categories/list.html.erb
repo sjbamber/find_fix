@@ -2,10 +2,14 @@
 <% @content_header = "Categories"%>
 
 <div class="category list">
+<div>
+    <div clas="page_info">
+      <%= page_entries_info @categories %>
+    </div>
+    <%= will_paginate @categories, :container => false %>
+</div>
   
   <%= link_to("Add New Category", {:action => 'new'}, :class => 'action new') if is_admin %>
-  
-  <div><%= pluralize(@categories.size, 'category')%> found</div><br />
 
   <table class="listing" summary="Category list">
     <tr class="header">
@@ -26,11 +30,11 @@
     </tr>
     <% end %>
   </table>
-</div>
 
-<div class="digg_pagination">
+<div>
     <div clas="page_info">
       <%= page_entries_info @categories %>
     </div>
     <%= will_paginate @categories, :container => false %>
+</div>
 </div>

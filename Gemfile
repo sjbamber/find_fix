@@ -54,6 +54,8 @@ gem 'tanker'
 # Deploy to Heroku (Hosting)
 gem 'heroku'
 
+gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
+
 group :production do
   gem 'thin'
 end

@@ -14,18 +14,52 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     @problem.tags << tags(:tag2)
   end
 
-## Test actions index, list and show
+## Test action index
  
   test "index renders list" do
     get :index
     assert_template :list
   end
   
+## Test action search
+
+  test "search renders list" do
+    get :search
+    assert_response :success
+    assert_template :list
+    assert assigns(:posts).blank?
+  end
+  
+  test "get search with blank query" do
+    get :search, {:query => ""}
+    assert_response :success
+    assert_template :list
+    assert assigns(:posts).blank?
+  end
+  
+  test "get search with query to return no results" do
+    get :search, {:query => "lksjdhxbzj jsajdaw"}
+    assert_response :success
+    assert_template :list
+    assert assigns(:posts).blank?, "query 'lksjdhxbzj jsajdaw' should return no results"
+  end
+  
+  test "get search with query to return results" do
+    get :search, {:query => "test"}
+    assert_response :success
+    assert_template :list
+    assert assigns(:posts).size > 0, "query 'test' should return results"
+  end  
+  
+## Test action list
+  
   test "get list" do
     get :list
     assert_response :success
     assert_template :list
   end
+  
+## Test action show
 
   test "get show without id" do
     get :show
