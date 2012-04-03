@@ -1,4 +1,4 @@
 $('#score_<%=@post_type%><%=@post_id%>').replaceWith('<span class="score_value"><%= vote_count(@vote_object) %></span>');
-$('<span><%= @notice %></span>').appendTo('#vote_notification');
 
+$('#vote_notification').text('<%= @notice %>');
 show_dialog('#vote_notification', '<%= @notice %>');
