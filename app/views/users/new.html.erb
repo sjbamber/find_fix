@@ -26,7 +26,7 @@
      </div>
 	 <div class="form-field">
         <%= f.label(:username) %><span class="required">*</span>
-        <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter a username to identify yourself in the future. Usernames must be between 6 and 25 characters") %>        
+        <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter a username to identify yourself in the future. Usernames must be between 6 and 25 characters, they must start with a letter (upper or lower case a-z) and can contain letters, numbers, underscores  _  or full stops  . ") %>        
         <%= f.text_field(:username) %>
      </div>
 	 <div class="form-field">
@@ -61,9 +61,9 @@ Enter your name here. This is entirely optional</p>
 Enter your email address here. An email is required and must be in the correct format e.g. mail@findfix.com.  You are also required to confirm your email address.</p>
 
 <p><b>Username:</b><br />
-Enter a username to identify yourself in the future. Usernames must be between 6 and 25 characters.</p>
+Enter a username to identify yourself in the future. Usernames must be between 6 and 25 characters, they must start with a letter (upper or lower case a-z) and can contain letters, numbers, underscores ( _ ) or full stops ( . )</p>
 
 <p><b>Password:</b><br />
 Enter a password for your account to identify yourself in the future. Passwords must be between 8 and 25 characters.  You are also required to confirm your password. 
-It is recommended that you use a strong password including upper and lowercase characters and numbers.</p>
+It is recommended that you use a strong password including upper and lowercase characters, numbers and special characters (e.g.  ?><@).</p>
 <% end %>

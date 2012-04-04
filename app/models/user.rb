@@ -13,14 +13,18 @@ class User < ActiveRecord::Base
   before_save :create_hashed_password
   after_save :clear_password
   
+  # Call back to downcase and remove leading and trailing whitespace
+  before_validation :downcase_email, :downcase_username, :strip_name
+  
   # Class instance variable that is not a database attribute, used to store user supplied password
   attr_accessor :password
   
   REGEX_EMAIL = /^[a-zA-Z]([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*@([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*\.[a-zA-Z]*\.?[a-zA-Z]+$/
+  REGEX_USERNAME = /^[A-Za-z][A-Za-z0-9._]*$/
 
   # New validate method
   validates :name, :length => { :maximum => 60 }
-  validates :username, :presence => true, :length => { :within => 6..25 }, :uniqueness => true
+  validates :username, :presence => true, :length => { :within => 6..25 }, :format => REGEX_USERNAME, :uniqueness => true
   validates :email, :presence => true, :length => { :maximum => 100 }, :format => REGEX_EMAIL, :uniqueness => true
   
   # Only perform this validation on create to allow other attributes to be updated
@@ -71,5 +75,18 @@ class User < ActiveRecord::Base
     # for security reasons and for updates to other fields hashing is not needed
     self.password = nil
   end  
+  
+  def downcase_email
+    self.email = self.email.downcase.strip if self.email.present?
+    self.email_confirmation = self.email_confirmation.downcase.strip if self.email_confirmation.present?
+  end
+
+  def downcase_username
+    self.username = self.username.downcase.strip if self.username.present?
+  end
+  
+  def strip_name
+    self.name = self.name.strip if self.name.present?
+  end
   
 end
