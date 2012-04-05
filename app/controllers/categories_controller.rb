@@ -4,16 +4,19 @@ class CategoriesController < ApplicationController
   before_filter :confirm_admin_role, :except => [:index, :list, :show]
   before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete, :destroy]
   
+  # Render list as the default category view
   def index
     list
     render('list')
   end
   
+  # list all categories sorted by their ancestry
   def list
     #get_category_list
     @categories = Category.sort_by_ancestry(Category.all).paginate(:page => params[:page], :per_page => 10)
   end
   
+  # Sets up the show view to show a detailed category view
   def show
     @category = Category.find(params[:id])
     if @category.parent_id
@@ -23,12 +26,14 @@ class CategoriesController < ApplicationController
     end
   end
   
+  # Sets up the new category view
   def new   
     @category = Category.new    # Instantiate new category to be added
     # Create a list of categories to appear in the parent category field including a no parent option
     @category_options = Category.all.unshift( Category.new( :name => "No Parent" ) )
   end
   
+  # Processes the data submitted from the new category form
   def create
     begin
       # Instantiate a new object using form parameters
@@ -57,12 +62,14 @@ class CategoriesController < ApplicationController
     
   end
   
+  # Sets up the edit category view
   def edit    
     @category = Category.find(params[:id])  # Find the category to be updated      
     # Create a list of categories to appear in the parent category field including a no parent option
     @category_options = Category.all.unshift( Category.new( :name => "No Parent" ) )
   end
   
+  # Processes the data submitted from the edit category form
   def update
     begin
       # Find object using form parameters
@@ -97,10 +104,12 @@ class CategoriesController < ApplicationController
     end   
   end
   
+  # Sets up data for delete category view
   def delete
     @category = Category.find(params[:id])
   end
   
+  # Permanently destroys a category with id given
   def destroy
     Category.find(params[:id]).destroy
     flash[:notice] = "Category Deleted"

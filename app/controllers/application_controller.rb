@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   
   protected
   
+  # BEFORE FILTER - Confirms that a user is logged in
   def confirm_logged_in
     unless session[:user_id]
       flash[:notice] = "Please log in."
@@ -15,6 +16,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # BEFORE FILTER - Confirms that a user is logged out
   def confirm_logged_out
     if session[:user_id]
       flash[:notice] = "You are already logged in"
@@ -25,6 +27,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # BEFORE FILTER - Confirms that a user is an admin
   def confirm_admin_role
     unless session[:role] == 2
       flash[:notice] = "You are not permitted to access the requested page."
@@ -35,6 +38,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # BEFORE FILTER - Confirms that a user is an admin OR they are logged out
   def confirm_admin_or_logged_out
     unless session[:role] == 2 || !session[:user_id]
       flash[:notice] = "You are not permitted to access the requested page."
@@ -45,7 +49,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # Checks that an id is passed in params
+  # BEFORE FILTER - Confirms that an id has been passed in params (i.e. GET or POST)
   def confirm_params_id
     if params[:controller] == "solutions" || params[:controller] == "comments" || params[:controller] == "votes"
       params[:id] ? true : redirect_to(:controller => 'posts', :action => 'list'); false

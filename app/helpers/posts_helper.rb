@@ -1,5 +1,6 @@
 module PostsHelper
   
+  # Defines the text used for tooltips on the voting buttons
   def get_vote_tiptext(post)
     tiptext = { 'positive' => "", 'negative' => "" }
     if post.class == Post

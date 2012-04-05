@@ -5,11 +5,13 @@ class PostsController < ApplicationController
   before_filter :confirm_admin_role, :only => [:edit, :update, :delete, :destroy]
   before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete, :destroy]
   
+  # Renders the list view as the default post view
   def index
     list
     render('list')
   end
   
+  # Performs the search by processing the query received in GET and using it in the 'search_tank' method to retrieve matching posts
   def search
     if params[:query] && !params[:query].blank? # Check a query has been sent
       q = params[:query].split.join(" ") # Set the query to a variable and remove leading and trailing whitespace between words
@@ -17,11 +19,11 @@ class PostsController < ApplicationController
       
       # Define search string that queries only listed attributes of the index and weights them accordingly using ^(weight)
       search_string = "title:(#{q}*) OR description:(#{q}*) OR error_message_descriptions:(#{q}*)"\
-                      " OR category_names:(#{q}*) OR tag_names:(#{q}*)"\
-                      " OR solution_descriptions:(#{q}*) OR post_comments:(#{q}*) OR solutions_comments:(#{q}*)"
+      " OR category_names:(#{q}*) OR tag_names:(#{q}*)"\
+      " OR solution_descriptions:(#{q}*) OR post_comments:(#{q}*) OR solutions_comments:(#{q}*)"
                       
       @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
-                                  :fetch => [:title, :updated_at, :user_id], :page => params[:page], :function => 0)
+      :fetch => [:title, :updated_at, :user_id], :page => params[:page], :function => 0)
       @content_header = "Search Results for query: #{params[:query].strip}"
     else
       @content_header = "Search Results for query: "
@@ -30,6 +32,7 @@ class PostsController < ApplicationController
     render('list')
   end
   
+  # lists all posts
   def list
     case
     
@@ -56,6 +59,7 @@ class PostsController < ApplicationController
     end
   end
   
+  # Sets up the show view to show a detailed post view
   def show
 
     @post = Post.find_by_id(params[:id])
@@ -66,6 +70,7 @@ class PostsController < ApplicationController
 
   end 
   
+  # Sets up the new post view for creating a new problem
   def new
     
     @post = Post.new
@@ -76,6 +81,7 @@ class PostsController < ApplicationController
     @post.tags.build      
   end
   
+  # Processes the data submitted from the new problem form
   def create
     begin
       # Create a new post object from the form data
@@ -118,11 +124,13 @@ class PostsController < ApplicationController
     end
   end
   
+  # Sets up the edit post view
   def edit
     @post = Post.find_by_id(params[:id])
     @category_options = Category.all
   end
   
+  # Processes the data submitted from the edit problem form
   def update
     begin
       # Create a new post object from the form data
@@ -158,10 +166,12 @@ class PostsController < ApplicationController
     end    
   end
   
+  # Sets up data for delete post view
   def delete
     @post = Post.find(params[:id])
   end
   
+  # Permanently destroys a post with id given
   def destroy
     pe = PostErrorMessage.find_by_post_id(params[:id])
     pe.destroy if pe

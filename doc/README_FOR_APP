@@ -1,2 +1,9 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+<b>Ruby on Rails application - Find Fix</b>
+
+Find Fix is a wiki style application that enables users to post 'problems' which in turn can have 'solutions' and 'comments' posted to this.  Existing posts can be searched using a full-text search
+
+The live application is located here: http://find-fix.com
+
+
+<b>Search</b> - 
+The search facility uses the hosted search service 'Searchify IndexTank' (http://www.searchify.com/) and the 'Tanker' gem (https://github.com/kidpollo/) to interact with the IndexTank API.  The post model is indexed including the attributes title and description and nested attributes error messages, tags, categories, solutions and comments.  Query results matched with the index and are ranked using a scoring function to sort by relevance.  Returned results come with a snippet of text that highlights words found in the index.
