@@ -19,7 +19,7 @@ class UserAccessController < ApplicationController
   
   def process_login
     # Carries out the login procedure
-    if permitted_user = User.authenticate(params[:username].strip, params[:password].strip)
+    if permitted_user = User.authenticate(params[:username].downcase.strip, params[:password].downcase.strip)
       # Set the user to be logged in
       session[:user_id] = permitted_user.id
       session[:username] = permitted_user.username
