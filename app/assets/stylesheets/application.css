@@ -285,7 +285,7 @@ a.access{
 	padding: 7px 10px 5px 10px; 
 	margin: 0 0 0 10px; 
 	display:inline-block; 
-	width: 90px; 
+	width: 100px; 
 	height: 20px;
   	background: #4c2516; 
   	color: #eeeeee; 
@@ -310,16 +310,15 @@ a.navigation {
 	padding: 0 10px 0 10px;
   	position: relative; 
   	top: 10px; 
-  	text-shadow: 1px 1px #000000;
+  	text-shadow: none;
 }
 a.navigation:hover, a.nav_selected {
 	background: #eeeeee; 
 	color: #6c241c; 
 	text-decoration: none; 
-	text-shadow: none;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
-	border: 1px solid #000; 
+	text-shadow: none;
 }
 .login_status { 
 	color: #eeeeee; 
