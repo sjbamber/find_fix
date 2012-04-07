@@ -78,49 +78,99 @@ div.post_footer {
   display:block; 
   padding: 5px 0 5px 0;
 }
-.score form {width:40px;}
-.score input {width: 30px; background: #666666; border: 1px solid #000; color: #eeeeee;}
+.score form {
+  width:40px;
+}
+.score input {
+  width: 30px; 
+  background: #666666; 
+  border: 1px solid #000; 
+  color: #eeeeee;
+}
 
-input.vote_positive { color: #00CC00; }
-input.vote_negative { color: #CC0000; }
+input.vote_positive { 
+  color: #00CC00; 
+}
+input.vote_negative { 
+  color: #CC0000; 
+}
 
-.comments { margin-top: 5px; }
-.comment {padding: 5px 0 5px 0; border-bottom: 1px dotted #aaaaaa; }
+.comments { 
+  margin-top: 5px; 
+}
+.comment {
+  padding: 5px 0 5px 0; 
+  border-bottom: 1px dotted #aaaaaa; 
+}
 .comment .score p, .comment .score form, .comment .score form div, .comment .score span {
   display:inline-block;
 }
-.comment table { width: 100%; }
-.comment_col { width: 79%; padding:0; }
-.comment_col p {padding:0; white-space: pre-wrap; }
-.vote_col {width: 21%; padding:0;}
-.comment .score { display:inline; }
-.comment .score p.score_text { display: none; }
-.comment .score span.score_value { font-size: 14px; }
-.comment .score .vote_positive, .comment .score .vote_negative { background: none; border:0; }
+.comment table { 
+  width: 100%; 
+}
+.comment_col { 
+  width: 79%; 
+  padding:0; 
+}
+.comment_col p {
+  padding:0; 
+  white-space: pre-wrap; 
+}
+.vote_col {
+  width: 21%; 
+  padding:0;
+}
+.comment .score { 
+  display:inline; 
+}
+.comment .score p.score_text { 
+  display: none; 
+}
+.comment .score span.score_value { 
+  font-size: 14px; 
+}
+.comment .score .vote_positive, .comment .score .vote_negative { 
+  background: none; 
+  border:0; 
+}
 
-.comment_form form { width: 100%; margin:0;}
-.comment_form .message { display:block; }
-input#comment_comment { width: 500px; height: 28px; font-size: 16px;}
+.comment_form form { 
+  width: 100%; margin:0;
+}
+.comment_form .message { 
+  display:block; 
+}
+input#comment_comment { 
+  width: 500px; 
+  height: 28px; 
+  font-size: 16px;
+}
 
 /* Pagination Styling from http://mislav.uniqpath.com/will_paginate/ */
 .pagination {
   cursor: default;
-  /* self-clearing method: */ }
-  .pagination a, .pagination span, .pagination em {
-    padding: 0.2em 0.5em;
-    display: block;
-    float: left;
-    margin-right: 1px; }
-  .pagination .disabled {
-    color: #999999; }
-  .pagination .current {
-    font-style: normal;
-    font-weight: bold;
-    background: #DD5555;
-    color: white;
-    border: 1px solid #FF0000; }
-  .pagination a {
-    text-decoration: none;
-    color: #eeeeee; }
-    .pagination a:hover, .pagination a:focus {
-      color: #FF8888;}
+  /* self-clearing method: */ 
+}
+.pagination a, .pagination span, .pagination em {
+  padding: 0.2em 0.5em;
+  display: block;
+  float: left;
+  margin-right: 1px; 
+}
+.pagination .disabled {
+  color: #999999; 
+}
+.pagination .current {
+  font-style: normal;
+  font-weight: bold;
+  background: #DD5555;
+  color: white;
+  border: 1px solid #FF0000; 
+}
+.pagination a {
+  text-decoration: none;
+  color: #eeeeee; 
+}
+.pagination a:hover, .pagination a:focus {
+  color: #FF8888;
+}

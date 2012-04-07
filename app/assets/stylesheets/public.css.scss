@@ -1,23 +1,75 @@
 // Place all the styles related to the Public controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#information { margin-bottom: 30px; font-size: 14px; line-height: 22px; text-align:justify;}
+#information { 
+  margin-bottom: 30px; 
+  font-size: 14px; 
+  line-height: 22px; 
+}
 
-.categories {padding-bottom: 20px;}
-.categories div {height: 20px;}
-.categories a {color: #f88; text-decoration: none;}
-.categories a:hover {color: #eee;}
-.categories ul {list-style: none;}
-div.category0{margin-top:10px;} 
-div.category1{margin-left:10px;} 
-div.category2{margin-left:20px;}
+.categories {
+  padding-bottom: 20px;
+}
+.categories div {
+  height: 20px;
+}
+.categories a {
+  color: #f88; 
+  text-decoration: none;
+}
+.categories a:hover {
+  color: #eee;
+}
+.categories ul {
+  list-style: none;
+}
+div.category0{
+  margin-top:10px;
+} 
+div.category1{
+  margin-left:10px;
+} 
+div.category2{
+  margin-left:20px;
+}
 
-.button_spacer { display: inline-block; width: 9px; height: 9px; margin-right: 2px;}
-a.toggle_button {text-decoration: none; background: #fff; color: #000; line-height: 9px; font-size: 9px; text-align: center; font-weight: bold;}
-a.toggle_button:hover {color: #000;}
+.button_spacer { 
+  display: inline-block; 
+  width: 9px; 
+  height: 9px; 
+  margin-right: 2px;
+}
+a.toggle_button {
+  text-decoration: none; 
+  background: #fff; 
+  color: #000; 
+  line-height: 9px; 
+  font-size: 9px; 
+  text-align: center; 
+  font-weight: bold;
+}
+a.toggle_button:hover {
+  color: #000;
+}
 
-.tags ul {list-style: none;}
-.tags li {padding:0; margin-bottom:10px;}
-.tags a {display: inline-block; width: 140px; color: #f88; text-decoration: none; text-align: left;}
-.tags a:hover {color: #eee;}
-.tags span { float:right; padding-right: 5px;}
+.tags ul {
+  list-style: none;
+}
+.tags li {
+  padding:0; 
+  margin-bottom:10px;
+}
+.tags a {
+  display: inline-block; 
+  width: 140px; 
+  color: #f88; 
+  text-decoration: none; 
+  text-align: left;
+}
+.tags a:hover {
+  color: #eee;
+}
+.tags span { 
+  float:right; 
+  padding-right: 5px;
+}

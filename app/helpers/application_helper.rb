@@ -77,4 +77,13 @@ module ApplicationHelper
     return PostTag.count(:conditions => ["tag_id = ?", tag.id])
   end  
   
+  # Return true if the supplied controller and action match the current controller and action
+  def this_page_is(controller, action)
+    if params[:controller] == controller && params[:action] == action
+      return true
+    else
+      return false
+    end
+  end
+  
 end
