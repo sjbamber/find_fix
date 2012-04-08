@@ -121,4 +121,7 @@ $(document).ready(function()
 		$( "input:submit", ".form-buttons" ).button();
 		$( "input:submit", ".comment_form" ).button();
 	});
+	confirm_submit("#vote_positive_confirm", ".vote_positive");
+	confirm_submit("#vote_negative_confirm", ".vote_negative");
+	confirm_submit("#comment_confirm", ".comment_submit");
 });
