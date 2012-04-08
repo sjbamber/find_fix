@@ -61,13 +61,16 @@ class PostsController < ApplicationController
   
   # Sets up the show view to show a detailed post view
   def show
-
     @post = Post.find_by_id(params[:id])
-    @solutions = @post.solutions
-    @solution = Solution.new
-    @comment = Comment.new
-    @vote = Vote.new
-
+    if @post == nil
+      flash[:notice] = "Cannot find requested post. It may have been removed."
+      redirect_to(:action => 'list')
+    else
+      @solutions = @post.solutions
+      @solution = Solution.new
+      @comment = Comment.new
+      @vote = Vote.new
+    end
   end 
   
   # Sets up the new post view for creating a new problem

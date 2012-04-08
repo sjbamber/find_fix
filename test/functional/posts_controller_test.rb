@@ -72,6 +72,12 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     assert_template :show
   end
   
+  test "get show with an invalid problem id" do
+    get :show, {:id => 700}
+    assert_redirected_to :controller => "posts", :action => "list"
+    assert_equal "Cannot find requested post. It may have been removed." , flash[:notice]
+  end  
+  
 ## Test action new
 
   test "should not get new when logged out" do
