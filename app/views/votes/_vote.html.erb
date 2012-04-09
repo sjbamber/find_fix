@@ -1,3 +1,8 @@
+<script>
+confirm_submit("#vote_positive_confirm", ".vote_positive");
+confirm_submit("#vote_negative_confirm", ".vote_negative");
+</script>
+
 <div id="vote_positive_confirm" title="Submit Positive Vote" style="display: none;">Do you wish to submit a positive vote for this <%= post.class.to_s.downcase %>?</div>
 <div id="vote_negative_confirm" title="Submit Negative Vote" style="display: none;">Do you wish to submit a negative vote for this <%= post.class.to_s.downcase %>?</div>
 <div id="vote_notification" title="Vote Notification" style="display: none;"></div>

@@ -116,7 +116,6 @@ class Post < ActiveRecord::Base
     if self.tags.size > 5
       self.errors.add(:base, "A problem can only contain a maximum of 5 tags")
     end        
-  end
-  
+  end 
   
 end

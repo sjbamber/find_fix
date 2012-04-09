@@ -18,12 +18,20 @@
 //= require jquery.qtip
 //= require jquery_nested_form
 
+// Load nicEdit
+bkLib.onDomLoaded(function() {
+	new nicEditor({buttonList : [
+		'bold','italic','underline','ul','ol','strikeThrough','html','fontSize','image','upload',
+		'link','unlink','removeformat','indent','outdent','hr','left','center','right','justify'
+	]}).panelInstance('find_fix_textarea');
+});
+
 // Function to toggle visibility of a section using a link
 function toggle_section(section, link, state1, state2)
 {
     $(section).toggle(300, 'linear');
-	$(link).text($(link).text() == state1 ? state2 : state1);
-	return false;
+$(link).text($(link).text() == state1 ? state2 : state1);
+return false;
 }
 
 // Displays a dialog box containing the information in dialog_id upon pressing submit_id
@@ -97,13 +105,13 @@ $(document).ready(function()
         content: function(){
             return $(this).data('tooltip');
         },
-		style: {
-			width: 290,
-			border: 0,
-			classes: "ui-tooltip-tipsy"
-		},
+style: {
+width: 290,
+border: 0,
+classes: "ui-tooltip-tipsy"
+},
         position: {
-            corner: {   target: 'rightMiddle',
+            corner: { target: 'rightMiddle',
                         tooltip: 'leftMiddle'
                     },
             adjust: { x: -5, y: -5 }
@@ -121,7 +129,4 @@ $(document).ready(function()
 		$( "input:submit", ".form-buttons" ).button();
 		$( "input:submit", ".comment_form" ).button();
 	});
-	confirm_submit("#vote_positive_confirm", ".vote_positive");
-	confirm_submit("#vote_negative_confirm", ".vote_negative");
-	confirm_submit("#comment_confirm", ".comment_submit");
 });

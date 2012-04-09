@@ -12,14 +12,14 @@
 	  <div class="form-field">
 	    <%= f.label(:description) %><span class="required">*</span>
 	    <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter as much detail as you can about the problem you are having here") %>
-	    <%= f.text_area(:description, :size => "600x10") %>
+	    <div class="textarea_background"><%= f.text_area(:description, :size => "600x10", :validate => false, :id => 'find_fix_textarea') %></div>
 	  </div>
 	  
 	  <div class="form-field">
-	    <%= label(:error_messages, :description, "Error Message(s)") %><span class="required">*</span> 	    
+	    <%= label(:error_messages, :description, "Error Message(s)") %>	    
 			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter any error messages you recieve here. You can add multiple error messages by clicking the button below. Click the cross beside the field to remove it if required") %>	    
 		<%= f.fields_for :error_messages do |e| %>
-			<%= e.text_field :description %>
+			<%= e.text_field :description, :validate => false %>
 			<%= e.link_to_remove "X", :class => "tooltip error_remove", "data-tooltip" => "Click to remove this field"%>
 		<% end %>
 			

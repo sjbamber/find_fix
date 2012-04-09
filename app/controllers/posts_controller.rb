@@ -89,6 +89,7 @@ class PostsController < ApplicationController
     begin
       # Create a new post object from the form data
       @post = Post.new(params[:post])
+      @post.description = clean_editor_input(@post.description) #process description being entered from custom textarea
       # Associate the author of the post
       @post.user = User.find_by_id(session[:user_id]) if session[:user_id]     
       # Check the errors, categories and tags do not already exist and update the object if they do

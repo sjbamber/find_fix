@@ -42,8 +42,8 @@ _____________________________________________
 		      
 		      <div id="search_bar">
 				<%= form_tag({:controller => 'posts', :action => 'search'}, :method => :get) do %>
-				  <%= text_field_tag(:query, "Search for a fix", :onfocus => "this.value=''; $(this).css('color','#000')", :id => 'search_input') %>
-				  <%= submit_tag("search", :id => 'search_submit') %>
+				  <%= text_field_tag(:query, "", :id => 'search_input') %>
+				  <%= submit_tag("Search", :id => 'search_submit') %>
 				  <div id="delete"><span id="x">x</span></div>
 				<% end %>
 			  </div>

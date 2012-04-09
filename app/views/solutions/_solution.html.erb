@@ -7,7 +7,7 @@
     <div class="show_post">
       <div class="post_display">
       
-      	<p><%= solution.description %></p> 
+      	<p><%= solution.description.html_safe %></p> 
       	<br />   
 	    <div class="post_footer">
 	      Submitted by <%= solution.user ? solution.user.username : 'Unknown' %> <%= time_ago_in_words(solution.updated_at.to_time) %> ago

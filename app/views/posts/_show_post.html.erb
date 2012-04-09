@@ -4,7 +4,7 @@
 		<td>
 			<div class="show_post">
 			    <div class="post_display">
-			      <p><%=h post.description %></p>
+			      <p><%= post.description.html_safe %></p>
 				    <div class="post_footer">
 				      <strong>Error Messages:</strong>
 				      	<ul>

@@ -6,6 +6,7 @@ class SolutionsController < ApplicationController
   def create
     begin   
       @solution = Solution.new(params[:solution])
+      @solution.description = clean_editor_input(@solution.description) #process description being entered from custom textarea
       @solution.user = User.find_by_id(session[:user_id])
       @solution.post = Post.find_by_id(params[:id])
       @solution.save!

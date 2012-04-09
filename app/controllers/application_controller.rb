@@ -1,9 +1,31 @@
 class ApplicationController < ActionController::Base
+  include ActionView::Helpers::SanitizeHelper
+
   protect_from_forgery
   before_filter :prepare_for_mobile
   
   
   protected
+  
+  def clean_editor_input( text ) 
+    if text.strip == "<br>"
+      text = ""
+    end
+    sanitize text, :tags => %w(p div strong em ul ol li u blockquote br sub img a h1 h2 h3 span b), :attributes => %w(id class style)    
+    conversion = {
+        '<br>'=>'<br />',
+        '<b>'=>'<strong>',
+        '</b>'=>'</strong>',
+        '<i>'=>'<em>',
+        '</i>'=>'</em>'
+    }
+    # replace old html elements with new
+    conversion.each do |e|
+        text = text.gsub(e[0], e[1])
+    end
+
+    return text
+  end
   
   # BEFORE FILTER - Confirms that a user is logged in
   def confirm_logged_in

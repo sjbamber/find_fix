@@ -32,8 +32,7 @@ body {
 	height: 100%; 
 	margin: 0; 
 	padding: 0; 
-    font: 14px Verdana,Lucida,Arial,Helvetica,sans-serif; 
-    color: #EEEEEE; 
+    font: 14px Verdana,Lucida,Arial,Helvetica,sans-serif;  
 }
 h2 { 
 	font-size: 20px; 
@@ -105,17 +104,22 @@ a:hover {
 	width: 550px; 
 }
 #search_input {
-	height: 25px; 
-	line-height: 25px; 
-	width: 430px; 
+	text-indent: 10px;
+	height: 30px; 
+	line-height: 30px; 
+	width: 370px; 
 	font-size: 16px; 
-	color: #999999; 
+	color: #000; 
 	padding-left: 5px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	border: 0 none !important;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5) inset;
 }
 #delete { /* Delete button that clears search field */
 	display: inline; 
 	position: relative; 
-	right: 80px; 
+	right: 130px; 
 	font-family: "Lucida Sans", "Lucida Sans Unicode",sans-serif; 
 	font-size:20px; 
 }
@@ -128,21 +132,24 @@ a:hover {
 	color: #F55; 
 }
 #search_submit {
+	color: #EEEEEE;
 	position:relative;
-	top:1px;
-	height: 33px; 
-	line-height: 33px; 
-	width: 50px; 
+	left:3px;
+	height: 30px; 
+	line-height: 30px; 
+	width: 100px; 
 	font-size: 16px; 
-	background: url("ico-search.png") no-repeat #4C2516 center; 
-  	border: 1px solid #000; 
-  	text-indent:-999px;
-  	-moz-border-radius: 10px;
-	border-radius: 10px;
+	background: #4C2516; 
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	border: 0 none !important;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.8);
 }
 
 #search_submit:hover {
-	background: url("ico-search-black.png") no-repeat #EEEEEE center;  
+	background: #EEEEEE;
+	color: #4C2516;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* Bar displaying links below the header */
@@ -219,6 +226,7 @@ a:hover {
 	clear: both; 
 	border-top: 1em solid #4C2516;
   	background: url("footer_background.png") repeat-x #6c241c; 
+  	color: #EEEEEE;
 }
 #footer_content { 
 	color: #EEEEEE; 
@@ -242,6 +250,7 @@ a:hover {
 	height: 100%; 
   	margin: 0 auto -6em; 
   	background: url("background.gif") repeat #1c1c1c; 
+  	color: #EEEEEE;
 }
 #footer, #push { 
 	height: 5em; 
@@ -268,9 +277,6 @@ a:hover {
 .modal_message {
 	background:#BEBEBE;
 }
-.set_height_250px {
-	height: 250px;
-}
 
 /* Links in the top right of the page */
 .access_links {
@@ -282,18 +288,22 @@ a:hover {
 	border-radius: 10px;
 }
 a.access{ 
-	padding: 7px 10px 5px 10px; 
+	padding: 0 10px 0 10px; 
 	margin: 0 0 0 10px; 
 	display:inline-block; 
 	width: 100px; 
-	height: 20px;
+	height: 30px;
+	line-height: 30px;
   	background: #4c2516; 
   	color: #eeeeee; 
   	font-size: 16px; 
   	text-decoration: none;  
   	text-align: center; 
   	text-shadow: 1px 1px #000000;
-  	border: 1px solid #000;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	border: 0 none !important;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.8);
 }
 a.access:hover { 
 	background: #eeeeee;
@@ -372,6 +382,22 @@ form {
 }
 .field_with_errors { /* Client side Validation on forms */
 	display: inline; 
+}
+.textarea_background {
+	width: 600px;
+	background: #FFFFFF;
+	color: #000000;
+	padding: 5px;
+  	-moz-border-radius: 5px;
+	border-radius: 5px;	
+}
+
+.textarea_background a{
+	color: #3333AA;
+}
+
+.textarea_background a:hover{
+	color: #AA3333;
 }
 
 
