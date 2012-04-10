@@ -41,7 +41,7 @@ _____________________________________________
 		      </div>
 		      
 		      <div id="search_bar">
-				<%= form_tag({:controller => 'posts', :action => 'search'}, :method => :get) do %>
+				<%= form_tag({:controller => 'posts', :action => 'search'}, :method => :get, :id => 'search_form') do %>
 				  <%= text_field_tag(:query, "", :id => 'search_input') %>
 				  <%= submit_tag("Search", :id => 'search_submit') %>
 				  <div id="delete"><span id="x">x</span></div>

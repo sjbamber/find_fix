@@ -26,6 +26,14 @@ bkLib.onDomLoaded(function() {
 	]}).panelInstance('find_fix_textarea');
 });
 
+// Load indextank autocomplete
+$(document).ready(function(){
+    // let the form be 'indextank-aware'
+    $("#search_form").indextank_Ize('http://ya1a.api.searchify.com', 'test');
+    // let the query box have autocomplete
+    $("#search_input").indextank_Autocomplete();
+});
+
 // Function to toggle visibility of a section using a link
 function toggle_section(section, link, state1, state2)
 {

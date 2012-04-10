@@ -54,7 +54,7 @@ class Post < ActiveRecord::Base
   
   tankit index do
   # Index values for search purposes
-    indexes :title
+    indexes :title, :indexes => :text
     indexes :description
     # index nested values
     indexes :error_message_descriptions do
@@ -76,6 +76,7 @@ class Post < ActiveRecord::Base
       # Gets a list of all comments on nested solutions, reject is required to remove blank array elements generated
       solutions.map {|solution| solution.comments.map {|comment| comment.comment}}.reject{ |c| c.empty? }
     end
+    indexes :url
     
     # Index values for display purposes
     indexes :updated_at
@@ -116,6 +117,10 @@ class Post < ActiveRecord::Base
     if self.tags.size > 5
       self.errors.add(:base, "A problem can only contain a maximum of 5 tags")
     end        
-  end 
-  
+  end
+    
+  def url
+    return "http://localhost:3000/posts/show/#{self.id}"
+  end
+ 
 end
