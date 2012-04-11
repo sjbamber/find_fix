@@ -6,13 +6,14 @@
 			    <div class="post_display">
 			      <p><%= post.description.html_safe %></p>
 				    <div class="post_footer">
-				      <strong>Error Messages:</strong>
+				      <strong >Error Message(s):</strong>
 				      	<ul>
-				      	<% for error_message in post.error_messages %>
-				      	<li> <%=h error_message.description %></li>
-				      	<% end %> 
+				      		<%= '<li>none</li>'.html_safe if post.error_messages.blank? %>
+					      	<% for error_message in post.error_messages %>
+					      		<li><%=h error_message.description %></li>
+					      	<% end %> 
 				      	</ul>
-				      	<span>Submitted by <%= post.user ? post.user.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</span>
+				      	<p class="highlight right">Submitted by <%= post.user ? post.user.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</p>
 				    </div>
 			    </div>
 			    <div>

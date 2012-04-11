@@ -17,6 +17,7 @@
 //= require rails.validations
 //= require jquery.qtip
 //= require jquery_nested_form
+//= require autocomplete-rails
 
 // Load nicEdit
 bkLib.onDomLoaded(function() {

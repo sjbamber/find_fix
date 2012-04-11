@@ -22,10 +22,11 @@
 <% end %>
 
 <!-- Right Bar -->
-<% @right_header = "Help"%>
-
 <% content_for :right_bar do %>
-<p>Details of the Problem including a summary, error messages(if any), the category the problem falls under and tags the author has fiven to the problem.</p>
-<p>Any suggested fixes are given below. If you are logged in you can suggest a fix of your own in the text box at the bootom of the page.</p>
+<div class="right_bar_feature">
+	<h2>Help</h2>
+	<p>Details of the Problem are shown, with associated comments and fixes appearing below.</p><br />
+	<p>If you are logged in you can vote on a post using the buttons provided, comment on a post or suggest a fix of your own in the text box at the bottom of the page.</p>
+</div>
 <% end %>
   

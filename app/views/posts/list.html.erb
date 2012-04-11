@@ -4,9 +4,12 @@
  	<%= render 'list_posts', :posts => @posts %>
 </div>
 
-<% @right_header = "Help"%>
-
 <% content_for :right_bar do %>
-<p>Click the title of the record to view the problem and suggested solutions in detail.</p>
-<p>If you are logged in you can also suggest a solution of your own.</p>
+<div class="right_bar_feature">
+<h2>Help</h2>
+	<p>Click the title of the record to view the problem and suggested solutions in detail.</p>
+	<% unless is_logged_in %>
+	<p><%= link_to("Login", {:controller => 'user_access', :action => 'login'}) %> to post a fix, comment or vote on a problem.</p>
+	<% end %>
+</div>
 <% end %>

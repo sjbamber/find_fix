@@ -1,71 +1,21 @@
 <% @page_title = "Home"%>
 <% @page_description = "Welcome to Find Fix, a web application that allows you to record, discuss and search IT support problems and solutions." %>
-
-<div id="information">
-<% @content_header = "Welcome"%>
-	<p>
-	Welcome to Find Fix, the web application that allows you to record, discuss and search for IT support problems and fixes. 
-	</p>
-	
-	<p>
-	With Find Fix you can create a record of an IT support problem, saving details such as name, description and 
-	error messages then share or discuss the record with others.  Any user can post a fix for a problem which 
-	can be voted on (once per user) to make good solutions stand out.  To discuss problems or fixes you can post a comment that will appear below each post.
-	</p>
-	
-	<p>
-	You can search for existing problems and fixes using the search bar.  Problems are organised into categories and can be 
-	tagged with relevant keywords to make the search more effective.
-	</p>
-	
-	<p>
-	You can browse or search for <%= link_to("existing problems", {:controller => 'posts', :action => 'list'}) %> at any time.  To post a problem, fix, comment or vote
-	<%= link_to("login", {:controller => 'user_access', :action => 'login'}) %> or  <%= link_to("create an account", {:controller => 'users', :action => 'new'}) %> if 
-	you do not already have one.  Happy Fixing! 
-	</p>
-</div>
-
+<% @content_header = "Recent Problems"%>
 <div id="recent_problems">
-	<h2>Recent Problems</h2>
 	<%= render 'posts/list_posts', :posts => @recent_problems %>
 </div>
 
-<% @right_header = "Categories"%>
 <% content_for :right_bar do %>
+<div class="right_bar_feature">
+<h2>Welcome</h2>
 
-	<div class="categories">
-    <% @categories.each do |category| %>
-    <div class="category<%=category.depth%> category_id_<%=category.parent_id%>"
-    <% unless category.parent_id.blank? %>
-    	style="display:none"
-    <% end %>
-    >
-    
-    <ul>  
-      <li>
-      	<% if category.has_children? %>
-	      	<%= link_to_function '+', "toggle_section('.category_id_#{category.id}','a.toggle_#{category.id}', '+', '-')", :class => "button_spacer toggle_button toggle_#{category.id}" %>
-	    <% else %>
-	    	<span class="button_spacer"></span>
-	    <% end %>
-	      	<%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}) %>
-      </li>
-    </ul>   
-    </div> 
-    <% end %>
-    </div>
-	
-	<div class="tags">
-	<h2>Popular Tags</h2>
-    <ul> 
-    <% @tags.each do |tag| %>      
-      <li>
-      	<%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_name => tag.name}) %>
-      	<span>x<%= get_tag_occurences(tag) %></span>
-      </li>       
-    <% end %>
-    </ul> 
-    </div>
+<p>
+  This is Find Fix, the web application that allows you to record, discuss and search for IT support problems and fixes.
+</p>
+<p class="right"><%= link_to("About Find Fix", {:controller => 'public', :action => 'about'}) %></p>
+</div>
+
 <% end %>
 
-
+<% @hide_categories = false %>
+<% @hide_tags = false %>

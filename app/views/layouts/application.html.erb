@@ -59,8 +59,8 @@ _____________________________________________
 			      <%= link_to("Submit a Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') unless this_page_is('posts', 'new') %>
 			      <%= link_to("Submit a Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts nav_selected') if this_page_is('posts', 'new') %>
 			      <% end %>
-			      <%= link_to("View Problems", {:controller => 'posts'}, :class => 'navigation posts') unless this_page_is('posts', 'list') || this_page_is('posts', 'index') %>
-			      <%= link_to("View Problems", {:controller => 'posts'}, :class => 'navigation posts nav_selected') if this_page_is('posts', 'list') || this_page_is('posts', 'index') %>
+			      <%= link_to("View Problems", {:controller => 'posts'}, :class => 'navigation posts') unless this_page_is('posts', 'list') || this_page_is('posts', 'index') || this_page_is('posts', 'search') %>
+			      <%= link_to("View Problems", {:controller => 'posts'}, :class => 'navigation posts nav_selected') if this_page_is('posts', 'list') || this_page_is('posts', 'index') || this_page_is('posts', 'search') %>
 	      <div class="login_status">
 	    	<% if session[:user_id] %>      	
 	      		You are logged in as: <%= session[:username]%>
@@ -82,10 +82,47 @@ _____________________________________________
 	      <% end %>
 	 		
 		  <div id="right_bar">
-		      <div id="right_bar_content">
-		      	<h2><%= @right_header %></h2>
-		        <%= yield :right_bar %> 	
-		      </div>
+		  	<div id="right_bar_content">
+			  	<%= yield(:right_bar) %>
+				<% unless @hide_categories %>
+					<% get_categories_for_right_bar %>
+				  	<div class="categories">
+						<h2>Categories</h2>
+					    <% @categories.each do |category| %>
+					    <div class="category<%=category.depth%> category_id_<%=category.parent_id%>"
+						    <% unless category.parent_id.blank? %>
+						    	style="display:none"
+						    <% end %>
+						    > 
+						    <ul>  
+						      <li>
+						      	<% if category.has_children? %>
+							      	<%= link_to_function '+', "toggle_section('.category_id_#{category.id}','a.toggle_#{category.id}', '+', '-')", :class => "button_spacer toggle_button toggle_#{category.id}" %>
+							    <% else %>
+							    	<span class="button_spacer"></span>
+							    <% end %>
+							      	<%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}) %>
+						      </li>
+						    </ul>   
+					    </div> 
+					    <% end %>
+				    </div>
+				<% end %>
+				<% unless @hide_tags %>
+					<% get_tags_for_right_bar %>
+					<div class="tags">
+						<h2>Popular Tags</h2>
+					    <ul> 
+					    <% @tags.each do |tag| %>      
+					      <li>
+					      	<%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_name => tag.name}) %>
+					      	<span>x<%= get_tag_occurences(tag) %></span>
+					      </li>       
+					    <% end %>
+					    </ul> 
+				    </div>
+				<% end %>	
+		  	</div>
 		  </div>
 		    
 		    

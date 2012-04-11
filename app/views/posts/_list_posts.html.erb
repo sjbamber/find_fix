@@ -8,7 +8,7 @@
 	</div>
 	<span class="loadingScreen"></span>
 <% end %>
-<br />
+
 <table class="listing" summary="Post list">
     <% posts.each_with_index do |post, i| %>
     <tr class="<%= cycle('odd', 'even') %>">
@@ -20,6 +20,8 @@
       		<% if params[:query] && !params[:query].blank? %>
 			    <% snippeted_attributes = post.description_snippet.to_s + " " + post.error_message_descriptions_snippet.to_s + " " + \
 			     post.solution_descriptions_snippet.to_s + " " + post.post_comments_snippet.to_s + " " + post.solutions_comments_snippet.to_s %>
+			    <% snippeted_attributes = CGI.unescapeHTML(snippeted_attributes) %>
+			    <% snippeted_attributes = sanitize snippeted_attributes, :tags => %w(b strong em u) %>
 	      		<%= "<tr><td class=\"snippet\" colspan='2'>#{snippeted_attributes}</td></tr>".html_safe %>
 	        <% end %>
       		<tr>

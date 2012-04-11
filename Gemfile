@@ -21,7 +21,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# jQuery JavaScript framework including jQuery UI
 gem 'jquery-rails'
+
+# Framework used to create the mobile application
 gem 'jquery_mobile_rails'
 
 # Required for tree structure in Category
@@ -30,11 +33,17 @@ gem 'ancestry'
 # Gem for pagination of form data
 gem 'will_paginate'
 
-# Gem for adding in line client side validation using jquery
+# Gem for adding in line client side validation using jQuery
 gem 'client_side_validations'
 
-# Gem for the search engine Indextank
+# Gem for the search engine IndexTank
 gem 'tanker'
+
+# Gem for AutoComplete of form data from ActiveRecord
+gem 'rails3-jquery-autocomplete'
+
+# Gem to handle dynamically adding nested fields on forms
+gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -53,8 +62,6 @@ gem 'tanker'
 
 # Deploy to Heroku (Hosting)
 gem 'heroku'
-
-gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 
 group :production do
   gem 'thin'

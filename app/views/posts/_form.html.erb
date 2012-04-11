@@ -19,7 +19,7 @@
 	    <%= label(:error_messages, :description, "Error Message(s)") %>	    
 			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter any error messages you recieve here. You can add multiple error messages by clicking the button below. Click the cross beside the field to remove it if required") %>	    
 		<%= f.fields_for :error_messages do |e| %>
-			<%= e.text_field :description, :validate => false %>
+			<%= e.autocomplete_field :description, autocomplete_error_message_description_posts_path, {:validate => false} %>
 			<%= e.link_to_remove "X", :class => "tooltip error_remove", "data-tooltip" => "Click to remove this field"%>
 		<% end %>
 			
@@ -40,7 +40,7 @@
 	    <%= label(:tags, :name, "Custom Tags") %><span class="required">*</span>
 	    			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter any keywords here that summarise your problem. You can add multiple tags by clicking the button below. Click the cross beside the field to remove it if required") %>
 		<%= f.fields_for :tags do |t| %>	
-			<%= t.text_field :name %>
+			<%= t.autocomplete_field :name, autocomplete_tag_name_posts_path %>
 			<%= t.link_to_remove "X", :class => "tooltip tag_remove", "data-tooltip" => "Click to remove this field" %>
 		<% end %>
  		<p><%= f.link_to_add "Add another tag", :tags %></p>

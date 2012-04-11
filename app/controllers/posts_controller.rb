@@ -1,9 +1,15 @@
 class PostsController < ApplicationController
+  # include Tanker module to handle search function
   include Tanker
   
+  # Before Filters to manage access to controller actions
   before_filter :confirm_logged_in, :except => [:index, :list, :show, :search]
   before_filter :confirm_admin_role, :only => [:edit, :update, :delete, :destroy]
   before_filter :confirm_params_id, :only => [:show, :edit, :update, :delete, :destroy]
+  
+  # Set tag name as a field containing jQuery autocomplete, populated by activerecord
+  autocomplete :error_message, :description, :full => true
+  autocomplete :tag, :name, :full => true
   
   # Renders the list view as the default post view
   def index
