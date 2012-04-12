@@ -1,7 +1,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  
+  #Relationships
   has_many :posts
   has_many :solutions
   has_many :votes
@@ -19,10 +19,12 @@ class User < ActiveRecord::Base
   # Class instance variable that is not a database attribute, used to store user supplied password
   attr_accessor :password
   
-  REGEX_EMAIL = /^[a-zA-Z]([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*@([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*\.[a-zA-Z]*\.?[a-zA-Z]+$/
-  REGEX_USERNAME = /^[A-Za-z][A-Za-z0-9._]*$/
+  
 
   # Validations
+  # Regular expressions to validate email and username format
+  REGEX_EMAIL = /^[a-zA-Z]([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*@([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*\.[a-zA-Z]*\.?[a-zA-Z]+$/
+  REGEX_USERNAME = /^[A-Za-z][A-Za-z0-9._]*$/
   validates :name, :length => { :maximum => 60 }
   
   validates_presence_of :username
@@ -41,14 +43,15 @@ class User < ActiveRecord::Base
   
   # Only perform this validation on create to allow other attributes to be updated
   validates_confirmation_of :email, :on => :create
-  validates_presence_of :password, :on => :create
-  validates_length_of :password, :within => 8..25, :on => :create, :allow_blank => true
-  validates_confirmation_of :password, :on => :create
+  validates_presence_of :password, :if => :change_password?
+  validates_length_of :password, :within => 8..25, :if => :change_password?, :allow_blank => true
+  validates_confirmation_of :password, :if => :change_password?
   
+  # Custom Scopes
   scope :named, lambda {|uname| where(:username => uname)}
   scope :sorted, order("users.username ASC")
   
-  # password and salt do not get directly added from user input forms
+  # Password and salt do not get directly added from user input forms so are protected from mass-assignment
   attr_protected :role, :hashed_password, :salt
   
   # Class method to create a salt that is unique (using the username of a user), pseudo random (using Kernel::srand) and hashed (using SHA1 hash)
@@ -69,10 +72,34 @@ class User < ActiveRecord::Base
     else
       return false
     end
-  end  
+  end
+  
+  # Method to send an email for password reset purposes
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    UserMailer.password_reset(self).deliver
+  end
+  
+  # Method for generating a unique token on an attribute
+  def generate_token(attribute)
+    begin
+      self[attribute] = SecureRandom.urlsafe_base64
+    end while User.exists?(attribute => self[attribute])
+  end 
     
   # Methods below here are only accessible to this model
   private
+  
+  # 
+  def change_password?
+    if password_reset_sent_at_changed?
+      return false
+    else
+      return true
+    end
+  end
   
   def create_hashed_password
     # Whenever :password has a value hashing is needed
@@ -86,7 +113,7 @@ class User < ActiveRecord::Base
   def clear_password
     # for security reasons and for updates to other fields hashing is not needed
     self.password = nil
-  end  
+  end 
   
   def downcase_email
     self.email = self.email.downcase.strip if self.email.present?

@@ -14,10 +14,12 @@
 	     <%= password_field_tag(:password) %>
      </div>
   </div>
+  
   <div class="form-buttons">
   	<%= submit_tag("Log In") %>
   </div>
   <% end %>
+  <p class="center">Forgotten your password? <%= link_to "Click here to recover it.", {:controller => 'password_resets', :action => 'new'} %></p>
 </div>
 
 <% content_for :right_bar do %>

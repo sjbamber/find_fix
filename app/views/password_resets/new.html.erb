@@ -1,0 +1,13 @@
+<% @page_title = "Recover Password" %>
+<% @content_header = "Recover Password" %>
+<p style="margin-bottom: 20px;">To recover your password enter the email address associated with your account in the box provided below.<br />  An email will be sent to this address with further instructions.</p>
+
+<%= form_tag(:action => 'create') do %>
+  <div class="form-field">
+    <%= label_tag :email, "Your email address" %>
+    <%= text_field_tag :email, params[:email] %>
+  </div>
+  <div class="form-buttons">
+  	<%= submit_tag "Submit" %>
+  </div>
+<% end %>

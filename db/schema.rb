@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327182956) do
+ActiveRecord::Schema.define(:version => 20120412195718) do
 
   create_table "categories", :force => true do |t|
     t.string   "name",       :null => false
@@ -104,14 +104,16 @@ ActiveRecord::Schema.define(:version => 20120327182956) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name",            :limit => 60
-    t.string   "email",           :limit => 100,                :null => false
-    t.string   "username",        :limit => 25,                 :null => false
-    t.string   "hashed_password", :limit => 40,                 :null => false
-    t.string   "salt",            :limit => 40,                 :null => false
-    t.integer  "role",                           :default => 1, :null => false
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.string   "name",                   :limit => 60
+    t.string   "email",                  :limit => 100,                :null => false
+    t.string   "username",               :limit => 25,                 :null => false
+    t.string   "hashed_password",        :limit => 40,                 :null => false
+    t.string   "salt",                   :limit => 40,                 :null => false
+    t.integer  "role",                                  :default => 1, :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["username"], :name => "index_users_on_username"

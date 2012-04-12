@@ -1,0 +1,20 @@
+<% @page_title = "Reset Password" %>
+<% @content_header = "Reset Password" %>
+<div class="login">
+<%= form_for(@user, :url => {:controller => 'password_resets', :action => 'update', :id => params[:id]}) do |f| %>
+  <%= error_messages_for(@user) %>
+  <div class="form-input">
+	  <div class="form-field">
+	    <%= f.label :password %>
+	    <%= f.password_field :password %>
+	  </div>
+	  <div class="form-field">
+	    <%= f.label :password_confirmation %>
+	    <%= f.password_field :password_confirmation %>
+	  </div>
+  </div>
+  <div class="form-buttons">
+  	<%= f.submit "Reset Password" %>
+  </div>
+<% end %>
+</div>
