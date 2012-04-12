@@ -59,8 +59,7 @@
       	<p><%= pluralize(com_count, "comment").gsub(/^\d+\s/, "")  %></p>
       </td>
       <td class="list_metrics">
-      	<% post_score = vote_count(post)%>
-      	<%= post_score.to_s %>
+      	<%= post.get_score.to_s %>
       	<br />
       	<p><%= "score" %></p>
       </td>  

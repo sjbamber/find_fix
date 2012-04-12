@@ -31,9 +31,10 @@ _____________________________________________
     <div data-role="page" data-title=<%= @page_title %> data-theme="a" data-content-theme="a">
      
 	    <div id="header" data-role="header">  
-	       <%= link_to "home", {:controller => 'public', :action => 'index'}, "data-role" => "button", "data-icon" => "home", "data-theme" => "d", "data-iconpos" => "notext" %>
-	       <%= image_tag('find_fix_logo_mobile.png', :alt => 'Find Fix Logo', :class => 'page_logo') %>
+	       <%= link_to "back", nil, 'data-role' => 'button', "data-icon" => "arrow-l", "data-theme" => "d", "data-iconpos" => "notext" if current_page? root_path %>
 	       <%= link_to "back", nil, 'data-rel' => 'back', 'data-role' => 'button', "data-icon" => "arrow-l", "data-theme" => "d", "data-iconpos" => "notext" unless current_page? root_path %>
+	       <%= image_tag('find_fix_logo_mobile.png', :alt => 'Find Fix Logo', :class => 'page_logo') %>
+	       <%= link_to "home", {:controller => 'public', :action => 'index'}, "data-role" => "button", "data-icon" => "home", "data-theme" => "d", "data-iconpos" => "notext" %>
 	    </div>
 	    	
 		<%= form_tag({:controller => 'posts', :action => 'search'}, :method => :get, :id => "search") do %>

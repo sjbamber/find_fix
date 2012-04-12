@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   
   # include the Tanker module for search using IndexTank
   include Tanker
+  include ActionView::Helpers::SanitizeHelper 
   
   # Relationships
   belongs_to :user
@@ -55,7 +56,9 @@ class Post < ActiveRecord::Base
   tankit index do
   # Index values for search purposes
     indexes :title, :indexes => :text
-    indexes :description
+    indexes :description do
+      strip_tags(description)
+    end
     # index nested values
     indexes :error_message_descriptions do
       error_messages.map {|error_message| error_message.description }
@@ -67,7 +70,7 @@ class Post < ActiveRecord::Base
       tags.map {|tag| tag.name }
     end
     indexes :solution_descriptions do
-      solutions.map {|solution| solution.description }
+      solutions.map {|solution| strip_tags(solution.description) }
     end
     indexes :post_comments do
       comments.map {|comment| comment.comment }
@@ -76,7 +79,6 @@ class Post < ActiveRecord::Base
       # Gets a list of all comments on nested solutions, reject is required to remove blank array elements generated
       solutions.map {|solution| solution.comments.map {|comment| comment.comment}}.reject{ |c| c.empty? }
     end
-    indexes :url
     
     # Index values for display purposes
     indexes :updated_at
@@ -104,6 +106,12 @@ class Post < ActiveRecord::Base
   after_save :update_tank_indexes
   after_destroy :delete_tank_indexes
   
+  def get_score
+    positive_vote_count = self.votes.joins(:vote_type).where('vote_types.name' => 'positive').count
+    negative_vote_count = self.votes.joins(:vote_type).where('vote_types.name' => 'negative').count
+    return positive_vote_count - negative_vote_count
+  end
+  
   private
 
   # Validation methods for nested attributes
@@ -117,10 +125,6 @@ class Post < ActiveRecord::Base
     if self.tags.size > 5
       self.errors.add(:base, "A problem can only contain a maximum of 5 tags")
     end        
-  end
-    
-  def url
-    return "http://localhost:3000/posts/show/#{self.id}"
   end
  
 end

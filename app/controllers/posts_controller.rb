@@ -73,6 +73,10 @@ class PostsController < ApplicationController
       redirect_to(:action => 'list')
     else
       @solutions = @post.solutions
+      @solutions.each do |sol|
+        sol.score = sol.get_score
+      end
+      @solutions = @solutions.sort_by{|s| s.score}.reverse     
       @solution = Solution.new
       @comment = Comment.new
       @vote = Vote.new

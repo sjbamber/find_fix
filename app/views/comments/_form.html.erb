@@ -8,7 +8,6 @@
 	
 	<div class="comment_form" id="comment_form_<%= post_type %>_<%= post.id %>" style="display:none" >
 	  	<%= form_for(@comment, :validate => true, :remote => true, :url => {:controller => 'comments', :action => 'create', :id => post.id, :problem_id => problem_id, :post_type => post.class }) do |f| %>
-		    <%= error_messages_for(@errors) %>
 		    <%= f.text_field(:comment) %>
 		    <%= submit_tag("Submit", :class => 'comment_submit') %>	
 		<% end %>
@@ -16,7 +15,6 @@
 	<noscript>
 	<div class="comment_form" id="comment_form_<%= post_type %>_<%= post.id %>">
 	  	<%= form_for(@comment, :validate => true, :url => {:controller => 'comments', :action => 'create', :id => post.id, :problem_id => problem_id, :post_type => post.class }) do |f| %>
-		    <%= error_messages_for(@errors) %>
 		    <%= f.text_field(:comment) %>
 		    <%= submit_tag("Submit") %>
 		<% end %>

@@ -2,12 +2,13 @@
 <script>confirm_submit("#solution_confirm", "#solution_submit");</script>
 <div id="solution_confirm" title="Submit Fix" style="display: none;">Are you sure wish to submit this fix?</div>
 <div id="solution_success" title="Fix Submitted" style="display: none;">The fix was submitted successfully</div>
+<div id="solution_failure" title="Fix Submitted" style="display: none;">Errors occured when submitting the fix</div>
 
 <%= form_for(solution, :remote => true, :url => {:controller => 'solutions', :action => 'create', :id => post.id}) do |f| %>
     <div class="form-input">
       <div class="form-field">
         <%= f.label("Post a new fix to this problem") %>
-        <div class="textarea_background"><%= f.text_area(:description, :size => "600x10") %></div>
+        <div class="textarea_background"><%= f.text_area(:description, :size => "596x10", :id => 'rich_textarea') %></div>
       </div>        
     </div>
     

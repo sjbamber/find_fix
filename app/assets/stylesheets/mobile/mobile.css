@@ -3,6 +3,24 @@
  * Included in the directory is the jQuery mobile custom theme built using ThemeRoller http://www.jquerymobile.com/themeroller
  * and the jquery mobile required structure
 */
+
+/* Colors
+red/orange:   	 	#993120
+brown:        		#4C2516
+pink:   			#FF8888
+dark grey: 			#1C1C1C
+light grey/white:  	#EEEEEE
+*/
+body { 
+	background: #1C1C1C;
+	color: #eeeeee;
+	font: 1em Verdana,Lucida,Arial,Helvetica,sans-serif; 
+}
+
+a{
+	color: #ff8888;
+}
+
 .center {
 	text-align:center;
 }
@@ -29,7 +47,8 @@ p.small-text {
 }
 
 #header {
-	border:0;
+	height: 35px;
+	border: 0;
 	padding: 0.2em 0 0.2em 0;
 }
 
@@ -85,11 +104,15 @@ img.page_logo {
 /* List */
 
 .odd {
+	-moz-border-radius: 0.5em;
+	border-radius: 0.5em;
 	background: #666666;
 }
 
 .even {
-	background: #333333;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+	background: #444444;
 }
 
 .post_list, .post_list p.small-text {
@@ -106,9 +129,8 @@ img.page_logo {
 }
 
 .snippet b {
-	text-decoration: none;
-	background: #4C2516;
-	text-shadow: none;
+	color: #FF8888;
+	text-shadow: #333 1px 1px 1px;
 }
 
 
@@ -125,10 +147,13 @@ img.page_logo {
   .pagination .current {
     font-style: normal;
     font-weight: bold;
-    background-color: #bebebe;
+    color: #000;
+    background-color: #EEE;
     display: inline-block;
     width: 1.4em;
     height: 1.4em;
+    -moz-border-radius: 1.4em;
+	border-radius: 1.4em;
     line-height: 1.5;
     text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px; }
   .pagination a {
@@ -155,6 +180,24 @@ img.page_logo {
 #search input, #new_user input, #login input, #new_post input, #new_post textarea, #new_post select  {
 	width: 100%;
 	margin-bottom: 0.5em;
+}
+
+
+/* List posts */
+
+a.list_tags { 
+	display:block;
+	background: #343434;
+	margin: 5px 0 5px 0;
+	border-bottom: 1px solid #000000; 
+	border-right: 1px solid #000000; 
+	text-decoration:none; 
+	line-height:1.5em;
+	-moz-border-radius: 1em;
+	border-radius: 0.5em;
+}
+a.list_tags:active { 
+	background: #444444; 
 }
 
 /* New Post Screen */

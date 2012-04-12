@@ -33,20 +33,6 @@ module ApplicationHelper
     return comments.count
   end
   
-  # Return the overall score for a post taking into account negative and positive votes
-  def vote_count(post)
-    votecount = 0
-    post.votes(true)
-    post.votes.each do |vote|
-      if vote.vote_type.name == 'positive'
-        votecount+=1
-      elsif vote.vote_type.name == 'negative'
-        votecount-=1
-      end
-    end
-    return votecount
-  end
-  
   # Render a partial view to show the score of a post and the voting options
   def show_voting(post, problem_id)
       render(:partial => 'votes/vote', :locals => {:post => post, :problem_id => problem_id})

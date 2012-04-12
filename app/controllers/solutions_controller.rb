@@ -27,7 +27,8 @@ class SolutionsController < ApplicationController
     rescue ActiveRecord::RecordInvalid => e
       # If save fails
       # Display errors
-      @errors = e.record
+      @solution_errors = e.record
+     
       @comment = Comment.new
       respond_to do |format|
         format.html { 
@@ -45,7 +46,7 @@ class SolutionsController < ApplicationController
           render('posts/show')
         }
         format.js {
-          @notice = "Errors prevented the solution from saving"
+          @notice = "An error occured when submitting the fix"
         }
       end
     end

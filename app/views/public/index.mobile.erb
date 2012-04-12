@@ -41,6 +41,7 @@
 	<h3>Problems by Category</h3>
 
 	<ul data-role="listview" data-inset="true">
+	  <% get_categories_for_right_bar %>
 	  <% for category in @categories %>
 	    <li>
 	      <%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}) %>
@@ -54,6 +55,7 @@
 	<h3>Popular Tags</h3>
 
 	<ul data-role="listview" data-inset="true">
+    <% get_tags_for_right_bar %>
     <% @tags.each do |tag| %>      
       <li>
       	<%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}) %>

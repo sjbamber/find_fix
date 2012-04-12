@@ -13,24 +13,24 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require_directory .
+//= require_directory ./plugins
 //= require rails.validations
-//= require jquery.qtip
 //= require jquery_nested_form
 //= require autocomplete-rails
+//= require_directory .
 
 // Load nicEdit
 bkLib.onDomLoaded(function() {
-	new nicEditor({buttonList : [
+	var customNicEditor = new nicEditor({buttonList : [
 		'bold','italic','underline','ul','ol','strikeThrough','html','fontSize','image','upload',
 		'link','unlink','removeformat','indent','outdent','hr','left','center','right','justify'
-	]}).panelInstance('find_fix_textarea');
+	]}).panelInstance('rich_textarea');
 });
 
 // Load indextank autocomplete
 $(document).ready(function(){
     // let the form be 'indextank-aware'
-    $("#search_form").indextank_Ize('http://ya1a.api.searchify.com', 'test');
+    $("#search_form").indextank_Ize('http://ya1a.api.searchify.com', 'idx');
     // let the query box have autocomplete
     $("#search_input").indextank_Autocomplete();
 });
@@ -75,7 +75,7 @@ function confirm_submit(dialog_id, submit_id)
 }
 
 // Displays an information dialog containing content in dialog_id
-function show_dialog(dialog_id, notice)
+function show_dialog(dialog_id)
 {
     $(dialog_id).dialog({
             resizable: false,
@@ -128,12 +128,15 @@ classes: "ui-tooltip-tipsy"
     });
 });
 
+
 $(document).ready(function()
 {
 	$(function() {
+		// Hide button to remove first field of nested attributes
 		$('.fields .error_remove:first').css('display', 'none');
 		$('.fields .category_remove:first').css('display', 'none');
 		$('.fields .tag_remove:first').css('display', 'none');
+		// Apply jQuery UI styling to buttons
 		$( "a.add_nested_fields", ".new" ).button();
 		$( "input:submit", ".form-buttons" ).button();
 		$( "input:submit", ".comment_form" ).button();

@@ -1,7 +1,11 @@
-
+<% unless @solution_errors %>
 $('<%= escape_javascript( render @solution, :post => @solution.post )%>')
   .appendTo('.solutions')
   .hide()
   .fadeIn('slow');
-  
+$('#solution_success').text('<%= @notice %>');
 show_dialog('#solution_success');
+<% else %>
+$('#solution_failure').text('<%= @notice %>');
+show_dialog('#solution_failure');
+<% end %>

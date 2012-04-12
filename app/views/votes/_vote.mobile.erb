@@ -3,7 +3,7 @@
       <h3>Score</h3>
     <div>
       <%= link_to("+", {:controller => 'votes', :action => 'create', :id => post.id, :vote_type => "positive", :problem_id => problem_id, :post_type => post.class}, :class => "vote_link", :remote => true, "data-role" => "button", "data-inline" => "true", "data-mini" => "true", :onclick => "return confirm(\"You are about to submit a positive vote for this #{post.class.to_s.downcase!}\")") if is_logged_in %>
-      <span id="score_<%=post.class.to_s.downcase%><%=post.id%>"><%= vote_count(post) %></span>
+      <span id="score_<%=post.class.to_s.downcase%><%=post.id%>"><%= post.get_score %></span>
       <%= link_to("-", {:controller => 'votes', :action => 'create', :id => post.id, :vote_type => "negative", :problem_id => problem_id, :post_type => post.class}, :class => "vote_link", :remote => true, "data-role" => "button", "data-inline" => "true", "data-mini" => "true", :onclick => "return confirm(\"You are about to submit a negative vote for this #{post.class.to_s.downcase!}\")") if is_logged_in %>
 	</div>
 </div>

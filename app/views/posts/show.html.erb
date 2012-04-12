@@ -15,7 +15,7 @@
 
 <!-- New Solution Form -->
 <% if is_logged_in %>
-<%= error_messages_for(@errors) %>
+<%= error_messages_for(@solution_errors) %>
 <%= render(:partial => 'solutions/form', :locals => {:solution => @solution, :post => @post}) %>
 <% else %>
 <br /><p>To submit a new fix, post a comment or vote please <%= link_to("login", {:controller => 'user_access', :action => 'login'}) %></p>

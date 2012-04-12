@@ -22,15 +22,27 @@ class User < ActiveRecord::Base
   REGEX_EMAIL = /^[a-zA-Z]([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*@([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*\.[a-zA-Z]*\.?[a-zA-Z]+$/
   REGEX_USERNAME = /^[A-Za-z][A-Za-z0-9._]*$/
 
-  # New validate method
+  # Validations
   validates :name, :length => { :maximum => 60 }
-  validates :username, :presence => true, :length => { :within => 6..25 }, :format => REGEX_USERNAME, :uniqueness => true
-  validates :email, :presence => true, :length => { :maximum => 100 }, :format => REGEX_EMAIL, :uniqueness => true
+  
+  validates_presence_of :username
+  with_options :allow_blank => true do |v|
+    v.validates_length_of :username, { :within => 6..25 }
+    v.validates_format_of :username, :with => REGEX_USERNAME
+    v.validates_uniqueness_of :username
+  end
+  
+  validates_presence_of  :email
+  with_options :allow_blank => true do |v|
+    v.validates_length_of :email, { :maximum => 100 }
+    v.validates_format_of :email, :with => REGEX_EMAIL
+    v.validates_uniqueness_of :email
+  end
   
   # Only perform this validation on create to allow other attributes to be updated
-  validates_confirmation_of :email, :on => :create  
+  validates_confirmation_of :email, :on => :create
   validates_presence_of :password, :on => :create
-  validates_length_of :password, :within => 8..25, :on => :create
+  validates_length_of :password, :within => 8..25, :on => :create, :allow_blank => true
   validates_confirmation_of :password, :on => :create
   
   scope :named, lambda {|uname| where(:username => uname)}

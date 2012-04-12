@@ -12,6 +12,12 @@ class Comment < ActiveRecord::Base
   after_save :update_post_index
   after_destroy :update_post_index
   
+  def get_score
+    positive_vote_count = self.votes.joins(:vote_type).where('vote_types.name' => 'positive').count
+    negative_vote_count = self.votes.joins(:vote_type).where('vote_types.name' => 'negative').count
+    return positive_vote_count - negative_vote_count
+  end
+  
   private
   
   def update_post_index

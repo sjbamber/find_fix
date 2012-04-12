@@ -23,7 +23,7 @@
     <div class="comments comments_<%=solution.class%><%=solution.id%>">
     	<% unless solution.comments.size == 0 %> 
 	    	<strong>Comments:</strong>	
-	    	<%= render solution.comments, :post_id => solution.id   %>
+	    	<%= render solution.comments, :post_id => solution.id %>
 	    <% end %>
     </div>
     <%= show_comment_form(solution, post.id) %>

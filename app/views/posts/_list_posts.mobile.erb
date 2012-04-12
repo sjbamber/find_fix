@@ -10,9 +10,8 @@
 
     <% posts.each_with_index do |post, i| %>
     <div class="post_list">
-
-      	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id }, 'data-role' => 'button', "data-icon" => "arrow-r") %>
-      	<div class="<%= cycle('odd', 'even') %>">
+		<div class="<%= cycle('odd', 'even') %>">
+      	<%= link_to(truncate(post.title, :length => 80), {:controller => 'posts', :action => 'show', :id => post.id }, 'data-role' => 'button', "data-icon" => "arrow-r") %> 	
       		<% if params[:query] && !params[:query].blank? %>
 			    <% snippeted_attributes = post.description_snippet.to_s + " " + post.error_message_descriptions_snippet.to_s + " " + \
 			     post.solution_descriptions_snippet.to_s + " " + post.post_comments_snippet.to_s + " " + post.solutions_comments_snippet.to_s %>
@@ -20,16 +19,16 @@
 	        <% end %>
       	  
     	  <p class="center">  				
-		  Categories:
-		  <% post.categories.each do |category| %>
-      	  	<span><%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}, :class => "list_tags") %></span>
+		  Categories<br />
+		  <% post.post_categories.each do |post_category| %>
+      	  	<span><%= link_to(post_category.category.name, {:controller => 'posts', :action => 'list', :category_id => post_category.category.id}, :class => "list_tags") %></span>
       	  <% end %>
       	  </p>
       	  
       	  <p class="center">
-		  Tags:
-      	  <% post.tags.each do |tag| %>
-  			<span><%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}, :class => "list_tags") %></span>
+		  Tags<br />
+      	  <% post.post_tags.each do |post_tag| %>
+  			<span><%= link_to(post_tag.tag.name, {:controller => 'posts', :action => 'list', :tag_id => post_tag.tag.id}, :class => "list_tags") %></span>
   		  <% end %>
   		  </p>
   		  <p class="center">
@@ -39,7 +38,7 @@
 	      	<%= sol_count.to_s %>
 	      </span>	
 	      <span>
-	      	<% post_score = vote_count(post)%>
+	      	<% post_score = post.get_score %>
 	      	<%= " / Score:" %>
 	      	<%= post_score.to_s %>
 	      </span>
