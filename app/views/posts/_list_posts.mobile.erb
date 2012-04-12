@@ -28,7 +28,7 @@
       	  <p class="center">
 		  Tags<br />
       	  <% post.post_tags.each do |post_tag| %>
-  			<span><%= link_to(post_tag.tag.name, {:controller => 'posts', :action => 'list', :tag_id => post_tag.tag.id}, :class => "list_tags") %></span>
+  			<span><%= link_to(post_tag.tag.name, {:controller => 'posts', :action => 'list', :tag_name => post_tag.tag.name}, :class => "list_tags") %></span>
   		  <% end %>
   		  </p>
   		  <p class="center">

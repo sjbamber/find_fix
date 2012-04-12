@@ -560,3 +560,36 @@ a.action:hover {
   	margin: 2px 10px; 
   	font-size: 0.7em; 
 }
+
+/* Sharing buttons */
+#sharing a{
+	display: inline-block;
+	text-decoration: none;
+    text-align: left;
+    font-size: 10px;
+    color: #1c1c1c;
+    box-shadow: -1px -1px 1px rgba(0, 0, 0, 0.8) inset;
+    -moz-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 5px;
+}
+#sharing a:hover{
+	color: #993120;
+}
+
+a#tweet-button {
+    width: 35px;
+    padding: 2px 2px 2px 25px;
+    background: url('http://a4.twimg.com/images/favicon.ico') #eee 5px center no-repeat;
+}
+a#fb-button {
+    width: 50px;
+    padding: 2px 2px 2px 20px;
+    background: url('https://s-static.ak.facebook.com/rsrc.php/yi/r/q9U99v3_saj.ico') #eee no-repeat;
+}
+
+a#linkedin-button {
+	width: 45px;
+    padding: 2px 2px 2px 20px;
+    background: url('http://s1.licdn.com/scds/common/u/img/favicon_v3.ico') #eee no-repeat;
+}
