@@ -177,7 +177,7 @@ img.page_logo {
 	display: inline;
 }
 
-#search input, #new_user input, #login input, #new_post input, #new_post textarea, #new_post select  {
+#search input, #new_user input, #login input, #new_post input, #new_post textarea, #new_post select, #password_reset input, .edit_user input {
 	width: 100%;
 	margin-bottom: 0.5em;
 }

@@ -1,0 +1,16 @@
+<% @page_title = "Reset Password" %>
+<% @content_header = "Reset Password" %>
+<%= error_messages_for(@user) %>
+
+<%= form_for(@user, :validate => true, :url => {:controller => 'password_resets', :action => 'update', :id => params[:id]}, :id => 'password_reset') do |f| %>
+  
+	    <%= f.label :password %>
+	    <%= f.password_field :password, :validate => { :presence => true, :length => {:within => 8..25}, :confirmation => true }, "data-theme" => "d"  %>
+
+	    <%= f.label :password_confirmation %>
+	    <%= f.password_field :password_confirmation, "data-theme" => "d"  %>
+
+  	<%= f.submit "Reset Password" %>
+
+<% end %>
+

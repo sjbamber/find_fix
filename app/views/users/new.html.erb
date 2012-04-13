@@ -32,7 +32,7 @@
 	 <div class="form-field">
         <%= f.label(:password) %><span class="required">*</span>
         <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter a password for your account to identify yourself in the future. Passwords must be between 8 and 25 characters") %>        
-        <%= f.password_field(:password) %>
+        <%= f.password_field(:password, :validate => { :presence => true, :length => {:within => 8..25}, :confirmation => true }) %>
      </div>
 	 <div class="form-field">
         <%= f.label(:password_confirmation, "Confirm Password") %><span class="required">*</span>

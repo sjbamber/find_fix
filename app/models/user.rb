@@ -17,10 +17,8 @@ class User < ActiveRecord::Base
   before_validation :downcase_email, :downcase_username, :strip_name
   
   # Class instance variable that is not a database attribute, used to store user supplied password
-  attr_accessor :password
+  attr_accessor :password, :update_password
   
-  
-
   # Validations
   # Regular expressions to validate email and username format
   REGEX_EMAIL = /^[a-zA-Z]([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*@([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*\.[a-zA-Z]*\.?[a-zA-Z]+$/
@@ -41,11 +39,14 @@ class User < ActiveRecord::Base
     v.validates_uniqueness_of :email
   end
   
-  # Only perform this validation on create to allow other attributes to be updated
+  # Conditional validations
   validates_confirmation_of :email, :on => :create
-  validates_presence_of :password, :if => :change_password?
-  validates_length_of :password, :within => 8..25, :if => :change_password?, :allow_blank => true
-  validates_confirmation_of :password, :if => :change_password?
+
+  validates_presence_of  :password, :if => :should_validate_password?
+  with_options :allow_blank => true do |v|
+    v.validates_length_of :password, :within => 8..25, :if => :should_validate_password?
+    v.validates_confirmation_of :password, :if => :should_validate_password?
+  end
   
   # Custom Scopes
   scope :named, lambda {|uname| where(:username => uname)}
@@ -87,18 +88,15 @@ class User < ActiveRecord::Base
     begin
       self[attribute] = SecureRandom.urlsafe_base64
     end while User.exists?(attribute => self[attribute])
-  end 
+  end
     
   # Methods below here are only accessible to this model
   private
   
-  # 
-  def change_password?
-    if password_reset_sent_at_changed?
-      return false
-    else
-      return true
-    end
+  # Method to determine when the password should be validated
+  def should_validate_password?
+    # Validate when the update_password variable is set or a new record is being created
+    update_password || new_record?
   end
   
   def create_hashed_password

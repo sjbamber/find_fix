@@ -1,12 +1,13 @@
 <% @page_title = "Reset Password" %>
 <% @content_header = "Reset Password" %>
+<%= error_messages_for(@user) %>
 <div class="login">
-<%= form_for(@user, :url => {:controller => 'password_resets', :action => 'update', :id => params[:id]}) do |f| %>
-  <%= error_messages_for(@user) %>
+<%= form_for(@user, :validate => true, :url => {:controller => 'password_resets', :action => 'update', :id => params[:id]}) do |f| %>
+  
   <div class="form-input">
 	  <div class="form-field">
 	    <%= f.label :password %>
-	    <%= f.password_field :password %>
+	    <%= f.password_field :password, :validate => { :presence => true, :length => {:within => 8..25}, :confirmation => true } %>
 	  </div>
 	  <div class="form-field">
 	    <%= f.label :password_confirmation %>

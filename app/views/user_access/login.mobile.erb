@@ -14,7 +14,7 @@
 
 	<%= submit_tag "Log In", 'data-role' => 'button' %>
 	
-	<p>Don't have an existing account? - <%= link_to("Register for a new account", {:controller => 'users', :action => 'new'}) %></p>
-
+	<p class="center">Don't have an existing account? <%= link_to("Register for a new account", {:controller => 'users', :action => 'new'}) %></p>
+	<p class="center">Forgotten your password? <%= link_to "Click here to recover it.", {:controller => 'password_resets', :action => 'new'} %></p>
 
   <% end %>

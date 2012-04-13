@@ -578,18 +578,18 @@ a.action:hover {
 }
 
 a#tweet-button {
-    width: 35px;
+    width: 40px;
     padding: 2px 2px 2px 25px;
     background: url('http://a4.twimg.com/images/favicon.ico') #eee 5px center no-repeat;
 }
 a#fb-button {
-    width: 50px;
+    width: 55px;
     padding: 2px 2px 2px 20px;
     background: url('https://s-static.ak.facebook.com/rsrc.php/yi/r/q9U99v3_saj.ico') #eee no-repeat;
 }
 
 a#linkedin-button {
-	width: 45px;
+	width: 50px;
     padding: 2px 2px 2px 20px;
     background: url('http://s1.licdn.com/scds/common/u/img/favicon_v3.ico') #eee no-repeat;
 }
