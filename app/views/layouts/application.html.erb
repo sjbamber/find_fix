@@ -96,12 +96,12 @@ _____________________________________________
 						    > 
 						    <ul>  
 						      <li>
-						      	<% if category.has_children? %>
+						      	<% if category.ancestry.blank? %>
 							      	<%= link_to_function '+', "toggle_section('.category_id_#{category.id}','a.toggle_#{category.id}', '+', '-')", :class => "button_spacer toggle_button toggle_#{category.id}" %>
 							    <% else %>
 							    	<span class="button_spacer"></span>
 							    <% end %>
-							      	<%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}) %>
+							      	<%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_name => category.name}) %>
 						      </li>
 						    </ul>   
 					    </div> 

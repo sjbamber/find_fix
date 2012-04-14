@@ -81,6 +81,12 @@ class ApplicationController < ActionController::Base
   
   # ***End of Before Filters***
   
+  def get_facets(object, key)
+    ordered_facets = object.categories[key].sort_by{|k,v| v}.reverse
+    ordered_facets = Hash[*ordered_facets.flatten]
+    return ordered_facets
+  end
+  
   private
   
   def mobile_device?

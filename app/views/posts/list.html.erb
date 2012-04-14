@@ -5,6 +5,31 @@
 </div>
 
 <% content_for :right_bar do %>
+<% if params[:query] %>
+	<div class="right_bar_feature">
+	<h2>Refine Search</h2>
+		<div class="indent">					
+			<h3>Category</h3>
+				<% unless @category_facets.blank? %>
+					<% @category_facets.keys.each_with_index do |facet, i| %>
+						<p><%= link_to( facet, {:controller => 'posts', :action => 'search', :query => params[:query], :cfacet => facet}) unless params[:cfacet] %>
+						   <%= " (#{@category_facets.values[i]})" unless params[:cfacet] %>
+						   <%= link_to( facet+" (remove)", {:controller => 'posts', :action => 'search', :query => params[:query]}) if params[:cfacet]%>
+						   </p>
+					<% end %>
+				<% end %>
+			<br />
+			<h3>Tag</h3>
+				<% unless @tag_facets.blank? %>
+					<% @tag_facets.keys.each_with_index do |facet, i| %>
+						<p><%= link_to( facet, {:controller => 'posts', :action => 'search', :query => params[:query], :tfacet => facet}) unless params[:tfacet] %> 
+						   <%= " (#{@tag_facets.values[i]})" unless params[:tfacet] %>
+						   <%= link_to( facet+" (remove)", {:controller => 'posts', :action => 'search', :query => params[:query]}) if params[:tfacet]%></p>
+					<% end %>
+				<% end %>				
+		</div>
+	</div>
+<% end %>
 <div class="right_bar_feature">
 <h2>Help</h2>
 	<p>Click the title of the record to view the problem and suggested solutions in detail.</p>

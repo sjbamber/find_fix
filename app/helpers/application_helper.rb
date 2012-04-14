@@ -74,11 +74,12 @@ module ApplicationHelper
   
   # Fetch tags and categories to show in sidebar
   def get_categories_for_right_bar
-    @categories = Category.sort_by_ancestry(Category.paginate(:page => params[:page]).all)
+    @categories = Category.search_tank("__type:(Category)", :len => 100, :fetch => [:name, :ancestry], :function => 1)
+    @categories = Category.sort_by_ancestry(@categories)
   end
   
   def get_tags_for_right_bar
-    @tags = Tag.order("(select count(*) from post_tags where tag_id = tags.id) DESC").limit(10)
+    @tags = Tag.search_tank("__type:(Tag)",:fetch => [:name], :function => 1)
   end  
   
 end

@@ -290,6 +290,9 @@ a:hover {
 .nopadding {
 	padding:0;
 }
+.indent {
+	padding-left: 10px;
+}
 
 /* Links in the top right of the page */
 .access_links {

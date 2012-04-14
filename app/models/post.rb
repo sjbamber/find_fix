@@ -17,7 +17,9 @@ class Post < ActiveRecord::Base
   has_many :error_messages, :through => :post_error_messages
   
   # Non-active record attribute to enable validation on nested attributes
-  attr_accessor :validate_nested
+  attr_accessor :validate_nested 
+  # Non-active record attribute to access index attributes
+  attr_accessor :category_names, :tag_names, :solutions_size, :comments_size, :score, :username
   
   # Accept nested attributes, enables nested assignment using fields for
   # :reject_if => lambda {|a| a[:name].blank?} # ignores blank entries
@@ -55,7 +57,7 @@ class Post < ActiveRecord::Base
   
   tankit index do
   # Index values for search purposes
-    indexes :title, :indexes => :text
+    indexes :title
     indexes :description do
       strip_tags(description)
     end
@@ -64,10 +66,10 @@ class Post < ActiveRecord::Base
       error_messages.map {|error_message| error_message.description }
     end
     indexes :category_names do
-      categories.map {|category| category.name }
+      categories.map {|category| category.name+" -" }
     end
     indexes :tag_names do
-      tags.map {|tag| tag.name }
+      tags.map {|tag| tag.name+" -" }
     end
     indexes :solution_descriptions do
       solutions.map {|solution| strip_tags(solution.description) }
@@ -82,7 +84,27 @@ class Post < ActiveRecord::Base
     
     # Index values for display purposes
     indexes :updated_at
-    indexes :user_id
+    indexes :username do
+      user.username
+    end
+    indexes :solutions_size do
+      solutions.size
+    end
+    indexes :comments_size do
+      comments.size
+    end
+    indexes :score do
+      get_score
+    end
+    
+    # Set values for faceted search
+    category :category do
+        categories.first.name
+    end
+ 
+    category :tag do
+        tags.first.name
+    end 
     
     # Variables available in scoring function
     variables do

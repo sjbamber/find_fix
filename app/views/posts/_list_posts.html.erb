@@ -25,12 +25,12 @@
 	      		<%= "<tr><td class=\"snippet\" colspan='2'>#{snippeted_attributes}</td></tr>".html_safe %>
 	        <% end %>
       		<tr>
-      			<td width="200px">Created by: <%= post.user ? post.user.username : 'Unknown' %></td>
+      			<td width="200px">Created by: <%= post.username ? post.username : 'Unknown' %></td>
       				
       			<td>
       			  Categories:
-      			  <% post.post_categories.each do |post_category| %>
-		      	  	<span><%= link_to(post_category.category.name, {:controller => 'posts', :action => 'list', :category_id => post_category.category_id}, :class => "list_tags") %></span>
+      			  <% post.category_names.split("-").each do |category| %>
+		      	  	<span><%= link_to(category.strip, {:controller => 'posts', :action => 'list', :category_name => category.strip}, :class => "list_tags") %></span>
 		      	  <% end %>
 		      	</td>
       		</tr>
@@ -38,8 +38,8 @@
       			<td>Last updated: <%= time_ago_in_words(post.updated_at.to_time) %> ago</td>
       			<td>
       			  Tags:
-		      	  <% post.post_tags.each do |post_tag| %>
-      	  			<span><%= link_to(post_tag.tag.name, {:controller => 'posts', :action => 'list', :tag_name => post_tag.tag.name}, :class => "list_tags") %></span>
+		      	  <% post.tag_names.split("-").each do |tag| %>
+      	  			<span><%= link_to(tag.strip, {:controller => 'posts', :action => 'list', :tag_name => tag.strip}, :class => "list_tags") %></span>
       	  		  <% end %>
 		        </td>
       		</tr>
@@ -47,19 +47,17 @@
       	</table>
       </td>
       <td class="list_metrics">
-      	<% sol_count = solution_count(post)%>
-      	<%= sol_count.to_s %>
+      	<%= post.solutions_size %>
       	<br />
-      	<p><%= pluralize(sol_count, "fix").gsub(/^\d+\s/, "")  %></p>
+      	<p><%= pluralize(post.solutions_size, "fix").gsub(/^\d+\s/, "")  %></p>
       </td>
       <td class="list_metrics">
-      	<% com_count = comment_count(post)%>
-      	<%= com_count.to_s %>
+      	<%= post.comments_size %>
       	<br />
-      	<p><%= pluralize(com_count, "comment").gsub(/^\d+\s/, "")  %></p>
+      	<p><%= pluralize(post.comments_size, "comment").gsub(/^\d+\s/, "")  %></p>
       </td>
       <td class="list_metrics">
-      	<%= post.get_score.to_s %>
+      	<%= post.score %>
       	<br />
       	<p><%= "score" %></p>
       </td>  

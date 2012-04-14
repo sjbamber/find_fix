@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
   # list all categories sorted by their ancestry
   def list
     #get_category_list
-    @categories = Category.sort_by_ancestry(Category.all).paginate(:page => params[:page], :per_page => 10)
+    @categories_list = Category.sort_by_ancestry(Category.all).paginate(:page => params[:page], :per_page => 10)
   end
   
   # Sets up the show view to show a detailed category view

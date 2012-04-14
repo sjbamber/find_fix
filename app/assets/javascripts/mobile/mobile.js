@@ -32,3 +32,13 @@ $(document).delegate('.vote_link', 'click', function() {
 })
 
 }
+
+$(document).ready(function()
+{
+	$(function() {
+		// Hide button to remove first field of nested attributes
+		$('.fields .error_remove:first').css('display', 'none');
+		$('.fields .category_remove:first').css('display', 'none');
+		$('.fields .tag_remove:first').css('display', 'none');
+	});
+});

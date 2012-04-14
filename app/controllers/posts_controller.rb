@@ -21,30 +21,41 @@ class PostsController < ApplicationController
   def search
     if params[:query] && !params[:query].blank? # Check a query has been sent
       q = params[:query].split.join(" ") # Set the query to a variable and remove leading and trailing whitespace between words
-      q = q.sub( " ", "* " ) # Add wildcard characters after each word
+      q = q.sub( " ", "* " ) # Add * after each word to make it a wildcard search
       
       # Define search string that queries only listed attributes of the index and weights them accordingly using ^(weight)
       search_string = "title:(#{q}*) OR description:(#{q}*) OR error_message_descriptions:(#{q}*)"\
       " OR category_names:(#{q}*) OR tag_names:(#{q}*)"\
       " OR solution_descriptions:(#{q}*) OR post_comments:(#{q}*) OR solutions_comments:(#{q}*)"
-                      
-      @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
-      :fetch => [:title, :updated_at, :user_id], :page => params[:page], :function => 0)
+      fetch = [:title, :updated_at, :username, :category_names, :tag_names, :solutions_size, :comments_size, :score]
+      if params[:cfacet]
+        @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
+        :fetch => fetch, :page => params[:page],  :function => 0, :category_filters => {'category' => params[:cfacet].to_s})
+      elsif params[:tfacet]
+        @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
+        :fetch => fetch, :page => params[:page],  :function => 0, :category_filters => {'tag' => params[:tfacet].to_s})  
+      else
+        @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
+        :fetch => fetch, :page => params[:page], :function => 0)
+      end  
+      @posts.blank? ? @category_facets = {} : @category_facets = get_facets(@posts, "category")
+      @posts.blank? ? @tag_facets = {} : @tag_facets = get_facets(@posts, "tag")
       @content_header = "Search Results for query: #{params[:query].strip}"
     else
       @content_header = "Search Results for query: "
       @posts = [].paginate(:page => params[:page])
-    end
+    end  
     render('list')
   end
   
   # lists all posts
   def list
+    fetch = [:title, :updated_at, :username, :category_names, :tag_names, :solutions_size, :comments_size, :score]
     case
     
-    when params[:category_id] && !params[:category_id].blank? 
+    when params[:category_name] && !params[:category_name].blank? 
       # Search on the category specified and any child categories if there are any.
-      category = Category.find_by_id(params[:category_id])
+      category = Category.find_by_name(params[:category_name])
       search_categories = category.name.to_s
       children = category.children
       unless children.blank?
@@ -53,14 +64,14 @@ class PostsController < ApplicationController
         end
       end
       @content_header = "Problems for Category: #{category.name.to_s}"
-      @posts = Post.search_tank("category_names:(#{search_categories}*)", :page => params[:page], :function => 1)
+      @posts = Post.search_tank("category_names:(#{search_categories}*)", :fetch => fetch, :page => params[:page], :function => 1)
        
     when params[:tag_name] && !params[:tag_name].blank?
       @content_header = "Problems for Tag: #{params[:tag_name].strip}"
-      @posts = Post.search_tank("tag_names:(#{params[:tag_name].strip}*)", :page => params[:page], :function => 1)
+      @posts = Post.search_tank("tag_names:(#{params[:tag_name].strip}*)", :fetch => fetch, :page => params[:page], :function => 1)
       
     else
-      @posts = Post.paginate(:page => params[:page]).order("posts.updated_at DESC")
+      @posts = Post.search_tank("__type:(Post)", :fetch => fetch, :page => params[:page], :function => 1)
       @content_header = "All Problems"
     end
   end

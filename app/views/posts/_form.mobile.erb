@@ -1,0 +1,32 @@
+<span class="required">*</span> indicates a required field<br /><br />
+<%= error_messages_for(@errors) %>
+		<span class="required">*</span>
+        <%= f.label(:title) %>
+        <%= f.text_field(:title, "placeholder" => "Enter a Title", "data-theme" => "d") %>
+        
+		<span class="required">*</span>
+        <%= f.label(:description) %>
+        <%= f.text_area(:description, :size => "600x10", "placeholder" => "Enter a Description", "data-theme" => "d") %>
+
+        <%= label(:error_messages, :description, "Error Message(s)") %> 
+        <%= f.fields_for :error_messages do |e| %>   
+		      <%= e.text_field :description , "placeholder" => "Enter an Error Message", "data-theme" => "d", :validate => { :presence => false }, "data-autocomplete" => "/posts/autocomplete_error_message_description"%>
+		      <%= e.link_to_remove "X", :class => "error_remove" %>
+  		<% end %>
+  		<p><%= f.link_to_add "Add another error message", :error_messages%></p>
+
+		<span class="required">*</span>
+        <%= label(:categories, :name, "Categories") %>
+        <%= f.fields_for :categories do |c| %>
+			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-Select a Category-'}, :validate => { :uniqueness => false }, "data-theme" => "d") %>
+			<%= c.link_to_remove "X", :class => "category_remove" %>
+	    <% end %>
+		<p><%= f.link_to_add "Add another category", :categories %></p>
+		
+		<span class="required">*</span>
+        <%= label(:tags, :name, "Custom Tags") %>
+        <%= f.fields_for :tags do |t| %>
+		      <%= t.text_field :name, "placeholder" => "Enter a keyword / tag", "data-autocomplete" => "/posts/autocomplete_tag_name", "data-theme" => "d" %>
+		      <%= t.link_to_remove "X", :class => "tag_remove" %>
+  		<% end %>
+  		<%= f.link_to_add "Add another tag", :tags %>

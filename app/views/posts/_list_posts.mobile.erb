@@ -19,31 +19,29 @@
 	        <% end %>
       	  
     	  <p class="center">  				
-		  Categories<br />
-		  <% post.post_categories.each do |post_category| %>
-      	  	<span><%= link_to(post_category.category.name, {:controller => 'posts', :action => 'list', :category_id => post_category.category.id}, :class => "list_tags") %></span>
-      	  <% end %>
+  			  Categories<br />
+  			  <% post.category_names.split("-").each do |category| %>
+	      	  	<span><%= link_to(category.strip, {:controller => 'posts', :action => 'list', :category_name => category.strip}, :class => "list_tags") %></span>
+	      	  <% end %>
       	  </p>
       	  
       	  <p class="center">
-		  Tags<br />
-      	  <% post.post_tags.each do |post_tag| %>
-  			<span><%= link_to(post_tag.tag.name, {:controller => 'posts', :action => 'list', :tag_name => post_tag.tag.name}, :class => "list_tags") %></span>
-  		  <% end %>
+  			  Tags<br />
+	      	  <% post.tag_names.split("-").each do |tag| %>
+  	  			<span><%= link_to(tag.strip, {:controller => 'posts', :action => 'list', :tag_name => tag.strip}, :class => "list_tags") %></span>
+  	  		  <% end %>
   		  </p>
   		  <p class="center">
   		  <span>
-	      	<% sol_count = solution_count(post)%>
 	      	<%= "Fixes:"  %>
-	      	<%= sol_count.to_s %>
+	      	<%= post.solutions_size %>
 	      </span>	
 	      <span>
-	      	<% post_score = post.get_score %>
 	      	<%= " / Score:" %>
-	      	<%= post_score.to_s %>
+	      	<%= post.score %>
 	      </span>
 	      </p>
-	      <p class="small-text">Submitted by <%= post.user ? post.user.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</p> 
+	      <p class="small-text">Submitted by <%= post.username ? post.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</p> 
       	</div>
       <% if is_admin && is_post_list_page %>
       <div class="actions">  

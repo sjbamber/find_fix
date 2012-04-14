@@ -39,7 +39,7 @@
     <%= show_comment_form(post, post.id) %>
 	<div id="sharing">
 		<strong>Share this post:</strong>
-		<a id="tweet-button" href="https://twitter.com/share" target="_blank">Tweet</a>
+		<a id="tweet-button" href="https://twitter.com/share" target="_blank">Twitter</a>
 		<a id="fb-button" href="http://www.facebook.com/sharer.php?u=<%= url_encode(request.url)%>&t=<%=url_encode(post.title)%>" target="_blank">Facebook</a> 
 		<a id="linkedin-button" href="http://www.linkedin.com/shareArticle?mini=true&url=<%= url_encode(request.url)%>&title=<%=url_encode(post.title)%>&source=find-fix.com">Linkedin</a>
 	</div>

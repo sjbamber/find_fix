@@ -12,14 +12,14 @@
 	  <div class="form-field">
 	    <%= f.label(:description) %><span class="required">*</span>
 	    <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter as much detail as you can about the problem you are having here") %>
-	    <div class="textarea_background"><%= f.text_area(:description, :size => "596x10", :validate => { :presence => true }, :id => 'rich_textarea') %></div>
+	    <div class="textarea_background"><%= f.text_area(:description, :size => "596x10", :id => 'rich_textarea', :validate => false) %></div>
 	  </div>
 	  
 	  <div class="form-field">
-	    <%= label(:error_messages, :description, "Error Message(s)") %>	    
+	    <%= f.label(:error_messages, "Error Message(s)") %>	    
 			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter any error messages you recieve here. You can add multiple error messages by clicking the button below. Click the cross beside the field to remove it if required") %>	    
 		<%= f.fields_for :error_messages do |e| %>
-			<%= e.autocomplete_field :description, "/posts/autocomplete_error_message_description" %>
+			<%= e.text_field :description, "data-autocomplete" => "/posts/autocomplete_error_message_description", :validate => { :presence => false } %>
 			<%= e.link_to_remove "X", :class => "tooltip error_remove", "data-tooltip" => "Click to remove this field"%>
 		<% end %>
 			
@@ -27,20 +27,20 @@
 	  </div>
 	  
 	  <div class="form-field">
-	    <%= label(:categories, :name, "Categories") %><span class="required">*</span>
-	    			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Select a category here that is most relevant to your problem. You can add multiple categories by clicking the button below. Click the cross beside the field to remove it if required") %>
-	    <%= f.fields_for :categories, :validate => {:length => { :within => 3..255 }, :uniqueness => true} do |c| %>
-			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --'}) %>
+	    <%= f.label(:categories, "Categories") %><span class="required">*</span>
+	    	<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Select a category here that is most relevant to your problem. You can add multiple categories by clicking the button below. Click the cross beside the field to remove it if required") %>
+	    <%= f.fields_for :categories do |c| %>
+			<%= c.collection_select(:name, @category_options, :name, :name, {:prompt => '-- Please Select a Category --'}, :validate => { :uniqueness => false }) %>
 			<%= c.link_to_remove "X", :class => "tooltip category_remove", "data-tooltip" => "Click to remove this field" %>
 		<% end %>
 		<p><%= f.link_to_add "Add another category", :categories %></p>
 	  </div>
 	  
 	  <div class="form-field">
-	    <%= label(:tags, :name, "Custom Tags") %><span class="required">*</span>
-	    			<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter any keywords here that summarise your problem. You can add multiple tags by clicking the button below. Click the cross beside the field to remove it if required") %>
+	    <%= f.label(:tags, "Custom Tags") %><span class="required">*</span>
+	    	<%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Enter any keywords here that summarise your problem. You can add multiple tags by clicking the button below. Click the cross beside the field to remove it if required") %>
 		<%= f.fields_for :tags do |t| %>	
-			<%= t.autocomplete_field :name, "/posts/autocomplete_tag_name"%>
+			<%= t.text_field :name, "data-autocomplete" => "/posts/autocomplete_tag_name" %>
 			<%= t.link_to_remove "X", :class => "tooltip tag_remove", "data-tooltip" => "Click to remove this field" %>
 		<% end %>
  		<p><%= f.link_to_add "Add another tag", :tags %></p>

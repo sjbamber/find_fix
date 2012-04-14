@@ -1,12 +1,10 @@
 <% @page_title = "Create Post"%>
 <% @content_header = "Post New Problem"%>
 
-
-
 <div class="post new">
   <%= nested_form_for(@post, :validate => true, :url => {:action => 'create'}) do |f| %>
   
-    <%= render(:partial => "form", :locals => {:f => f}) %>
+    <%= render "form", :f => f %>
     
     <div class="form-buttons">
       <%= submit_tag("Submit Post") %>

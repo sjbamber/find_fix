@@ -202,12 +202,24 @@ a.list_tags:active {
 
 /* New Post Screen */
 
-#new_post textarea {
-		width: 100%;
-		height: 150px;
+#new_post .fields a {
+	padding-left: 3%;
+}
+#new_post .fields div.ui-select {
+	display: inline-block;
+	width: 85%;
 }
 
-#new_post .fields input, #new_post .fields select{
+#new_post textarea {
+	width: 100%;
+	height: 150px;
+}
+
+#new_post .fields {
+
+}
+
+#new_post .fields input {
   width: 85%;
   display: inline;
 }
