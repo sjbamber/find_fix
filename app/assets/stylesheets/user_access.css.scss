@@ -5,6 +5,9 @@
   width: 420px; 
   margin: 40px auto 40px auto; 
 }
+.login .form-field { 
+  padding-left: 10px;
+}
 .login .form-input input { 
   width: 400px; 
 }
@@ -19,4 +22,12 @@
 }
 .admin_menu ul li { 
   margin-bottom: 1em; 
+}
+
+#login_notice {
+  color: #C00;
+}
+
+#facebox .content label, #facebox .content p{
+  color: #eee;
 }

@@ -12,9 +12,10 @@
 			<h3>Category</h3>
 				<% unless @category_facets.blank? %>
 					<% @category_facets.keys.each_with_index do |facet, i| %>
-						<p><%= link_to( facet, {:controller => 'posts', :action => 'search', :query => params[:query], :cfacet => facet}) unless params[:cfacet] %>
+						<p><%= link_to( facet, {:controller => 'posts', :action => 'search', :query => params[:query], :cfacet => facet, :tfacet => params[:tfacet]}) unless params[:cfacet] %>
 						   <%= " (#{@category_facets.values[i]})" unless params[:cfacet] %>
-						   <%= link_to( facet+" (remove)", {:controller => 'posts', :action => 'search', :query => params[:query]}) if params[:cfacet]%>
+						   <%= facet+" " if params[:cfacet] %>
+						   <%= link_to("(remove)", {:controller => 'posts', :action => 'search', :query => params[:query], :tfacet => params[:tfacet]}) if params[:cfacet]%>
 						   </p>
 					<% end %>
 				<% end %>
@@ -22,9 +23,10 @@
 			<h3>Tag</h3>
 				<% unless @tag_facets.blank? %>
 					<% @tag_facets.keys.each_with_index do |facet, i| %>
-						<p><%= link_to( facet, {:controller => 'posts', :action => 'search', :query => params[:query], :tfacet => facet}) unless params[:tfacet] %> 
+						<p><%= link_to( facet, {:controller => 'posts', :action => 'search', :query => params[:query], :tfacet => facet, :cfacet => params[:cfacet]}) unless params[:tfacet] %> 
 						   <%= " (#{@tag_facets.values[i]})" unless params[:tfacet] %>
-						   <%= link_to( facet+" (remove)", {:controller => 'posts', :action => 'search', :query => params[:query]}) if params[:tfacet]%></p>
+						   <%= facet+" " if params[:tfacet] %>
+						   <%= link_to("(remove)", {:controller => 'posts', :action => 'search', :query => params[:query], :cfacet => params[:cfacet]}) if params[:tfacet]%></p>
 					<% end %>
 				<% end %>				
 		</div>

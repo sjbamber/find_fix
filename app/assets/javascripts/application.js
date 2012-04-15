@@ -17,6 +17,7 @@
 //= require rails.validations
 //= require jquery_nested_form
 //= require autocomplete-rails
+//= require jquery.facebox
 //= require_directory .
 
 // Load nicEdit
@@ -140,5 +141,17 @@ $(document).ready(function()
 		$( "a.add_nested_fields", ".new" ).button();
 		$( "input:submit", ".form-buttons" ).button();
 		$( "input:submit", ".comment_form" ).button();
+		// Add Modal box to login link
+		$('a.login').facebox({  
+        	loadingImage : '/images/ajax-loader.gif',
+    		closeImage   : '/images/closelabel.gif',  
+    	});
+    	$(document).bind('reveal.facebox', function() {
+    		$( "input:submit", ".form-buttons" ).button();
+	        $('.login form').submit(function() {
+	            $.post(this.action, $(this).serialize(), null, "script");
+	            return false;
+	        });  
+    	}); 
 	});
 });

@@ -1,0 +1,24 @@
+<div class="login">
+<span id="login_notice">
+	<% if @notice %>
+		<%= @notice %>
+	<% end %>
+</span>
+  <%= form_tag(:action => 'process_login') do %>
+  <div class="form-input">
+	 <div class="form-field">
+	     <%= label_tag(:username) %>
+	     <%= text_field_tag(:username) %>
+     </div>
+     <div class="form-field">
+	     <%= label_tag(:password) %>
+	     <%= password_field_tag(:password) %>
+     </div>
+  </div>
+  
+  <div class="form-buttons">
+  	<%= submit_tag("Log In") %>
+  </div>
+  <% end %>
+  <p class="center">Forgotten your password? <%= link_to "Click here to recover it.", {:controller => 'password_resets', :action => 'new'} %></p>
+</div>

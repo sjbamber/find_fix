@@ -45,6 +45,9 @@ gem 'rails3-jquery-autocomplete'
 # Gem to handle dynamically adding nested fields on forms
 gem 'nested_form', :git => 'https://github.com/ryanb/nested_form.git'
 
+# Gem for jQuery modal box
+gem 'facebox-rails'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

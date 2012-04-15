@@ -28,15 +28,14 @@ class PostsController < ApplicationController
       " OR category_names:(#{q}*) OR tag_names:(#{q}*)"\
       " OR solution_descriptions:(#{q}*) OR post_comments:(#{q}*) OR solutions_comments:(#{q}*)"
       fetch = [:title, :updated_at, :username, :category_names, :tag_names, :solutions_size, :comments_size, :score]
-      if params[:cfacet]
-        @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
-        :fetch => fetch, :page => params[:page],  :function => 0, :category_filters => {'category' => params[:cfacet].to_s})
-      elsif params[:tfacet]
-        @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
-        :fetch => fetch, :page => params[:page],  :function => 0, :category_filters => {'tag' => params[:tfacet].to_s})  
+      if params[:cfacet] && !params[:tfacet]
+        @posts = post_query(q, fetch, true, {'category' => params[:cfacet].to_s})
+      elsif params[:tfacet] && !params[:cfacet]
+        @posts = post_query(q, fetch, true, {'tag' => params[:tfacet].to_s})
+      elsif params[:cfacet] && params[:tfacet]
+        @posts = post_query(q, fetch, true, {'category' => params[:cfacet].to_s, 'tag' => params[:tfacet].to_s})
       else
-        @posts = Post.search_tank( "#{q}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
-        :fetch => fetch, :page => params[:page], :function => 0)
+        @posts = post_query(q, fetch, true)
       end  
       @posts.blank? ? @category_facets = {} : @category_facets = get_facets(@posts, "category")
       @posts.blank? ? @tag_facets = {} : @tag_facets = get_facets(@posts, "tag")
@@ -207,6 +206,23 @@ class PostsController < ApplicationController
     Post.find(params[:id]).destroy
     flash[:notice] = "Post Deleted"
     redirect_to(:action => 'list')
+  end
+  
+  private
+  
+  def post_query(query, fetch, snippet=false, facet=false, function=0)
+    if snippet && facet
+        posts = Post.search_tank( "#{query}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
+        :fetch => fetch, :page => params[:page],  :function => function, :category_filters => facet)
+    elsif snippet && !facet
+        posts = Post.search_tank( "#{query}*", :snippets => [:description, :error_message_descriptions, :solution_descriptions, :post_comments, :solutions_comments],\
+        :fetch => fetch, :page => params[:page],  :function => function)
+    elsif !snippet && facet
+        posts = Post.search_tank( "#{query}*", :fetch => fetch, :page => params[:page],  :function => function, :category_filters => facet)
+    else
+        posts = Post.search_tank( "#{query}*", :fetch => fetch, :page => params[:page],  :function => function)
+    end
+    return posts
   end
   
 end
