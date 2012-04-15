@@ -23,5 +23,6 @@
         <%= f.password_field(:password_confirmation, "data-theme" => "d") %>
 
       <%= submit_tag("Submit") %>
-
+    	<p class="small-text center">We will not share your personal information with third parties without your permission, except as set forth in our 
+	   <%= link_to "Privacy Policy", {:controller => 'public', :action => 'privacy', :mobile => 0 }%></p>
   <% end %>

@@ -247,7 +247,13 @@ a:hover {
 	margin: 0; 
 	padding: 1em 1em 0 1em; 
 }
-#mobile_site_link { 
+#footer a { 
+	color: #eee; 
+}
+#footer a:hover { 
+	color: #f88; 
+}
+#footer_content_left { 
 	float: left; 
 }
 
@@ -293,6 +299,9 @@ a:hover {
 }
 .indent {
 	padding-left: 10px;
+}
+.small-text {
+	font-size: 11px;
 }
 
 /* Links in the top right of the page */

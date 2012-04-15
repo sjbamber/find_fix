@@ -25,11 +25,19 @@ class Tag < ActiveRecord::Base
   # Index values for search purposes
     indexes :name
     
+    # Variables available in scoring function
+    variables do
+      {
+        0 => post_tags.size, # number of occurences of a tag
+      }
+    end
+    
     # Scoring functions
     functions do
       {
         0 => 'relevance',
-        1 => '-age'
+        1 => '-age',
+        2 => 'doc.var[0]',
       }
     end
     

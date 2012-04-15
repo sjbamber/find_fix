@@ -79,7 +79,7 @@ module ApplicationHelper
   end
   
   def get_tags_for_right_bar
-    @tags = Tag.search_tank("__type:(Tag)",:fetch => [:name], :function => 1)
+    @tags = Tag.search_tank("__type:(Tag)",:fetch => [:name], :function => 2)
   end  
   
 end

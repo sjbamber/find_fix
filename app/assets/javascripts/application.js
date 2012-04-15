@@ -13,11 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require_directory ./plugins
 //= require rails.validations
 //= require jquery_nested_form
 //= require autocomplete-rails
 //= require jquery.facebox
+//= require_directory ./plugins
 //= require_directory .
 
 // Load nicEdit

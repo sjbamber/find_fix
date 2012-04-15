@@ -1,10 +1,11 @@
 <div class="login">
-<span id="login_notice">
-	<% if @notice %>
-		<%= @notice %>
-	<% end %>
-</span>
+
+  <h2>Login</h2>
+
   <%= form_tag(:action => 'process_login') do %>
+  <% if @notice %>
+	<span id="login_notice"><%= @notice %></span>
+  <% end %>
   <div class="form-input">
 	 <div class="form-field">
 	     <%= label_tag(:username) %>
@@ -20,5 +21,6 @@
   	<%= submit_tag("Log In") %>
   </div>
   <% end %>
+  <p class="center">Need an account? <%= link_to("Click here to create one", {:controller => 'users', :action => 'new'}) %>.</p>
   <p class="center">Forgotten your password? <%= link_to "Click here to recover it.", {:controller => 'password_resets', :action => 'new'} %></p>
 </div>

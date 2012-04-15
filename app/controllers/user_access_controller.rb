@@ -26,16 +26,17 @@ class UserAccessController < ApplicationController
       session[:user_id] = permitted_user.id
       session[:username] = permitted_user.username
       session[:role] = permitted_user.role
+      flash[:notice] = "Welcome #{session[:username]}. You are now logged in"
       respond_to do |format|
         format.html{
-          flash[:notice] = "You are now logged in"
           view_context.is_admin ? redirect_to(:action => 'admin_menu') : redirect_to(root_url)
         }
         format.mobile{
-          flash[:notice] = "You are now logged in"
           view_context.is_admin ? redirect_to(:action => 'admin_menu') : redirect_to(root_url)
         }
-        format.js { render :action => :redirect }
+        format.js { 
+          render :action => :redirect 
+        }
       end
     else
       respond_to do |format|
@@ -59,6 +60,7 @@ class UserAccessController < ApplicationController
       session[:user_id] = nil
       session[:username] = nil
       session[:role] = nil
+      reset_session
       flash[:notice] = "You have been logged out"
       redirect_to(root_url)
   end

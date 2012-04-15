@@ -1,14 +1,12 @@
 <% @page_title = "Login" %>
-<% @content_header = "User Login"%>
 
  	<%= render 'form' %>
 
 <% content_for :right_bar do %>
 <div class="right_bar_feature">
 <h2>Help</h2>
-<p>Login here to post problems and suggest solutions.</p>
+<p>Login here to post problems, suggest fixes, comment or vote on existing problems.</p>
 <br />
-<p>If you do not already have login credentials <%= link_to("create a new account", {:controller => 'users', :action => 'new'}) %>.</p>
 </div>
 <% end %>
 
