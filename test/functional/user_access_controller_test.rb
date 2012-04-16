@@ -46,7 +46,7 @@ fixtures :users
   # should logout successfully when logged in
   test "test logout when logged in" do
     get :logout, {}, { :user_id => users(:alice).id }
-    assert_redirected_to :controller => "user_access", :action => "login"
+    assert_redirected_to root_url
     assert_equal "You have been logged out" , flash[:notice]
   end 
   
@@ -76,7 +76,7 @@ fixtures :users
     alice = users(:alice)
     post :process_login, :username => alice.username, :password => 'password'
     assert_redirected_to :controller => "public", :action => "index"
-    assert_equal "You are now logged in" , flash[:notice]
+    assert_equal "Welcome #{alice.username}. You are now logged in" , flash[:notice]
     assert_equal alice.id, session[:user_id]
   end
   
@@ -84,7 +84,7 @@ fixtures :users
     administrator = users(:administrator)
     post :process_login, :username => administrator.username, :password => 'password'
     assert_redirected_to :controller => "user_access", :action => "admin_menu"
-    assert_equal "You are now logged in" , flash[:notice]
+    assert_equal "Welcome administrator. You are now logged in" , flash[:notice]
     assert_equal administrator.id, session[:user_id]
   end  
 

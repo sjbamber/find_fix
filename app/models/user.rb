@@ -17,7 +17,12 @@ class User < ActiveRecord::Base
   before_validation :downcase_email, :downcase_username, :strip_name
   
   # Class instance variable that is not a database attribute, used to store user supplied password
-  attr_accessor :password, :update_password
+  attr_accessor :password, :update_password, :confirm_terms
+  # used to store determine whether the password should be validated
+  attr_accessor :update_password
+  # used to validate the confirmation of terms of service
+  attr_accessor :confirm_terms
+  
   
   # Validations
   # Regular expressions to validate email and username format
@@ -41,6 +46,7 @@ class User < ActiveRecord::Base
   
   # Conditional validations
   validates_confirmation_of :email, :on => :create
+  validates_acceptance_of :confirm_terms, :on => :create
 
   validates_presence_of  :password, :if => :should_validate_password?
   with_options :allow_blank => true do |v|

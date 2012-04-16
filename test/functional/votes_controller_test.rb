@@ -2,11 +2,15 @@ require 'test_helper'
 
 class VotesControllerTest < ActionController::TestCase
 # Load Test Data
-fixtures :posts, :solutions, :comments, :users, :vote_types
+fixtures :posts, :solutions, :comments, :users, :vote_types, :categories, :tags
 
   def setup
     @user = users(:alice)
     @problem = posts(:problem1)
+    @problem.categories << categories(:windows)
+    @problem.tags << tags(:tag1)
+    @problem.user = users(:testuser1)
+    @problem.save
     @solution = solutions(:solution1)
     @solution.post = @problem
     @solution.save

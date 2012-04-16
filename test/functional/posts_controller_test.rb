@@ -12,6 +12,8 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     @problem.categories << categories(:windows)    
     @problem.tags << tags(:tag1)
     @problem.tags << tags(:tag2)
+    @problem.user = users(:alice)
+    @problem.save
   end
 
 ## Test action index

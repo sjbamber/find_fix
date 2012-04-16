@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase
 fixtures :users
 
 # Test Validation Works
-  test "user attributes must not be empty" do
+  test "user attributes must not be empty on create" do
     # Test required field validation
     user = User.new
     assert user.invalid?
@@ -20,7 +20,7 @@ fixtures :users
                     password: "examplepassword")
   end  
 
-  test "name" do
+  test "name validations" do
     user = new_user("abc@example.com")
     # Test Maximum Length of 60 validation
     user.name = "a"*61
@@ -30,7 +30,7 @@ fixtures :users
     assert user.valid?, "User Name of 60 characters and under should be valid" 
   end
   
-  test "username" do
+  test "username validations" do
     user = new_user("abcd@example.com")
     # Test username between 6 and 25 characters validation
     user.username = "a"*26
@@ -46,7 +46,7 @@ fixtures :users
     assert user.invalid?, "Username should be unique"
   end  
   
-  test "email" do
+  test "email validations" do
     user = new_user("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.com") #101 characters
     assert user.invalid?, "Email over 100 characters should not be valid" 
     user.email = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.com" #100 characters
@@ -65,7 +65,7 @@ fixtures :users
     end
   end
 
-  test "password" do
+  test "password validations" do
     user = new_user("abcd@example.com")
     # Test password between 8 and 25 characters validation
     user.password = "a"*26
@@ -76,6 +76,6 @@ fixtures :users
     assert user.valid?, "Password between 8 and 25 characters should be valid"     
     user.password = "a"*8
     assert user.valid?, "Password between 8 and 25 characters should be valid" 
-  end   
-
+  end  
+  
 end

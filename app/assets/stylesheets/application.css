@@ -38,7 +38,6 @@ body {
 h2 { 
 	font-size: 20px; 
 	border-bottom: 1px solid #993120; 
-	padding-bottom:0; 
 	text-shadow: 1px 1px #000000; 
 }
 p, td, ul, ol, li, dl, dt, dd { 
@@ -46,6 +45,10 @@ p, td, ul, ol, li, dl, dt, dd {
 }
 p, td, ul, ol, li, dl, dt, dd, h1, h2, h3 { 
   	padding: 5px 0 5px 0; margin: 0;
+}
+h3 {
+	color: #f88;
+	padding-bottom: 15px;
 }
 
 li { 
@@ -220,7 +223,7 @@ a:hover {
 	margin-bottom: 10px; 
 }
 #right_bar_content p {
-	padding: 0;
+	padding: 10px 0 0 0;
 	line-height: 18px;
 }
 .right_bar_feature {
@@ -232,26 +235,28 @@ a:hover {
 /* Footer */
 #footer { 
 	clear: both; 
-	border-top: 1em solid #4C2516;
-  	background: url("footer_background.png") repeat-x #6c241c; 
-  	color: #EEEEEE;
+	border-top: 1px solid #4C2516;
+  	background: url("footer_background.png") repeat-x #993120; 
+  	color: #AAAAAA;
 }
 #footer_content { 
-	color: #EEEEEE; 
+	color: #AAAAAA;
+	font-size: 0.9em;
 	text-align: right; 
 	width: 1000px; 
 	margin: 0 auto 0 auto; 
-	padding-top: 1em;
+	padding-top: 1.5em;
 }
 #footer p { 
 	margin: 0; 
 	padding: 1em 1em 0 1em; 
 }
 #footer a { 
-	color: #eee; 
+	color: #AAAAAA;
+	text-decoration:none;
 }
 #footer a:hover { 
-	color: #f88; 
+	color: #EEEEEE;
 }
 #footer_content_left { 
 	float: left; 
@@ -262,12 +267,12 @@ a:hover {
 	min-height: 100%; 
 	height: auto !important; 
 	height: 100%; 
-  	margin: 0 auto -6em; 
+  	margin: 0 auto -81px; 
   	background: url("background.gif") repeat #1c1c1c; 
   	color: #EEEEEE;
 }
 #footer, #push { 
-	height: 5em; 
+	height: 80px; 
 }
 
 
@@ -302,6 +307,9 @@ a:hover {
 }
 .small-text {
 	font-size: 11px;
+}
+.nicEdit-main li {
+	margin-left: 2em;
 }
 
 /* Links in the top right of the page */

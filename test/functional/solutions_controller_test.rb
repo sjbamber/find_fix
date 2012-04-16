@@ -7,6 +7,10 @@ fixtures :posts, :solutions, :users
   def setup
     @solution = solutions(:solution1)
     @problem = posts(:problem1)
+    @problem.categories << categories(:windows)
+    @problem.tags << tags(:tag1)
+    @problem.user = users(:alice)
+    @problem.save
   end
   
   ## Test action create

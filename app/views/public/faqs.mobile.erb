@@ -1,0 +1,62 @@
+<% @page_title = "Frequently Asked Questions"%>
+<% @content_header = "Frequently Asked Questions"%>
+<div class="faqs">
+
+	<p>Click the navigation options on the right to pick a question.</p>
+	<br /><hr /><br />
+	<div id="sortofproblems">
+		<h3>What sort of problems should I be posting here?</h3>
+		<p>Find Fix is targeted at anyone with an IT support problem. So you can post any query you have regarding a computing problem.  Listed below are some examples of the sorts
+		   of problems you might post about. This is by now means a definitive list.</p>
+		<ul>
+			<li>Hardware issues - e.g. overheating CPUs, problematic printers or diagnosing parts that need replacing.</li>
+			<li>Operating system problems - e.g. Viruses and Trojans, Performance issues or persistent errors</li>
+			<li>Networking Issues - e.g. Wired/Wireless Network setup, performance or security problems, Router configuration etc.</li>
+			<li>Mobile device issues - e.g. problems with smartphones, tablets and other mobile devices</li>
+			<li>Other software - e.g. issues with specific software packages such as office, desktop publishing, multimedia or web applications.</li>
+		</ul>
+		<p>
+		   Although any question relating o computing is welcome but please bear in mind that someone has
+		   to answer the question so try to keep it relevant and concise whilst providing enough information for someone to provide an answer.
+		<p>In general try to follow these guidelines when posting:</p>	
+	</div>
+	<br /><hr /><br />
+	<div id="doihavetologin">
+		<h3>Do I have to log in?</h3>
+		<p>You do not have to login to search for problems and view existing posts, however to post new problems, fixes and comments or vote you need to login.</p>
+		<p>Logging in is quick and easy, the only data we need from you is your email address, username and password.  See <a href="/public/help#register">registration help</a> 
+		   for more details.</p>
+	</div>
+	<br /><hr /><br />
+	<div id="howdoesvotingwork">
+		<h3>How does voting work?</h3>
+		<p>Users can vote on any problem, fix or comment that is posted, providing that it was not posted by them and they have not already voted on that post.</p>
+		<p>The idea is that the users of the site determine if the post is of sufficient quality or not. See <a href="/public/help#voting">voting help</a> for more details.</p>
+	</div>
+	<br /><hr /><br />
+	<div id="morehelp">
+		<h3>Where can I get more help or find out more?</h3>
+		<p>Take a look at the <%= link_to("help section", {:controller => 'public', :action => 'help'}) %> for more information.  If you cannot find what you are looking for or would 
+			like to ask a question regarding the site, please feel free to contact us at <%= link_to "support@find-fix.com", "mailto:support@find-fix.com" %>. We are happy to respond 
+			to any queries or ideas you have for the site and will get back to you as soon as possible.</p>
+	</div>
+	<br />
+
+</div><!-- End faqs -->
+
+<% content_for :right_bar do %>
+<div class="right_bar_linklist">
+	<h2>Navigation</h2>
+<ul>
+<li><a href="#sortofproblems">What sort of problems should I be posting here?</a></li>
+<li><a href="#doihavetologin">Do I have to login?</a></li>
+<li><a href="#howdoesvotingwork">How does voting work?</a></li>
+<li><a href="#morehelp">Where can I get more help or find out more?</a></li>
+
+</ul>
+<br />
+</div>
+<% end %>
+
+<% @hide_categories = true %>
+<% @hide_tags = true %>

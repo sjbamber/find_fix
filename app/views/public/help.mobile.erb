@@ -1,0 +1,112 @@
+<% @page_title = "Help"%>
+<% @content_header = "Help"%>
+<div class="help">
+
+	<p>Find-fix.com is a collaboratively edited knowledge base for IT support and computer based problems.</p>
+	<p>Users can save details of their problem, then share or discuss the problem with others to arrive at a solution.	Problems and suggested fixes can be voted 
+	on (up to once per user) to promote good fixes and make it easy for other users to decide if the fix is genuine.</p>
+	<p>Click the navigation options on the right to get help on the section you need.</p>
+	<br /><hr /><br />
+	<div id="register">
+		<h3>1. Registering a new account</h3>
+		<p>To post new problems, fixes and comments or vote on them, you must have an account registered and be logged in.</p>
+		<p>To register a new account go to the <%= link_to("account registration form", {:controller => 'users', :action => 'new'}) %>, there is a link to this form in the top right of 
+		   the screen if you are logged out.  On the registration screen you will be requested to enter your name, email, username and a password. </p>
+		<p>Providing your name is entirely optional and will only be used for display purposes. 
+		   Your email is required to contact you regarding changes to your account or to reset your password should you require it. Usernames must be between 6 and 25 characters. 
+		   Passwords must be between 8 and 25 characters. </p>
+		<p>To complete your registration, please read and accept the terms and conditions of use and submit the form. Upon successful
+		   registration you will be automatically logged in.</p>
+	</div>
+	<br /><hr /><br />
+	<div id="login">
+		<h3>2. Logging in/out and Password Recovery</h3>
+		<p>To login click this link - <%= link_to("login", {:controller => 'user_access', :action => 'login'}, :class => 'login') %> or click the link in the top right of the screen.  
+		   Login requires you to supply your username and password given during registration.  If you have forgotten your username or password you can <%= link_to "recover them", {:controller => 'password_resets', :action => 'new'} %>  
+		   by clicking on the link at the bottom of the login screen.</p>
+		<p>To recover your password simply enter your email address and an email will be sent to you with a link to reset your password.  This link will expire after 2 hours and you will have to request the email again if this happens.</p> 
+		<p>When you are logged in you will notice that the link in the top right changes to a button that allows you to logout securely. It is worth noting that you will be logged out automatically if 
+		   the account is inactive for over 1 hour, so you need not worry too much about leaving yourself logged in.</p>
+	</div>
+	<br /><hr /><br />
+	<div id="postproblem">
+		<h3>3. Posting a new problem</h3>
+		<p>When you are logged in an option will appear at the top of the screen to post a new problem.  Clicking on this will present you with the 
+			<%= link_to("problem creation screen", {:controller => 'posts', :action => 'new'}) %>.</p>
+		<p>To post a new problem you need to enter a title and description. In the title try to summarise your problem in a sentence and leave the rest of the detail to the description. 
+		   If you have javascript enabled you can format your description and add images using the text editor provided.</p>
+		<p>Many IT problems have one or error messages associated with them. If your problem has an error message enter it in the error message field (If your problem has no error message you can leave it blank).
+		   You can add mulitple error messages by clicking 'Add another error message'. This will bring up another field where you can enter the error. If you accidently press this button and wish to remove the field, 
+		   press the cross to the right of the field you wish to remove.</p>
+		<p>To complete the problem you must select one or more categories and tags for the problem.</p> 
+		<p>Categories are predefined and are selectable from a drop down list if you cannot find a relevant category, select the most appropriate.  
+		   If you think a category is missing and should be added <a href="#report">report it to us</a>.</p>  
+		<p>Tags in contrast to categories are not predefined and are keywords associated with the problem decided by you.  As you are entering a tag you will notice that it suggests tag names based on what 
+		   you are typing, these are tag names that other users have used.  We encourage you to use these suggestions if possible because unless tags are the same they will not be associated when doing a search. (This also applies to error messages you enter)</p>
+		<p>Multiple tags and categories can be added to a problem up to a maximum of five in the same way error messages are added.</p>
+		<p>Press submit to post the problem. If the post is submitted successfully, you will be directed to a page detailing the post you have submitted.</p>
+	</div>
+	<br /><hr /><br />
+	<div id="searching">
+		<h3>4. Searching for a problem or fix</h3>
+		<p>One of the most important tasks when using find-fix is to effectively locate a relevant problem.  
+		   You can list all existing posts by clicking the 'view problems' option at the top of the screen, however the primary way to look for problems and fixes is using the search function.</p>
+		   <p>Simply enter keywords relevant to what you are looking for in the search bar at the top of the screen, submit the search using the 'search' button and you will be presented with a list of results, ordered by relevance.</p>
+		   <p>It is worth noting that as you search there is an autocomplete feature that automatically suggests keywords as you are typing them from results in the database.</p>
+		<br /><%= image_tag('/images/help/search.png', :alt => 'Find Fix search bar')%>
+		<p class="small-text center">The search bar at the top of the screen should be used to find relevant problems and fixes</p><br />
+		<p>You can further refine your search after you have recieved your results by clicking on the categories and tags on the right of the screen. 
+		   This returns a subset of the results that match the category or tag selected. The numbers next to each result represents how often that category or tag appears in the search results.</p>
+		<br /><p class="center nopadding"><%= image_tag('/images/help/facets.png', :alt => 'Example of faceted search')%></p>
+		<p class="small-text center">An example of how you can refine your search by tag or category.</p><br />
+		<p>When you have decided on the result you are looking for simply click on the title and you will be presented with a screen detailing the post along with its associated sixes, comments and votes.</p>
+		
+	</div>
+	<br /><hr /><br />
+	<div id="postfix">
+		<h3>5. Posting a Fix or comment</h3>
+		<p>When you have located a fix you may want to suggest a fix or comment on what has been said so you can ascertain more details.</p>
+		<p>To post a comment select the 'comment on this post' below the problem or fix to reveal the form below.</p>
+		<br /><p class="center nopadding"><%= image_tag('/images/help/comments.png', :alt => 'Comment form')%></p>
+		<p class="small-text center">The form for entering comments.</p><br />
+		<p>To post a fix use the text box at the bottom of the screen. Submitting a fix will add it to the list of fixes above the form.</p>
+	</div>
+	<br /><hr /><br />
+	<div id="voting">
+		<h3>6. Voting on a problem, fix or comment</h3>
+		<p>Due to this being a community edited website, it can be difficult to verify the reliability of problem information or if a fix is genuine.
+		   To score each post(problem, fix or comment) on how reliable they are, users are able to give them a positive or negative vote.  The idea being that
+		   with enough users the good posts (with high scores) will have high scores and the poor posts will have lower scores.</p>
+		<p>To vote on a post use the voting buttons that appear nest to a post when you are logged in.  The green tick will cast a positive vote, the red cross a negative vote.</p>
+		<br /><p class="center nopadding"><%= image_tag('/images/help/votes.png', :alt => 'Voting buttons')%></p>
+		<p class="small-text center">The voting buttons as they appear when you are logged in</p><br />
+		<p>Note that you cannot vote on a post you have created and you can only vote once per post.</p>
+	</div>
+	<br /><hr /><br />
+	<div id="report">
+		<h3>7. Reporting an issue with the site</h3>
+		<p>If you discover a problem with the site, have an issue with a post or user account or you wish to suggest an improvement or feature contact us at <%= link_to "support@find-fix.com", "mailto:support@find-fix.com" %> 
+		and we will try to respond as soon as possible.</p>
+	</div>	
+	<br /><br />
+
+</div><!-- End help -->
+
+<% content_for :right_bar do %>
+<div class="right_bar_linklist">
+	<h2>Help Navigation</h2>
+<ol>
+<li><a href="#register">Registering a new account</a></li>
+<li><a href="#login">Login & Password Recovery</a></li>
+<li><a href="#postproblem">Posting a new problem</a></li>
+<li><a href="#searching">Searching for a problem or fix</a></li>
+<li><a href="#postfix">Posting a Fix or comment</a></li>
+<li><a href="#voting">Voting on a problem, fix or comment</a></li>
+<li><a href="#report">Reporting an issue with the site</a></li>
+</ol>
+<br />
+</div>
+<% end %>
+
+<% @hide_categories = true %>
+<% @hide_tags = true %>

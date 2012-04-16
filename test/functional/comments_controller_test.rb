@@ -2,11 +2,15 @@ require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
 # Load Test Data
-fixtures :posts, :solutions, :comments, :users
+fixtures :posts, :solutions, :comments, :users, :categories, :tags
 
   def setup
     @user = users(:alice)
     @problem = posts(:problem1)
+    @problem.categories << categories(:windows)
+    @problem.tags << tags(:tag1)
+    @problem.user = @user
+    @problem.save
     @solution = solutions(:solution1)
     @solution.post = @problem
     @solution.save
@@ -31,7 +35,7 @@ fixtures :posts, :solutions, :comments, :users
     assert_equal "Errors prevented the comment from saving" , flash[:notice]
   end  
 
-  test "post valid post comment to create" do  
+  test "post valid post comment to create" do
     post :create, { :id => @problem.id, :problem_id => @problem.id, :post_type => @problem.class, :comment => { :comment => "test comment" } }, { :user_id => @user.id }
     assert_equal "Comment Submitted Successfully", flash[:notice]
     assert_redirected_to :controller => "posts", :action => "show", :id => @problem.id

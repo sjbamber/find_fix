@@ -1,3 +1,6 @@
+<script>confirm_submit("#user_confirm", ".user_submit");</script>
+<div id="user_confirm" title="Submit User" style="display: none;">Are you sure you wish to register?</div>
+
 <% @page_title = "Register Account"%>
 <% @content_header = "Register User Account"%>
 
@@ -39,12 +42,17 @@
         <%= image_tag('help_icon.png', :alt => 'help icon', :class => 'tooltip', "data-tooltip" => "Re-enter the password entered above to confirm its correctness") %>        
         <%= f.password_field(:password_confirmation) %>
      </div>   
+     <div class="form-field">
+        <%= f.label(:confirm_terms, "I agree with the <a href=\"/public/termsofservice\" target=\"_blank\">terms and conditions</a>".html_safe) %><span class="required">*</span>
+        <%= f.check_box(:confirm_terms) %>
+     </div>  
         
 	</div>
     
     <div class="form-buttons">
-      <%= submit_tag("Register") %>
+      <%= submit_tag("Register", :class => "user_submit") %>
     </div>
+    <br />
     	<p class="small-text center">We will not share your personal information with third parties without your permission, except as set forth in our 
 	   <%= link_to "Privacy Policy", {:controller => 'public', :action => 'privacy'} %></p>
     

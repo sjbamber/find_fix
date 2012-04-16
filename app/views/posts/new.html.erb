@@ -1,3 +1,6 @@
+<script>confirm_submit("#post_confirm", ".post_submit");</script>
+<div id="post_confirm" title="Submit Problem" style="display: none;">Are you sure you wish to submit this problem?</div>
+
 <% @page_title = "Create Post"%>
 <% @content_header = "Post New Problem"%>
 
@@ -7,7 +10,7 @@
     <%= render "form", :f => f %>
     
     <div class="form-buttons">
-      <%= submit_tag("Submit Post") %>
+      <%= submit_tag("Submit Post", :class => "post_submit") %>
     </div>
     
   <% end %>

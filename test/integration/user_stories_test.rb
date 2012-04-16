@@ -5,8 +5,18 @@ fixtures :posts, :users, :error_messages, :categories, :tags
 
   def setup
     @user = users(:alice)
+    problem1 = posts(:problem1)
+    problem1.categories << categories(:windows)
+    problem1.tags << tags(:tag1)
+    problem1.user = users(:testuser1)
+    problem1.save
+    @problem = posts(:problem2)
+    @problem.categories << categories(:windows)
+    @problem.tags << tags(:tag1)
+    @problem.user = users(:testuser2)
+    @problem.save
     @solution = solutions(:solution1)
-    @solution.post = posts(:problem2)
+    @solution.post = @problem
     @solution.save
     %x[rake tanker:reindex RAILS_ENV="test"]
   end
@@ -96,7 +106,7 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     post "/user_access/process_login", :username => @user.username, :password => 'password'
     # They are redirected to a page displaying a list of problems and are notified that they logged in successfully
     assert_redirected_to :controller => "public", :action => "index"
-    assert_equal "You are now logged in" , flash[:notice]
+    assert_equal "Welcome #{@user.username}. You are now logged in" , flash[:notice]
     assert_equal @user.id, session[:user_id] # (confirm logged in)
     
     # They cannot immediately see the problem they are looking for, so they search for the problem using the box at the top of the screen and enter some keywords. 
@@ -149,7 +159,7 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     post "/user_access/process_login", :username => @user.username, :password => 'password'
     # They are redirected to a page displaying a list of problems and are notified that they logged in successfully
     assert_redirected_to :controller => "public", :action => "index"
-    assert_equal "You are now logged in" , flash[:notice]
+    assert_equal "Welcome #{@user.username}. You are now logged in" , flash[:notice]
     assert_equal @user.id, session[:user_id] # (confirm logged in)
     
     # They cannot immediately see the problem they are looking for, so they search for the problem using the box at the top of the screen and enter some keywords. 

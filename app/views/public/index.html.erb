@@ -1,5 +1,5 @@
 <% @page_title = "Home"%>
-<% @page_description = "Welcome to Find Fix, a web application that allows you to record, discuss and search IT support problems and solutions." %>
+<% @page_description = "A collaboratively edited site for a large range of IT support problems and fixes. Join in by posting your problem or fix and make the service better!" %>
 <% @content_header = "Recent Problems"%>
 <div id="recent_problems">
 	<%= render 'posts/list_posts', :posts => @recent_problems %>
@@ -10,9 +10,13 @@
 <h2>Welcome</h2>
 
 <p>
-  This is Find Fix, the web application that allows you to record, discuss and search for IT support problems and fixes.
+  This is Find Fix, a collaboratively edited website for a large range of IT support problems and fixes. </p>
+<p>The site is in its infancy and we are looking for contributors. 
+  Join in now by posting a problem or fix and make the service better! </p>
+<p>  Click one of the links below to find out more about Find Fix.
 </p>
-<p class="right"><%= link_to("About Find Fix", {:controller => 'public', :action => 'about'}) %></p>
+<p class="center"><%= link_to("Help", {:controller => 'public', :action => 'help'}) %> | <%= link_to("About", {:controller => 'public', :action => 'about'}) %> | 
+	<%= link_to("FAQs", {:controller => 'public', :action => 'faqs'}) %></p>
 </div>
 
 <% end %>

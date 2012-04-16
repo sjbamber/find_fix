@@ -12,7 +12,11 @@ _____________________________________________
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-UK">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><%= @page_title %> - Find Fix</title>
+    <% if this_page_is('public', 'index') %>
+    	<title>Find Fix: Discover fixes for IT Support problems</title>
+    <% else %>
+    	<title><%= @page_title %> - Find Fix</title>
+    <% end %>
     <meta name="author" content="Stephen Bamber" />
     <meta name="description=" content="<%= @page_description %>" />
 
@@ -56,11 +60,15 @@ _____________________________________________
 			      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home') unless this_page_is('public', 'index')%>
 			      <%= link_to("Home", {:controller => 'public', :action => 'index'}, :class => 'navigation home nav_selected') if this_page_is('public', 'index')%>
 			      <% if is_logged_in %>
-			      <%= link_to("Submit a Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') unless this_page_is('posts', 'new') %>
-			      <%= link_to("Submit a Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts nav_selected') if this_page_is('posts', 'new') %>
+			      <%= link_to("Post a Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts') unless this_page_is('posts', 'new') %>
+			      <%= link_to("Post a Problem", {:controller => 'posts', :action => 'new'}, :class => 'navigation posts nav_selected') if this_page_is('posts', 'new') %>
 			      <% end %>
 			      <%= link_to("View Problems", {:controller => 'posts'}, :class => 'navigation posts') unless this_page_is('posts', 'list') || this_page_is('posts', 'index') || this_page_is('posts', 'search') %>
 			      <%= link_to("View Problems", {:controller => 'posts'}, :class => 'navigation posts nav_selected') if this_page_is('posts', 'list') || this_page_is('posts', 'index') || this_page_is('posts', 'search') %>
+	      		  <%= link_to("Help", {:controller => 'public', :action => 'help'}, :class => 'navigation home') unless this_page_is('public', 'help')%>
+			      <%= link_to("Help", {:controller => 'public', :action => 'help'}, :class => 'navigation home nav_selected') if this_page_is('public', 'help')%>
+			      <%= link_to("FAQs", {:controller => 'public', :action => 'faqs'}, :class => 'navigation home') unless this_page_is('public', 'faqs')%>
+			      <%= link_to("FAQs", {:controller => 'public', :action => 'faqs'}, :class => 'navigation home nav_selected') if this_page_is('public', 'faqs')%>
 	      <div class="login_status">
 	    	<% if session[:user_id] %>      	
 	      		You are logged in as: <%= session[:username]%>
@@ -77,7 +85,7 @@ _____________________________________________
 	        <div class="notice">
 	      	  NOTICE:<br />
 	          <%= flash[:notice] %>
-	          <% flash[:notice].clear %>
+	         
 	        </div>
 	      <% end %>
 	 		
@@ -146,7 +154,8 @@ _____________________________________________
 		  <% else %>
 		    <%= link_to "Mobile Site", :mobile => 1 %>
 		  <% end %> |
-		  	<%= link_to "Privacy Policy", {:controller => 'public', :action => 'privacy'} %>
+		  	<%= link_to "Privacy Policy", {:controller => 'public', :action => 'privacy'} %> | 
+		  	<%= link_to "Terms and Condtions", {:controller => 'public', :action => 'termsofservice'} %>
 		</p>
         <p id="copyright">Site Design &copy; <%=Time.now.strftime("%Y")%> <a href="http://www.sjbamber.info">Stephen J Bamber</a></p>
       </div>
