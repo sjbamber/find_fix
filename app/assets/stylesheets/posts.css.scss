@@ -4,7 +4,6 @@
 .form-field p{
   padding:0;
 }
-
 .add_nested_fields span.ui-button-text{
   padding: 1px 5px 1px 5px;
   width: 250px;
@@ -16,6 +15,12 @@
   text-decoration:none;
   font-size:20px; 
   display: inline;
+}
+input#confirm_terms_checkbox{
+  display:inline-block;
+  width:25px;
+  height:15px;
+  margin:0;
 }
 
 /* List and Search */
