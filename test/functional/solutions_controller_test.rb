@@ -43,4 +43,19 @@ fixtures :posts, :solutions, :users
     assert_equal "Errors prevented the solution from saving" , flash[:notice]
   end
   
+  ## Test Create with AJAX
+  test "post valid description to create via AJAX" do
+    xhr :post, :create, { :id => @problem.id, :solution => { :description => "solution test" } }, { :user_id => users(:alice).id }
+    assert_response :success
+    assert assigns(:solution).description == "solution test"
+    assert assigns(:notice) == "Fix Submitted Successfully"
+  end
+  
+  test "post invalid description to create via AJAX" do
+    xhr :post, :create, { :id => @problem.id, :post => { :description => "" } }, { :user_id => users(:alice).id }
+    assert_response :success
+    assert assigns(:solution_errors)
+    assert assigns(:notice) == "An error occured when submitting the fix"
+  end
+  
 end

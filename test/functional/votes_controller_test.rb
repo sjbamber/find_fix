@@ -82,4 +82,51 @@ fixtures :posts, :solutions, :comments, :users, :vote_types, :categories, :tags
     assert_redirected_to :controller => "posts", :action => "show", :id => @problem.id
   end
   
+  # Test AJAX
+  test "post valid positive vote for a problem via AJAX" do
+    score = @problem.get_score
+    xhr :post, :create, { :id => @problem.id, :problem_id => @problem.id, :post_type => @problem.class, :vote_type => "positive" }, { :user_id => @user.id }
+    assert_response :success
+    assert assigns(:vote_failed) == false
+    assert assigns(:notice) == "Vote Successful"
+    assert assigns(:vote).post == @problem
+    assert @problem.get_score == score+1
+  end
+  test "post valid negative vote for a solution via AJAX" do
+    score = @solution.get_score
+    xhr :post, :create, { :id => @solution.id, :problem_id => @problem.id, :post_type => @solution.class, :vote_type => "negative" }, { :user_id => @user.id }
+    assert_response :success
+    assert assigns(:vote_failed) == false
+    assert assigns(:notice) == "Vote Successful"
+    assert assigns(:vote).solution == @solution
+    assert @solution.get_score == score-1
+  end
+  test "post valid positive vote for a comment via AJAX" do
+    score = @comment.get_score
+    xhr :post, :create, { :id => @comment.id, :problem_id => @problem.id, :post_type => @comment.class, :vote_type => "negative" }, { :user_id => @user.id }
+    assert_response :success
+    assert assigns(:vote_failed) == false
+    assert assigns(:notice) == "Vote Successful"
+    assert assigns(:vote).comment == @comment
+    assert @comment.get_score == score-1
+  end    
+  
+  test "post a vote to a problem when you have already voted before via AJAX" do
+    score = @problem.get_score
+    xhr :post, :create, { :id => @voted_on_post.id, :problem_id => @voted_on_post.id, :post_type => @voted_on_post.class, :vote_type => "positive" }, { :user_id => @user.id }
+    assert_response :success
+    assert assigns(:vote_failed) == true
+    assert assigns(:notice) == "Vote Failed. You have already voted on this post"
+    assert @problem.get_score == score
+  end
+
+  test "post a vote to a solution you created via AJAX" do
+    score = @solution.get_score
+    xhr :post, :create, { :id => @solution_created_by_user.id, :problem_id => @problem.id, :post_type => @solution_created_by_user.class, :vote_type => "negative" }, { :user_id => @user.id }
+    assert_response :success
+    assert assigns(:vote_failed) == true
+    assert assigns(:notice) == "Vote Failed. You cannot vote on a solution that you created."
+    assert @solution.get_score == score
+  end
+  
 end

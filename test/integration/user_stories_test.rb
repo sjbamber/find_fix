@@ -16,6 +16,7 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     @problem.user = users(:testuser2)
     @problem.save
     @solution = solutions(:solution1)
+    @solution.user = users(:testuser1)
     @solution.post = @problem
     @solution.save
     %x[rake tanker:reindex RAILS_ENV="test"]
@@ -89,9 +90,13 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     # Following the submission the user is redirected to the post view containing the information they have just entered and they are notified the post was created successfully.
     assert_redirected_to :controller => "posts", :action => "show", :id => assigns(:post).id
     assert_equal "Post Created" , flash[:notice]
+    
+     ### USER STORY END ###
   end
   
   test "existing user logging in searching for and locating an existing problem and posting a new fix" do
+    ### USER STORY START ###
+    
     # A user goes to the index page...
     get "/"
     assert_response :success
@@ -142,9 +147,13 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     # (Test the fix is displayed on the page)
     get "/posts/show/#{retrieved_post.id}"
     assert_select "p" , fix.description
+    
+     ### USER STORY END ###
   end
 
   test "existing user logging in searching for and locating an existing problem and commenting and voting on a problem and fix" do
+    ### USER STORY START ###
+    
     # A user goes to the index page...
     get "/"
     assert_response :success
@@ -242,6 +251,7 @@ fixtures :posts, :users, :error_messages, :categories, :tags
     get "/posts/show/#{retrieved_post.id}"
     assert_select "span.score_value" , '-1'
     
+     ### USER STORY END ###
   end
 
 end

@@ -85,7 +85,7 @@ _____________________________________________
 	        <div class="notice">
 	      	  NOTICE:<br />
 	          <%= flash[:notice] %>
-	          <% flash[:notice].clear %>
+	     
 	        </div>
 	      <% end %>
 	 		
@@ -155,7 +155,7 @@ _____________________________________________
 		    <%= link_to "Mobile Site", :mobile => 1 %>
 		  <% end %> |
 		  	<%= link_to "Privacy Policy", {:controller => 'public', :action => 'privacy'} %> | 
-		  	<%= link_to "Terms and Condtions", {:controller => 'public', :action => 'termsofservice'} %>
+		  	<%= link_to "Terms and Condtions", {:controller => 'public', :action => 'termsofuse'} %>
 		</p>
         <p id="copyright">Site Design &copy; <%=Time.now.strftime("%Y")%> <a href="http://www.sjbamber.info">Stephen J Bamber</a></p>
       </div>

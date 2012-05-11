@@ -27,7 +27,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :categories, :reject_if => lambda {|a| a[:name].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :error_messages, :reject_if => lambda {|a| a[:description].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :comments, :votes
-  # The generated nested attributes are required for mass assignment
+  # The generated nested attributes are required for mass assignment all other fields are protected
   attr_accessible :title, :description, :error_messages_attributes, :categories_attributes, :tags_attributes
 
   # Validation
@@ -63,29 +63,29 @@ class Post < ActiveRecord::Base
     end
     # index nested values
     indexes :error_message_descriptions do
-      error_messages.map {|error_message| error_message.description }
+      error_messages.blank? ? "" : error_messages.map {|error_message| error_message.description }
     end
     indexes :category_names do
-      categories.map {|category| category.name+" -" }
+      categories.blank? ? "" : categories.map {|category| category.name+" -" }
     end
     indexes :tag_names do
-      tags.map {|tag| tag.name+" -" }
+      tags.blank? ? "" : tags.map {|tag| tag.name+" -" }
     end
     indexes :solution_descriptions do
-      solutions.map {|solution| strip_tags(solution.description) }
+      solutions.blank? ? "" : solutions.map {|solution| strip_tags(solution.description) }
     end
     indexes :post_comments do
-      comments.map {|comment| comment.comment }
+      comments.blank? ? "" : comments.map {|comment| comment.comment }
     end
     indexes :solutions_comments do
       # Gets a list of all comments on nested solutions, reject is required to remove blank array elements generated
-      solutions.map {|solution| solution.comments.map {|comment| comment.comment}}.reject{ |c| c.empty? }
+      solutions.blank? ? "" : solutions.map {|solution| solution.comments.map {|comment| comment.comment}}.reject{ |c| c.empty? }
     end
     
     # Index values for display purposes
     indexes :updated_at
     indexes :username do
-      user.username
+      user.username unless user.blank?
     end
     indexes :solutions_size do
       solutions.size
@@ -94,16 +94,16 @@ class Post < ActiveRecord::Base
       comments.size
     end
     indexes :score do
-      get_score
+      votes.blank? ? '0' : get_score
     end
     
     # Set values for faceted search
     category :category do
-        categories.first.name
+        categories.first.name unless categories.blank?
     end
  
     category :tag do
-        tags.first.name
+        tags.first.name unless tags.blank?
     end 
     
     # Variables available in scoring function

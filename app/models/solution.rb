@@ -5,7 +5,7 @@ class Solution < ActiveRecord::Base
   has_many :comments
   has_many :votes
   
-  validates_presence_of :description
+  validates_presence_of :description, :user, :post
   
   attr_accessor :score
   

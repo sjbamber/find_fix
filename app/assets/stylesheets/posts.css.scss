@@ -50,10 +50,10 @@ input#confirm_terms_checkbox{
   padding-bottom: 5px; 
 }
 .show_post div.post_display { 
-  padding: 15px 20px 15px 20px; 
+  padding: 15px 20px 30px 20px; 
 }
 .post_display { 
-  background:#666666; 
+  background:#2C2C2C;
   font-size: 14px; 
   line-height: 18px; 
   text-align:justify; 
@@ -61,7 +61,15 @@ input#confirm_terms_checkbox{
   margin-bottom: 10px;  
   border-bottom: 1px solid #1c1c1c; 
   border-right: 1px solid #1c1c1c; 
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: -2px -2px 3px rgba(0, 0, 0, 0.5) inset;
 }
+
+.post_display .highlight {
+  float: right;
+}
+
 div.post_footer { 
   font-size: 14px; 
   line-height: 18px; 

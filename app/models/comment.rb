@@ -5,8 +5,9 @@ class Comment < ActiveRecord::Base
   belongs_to :solution
   has_many :votes
   
-  validates_presence_of :comment
+  validates_presence_of :comment, :user
   validates_length_of :comment, :maximum => 255
+  validate :contains_one_post
   
   # define the callbacks to update the index upon saving and deleting records
   after_save :update_post_index
@@ -27,4 +28,10 @@ class Comment < ActiveRecord::Base
       Tanker.batch_update([solution.post])
     end
   end 
+  
+  def contains_one_post
+    unless [self.post_id, self.solution_id].compact.size == 1
+      self.errors.add(:base, "A comment must be associated with a problem or solution")
+    end
+  end
 end

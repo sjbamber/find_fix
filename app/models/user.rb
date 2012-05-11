@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   before_validation :downcase_email, :downcase_username, :strip_name
   
   # Class instance variable that is not a database attribute, used to store user supplied password
-  attr_accessor :password, :update_password, :confirm_terms
+  attr_accessor :password
   # used to store determine whether the password should be validated
   attr_accessor :update_password
   # used to validate the confirmation of terms of service
@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
   
   # Validations
   # Regular expressions to validate email and username format
-  REGEX_EMAIL = /^[a-zA-Z]([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*@([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*\.[a-zA-Z]*\.?[a-zA-Z]+$/
-  REGEX_USERNAME = /^[A-Za-z][A-Za-z0-9._]*$/
+  REGEX_EMAIL = /\A[a-zA-Z]([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*@([a-zA-Z0-9]*[\.\-\_]*)*[a-zA-Z0-9]*\.[a-zA-Z]*\.?[a-zA-Z]+\z/
+  REGEX_USERNAME = /\A[A-Za-z][A-Za-z0-9._]*\z/
   validates :name, :length => { :maximum => 60 }
   
   validates_presence_of :username

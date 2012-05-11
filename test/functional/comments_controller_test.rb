@@ -12,6 +12,7 @@ fixtures :posts, :solutions, :comments, :users, :categories, :tags
     @problem.user = @user
     @problem.save
     @solution = solutions(:solution1)
+    @solution.user = users(:testuser1)
     @solution.post = @problem
     @solution.save
     @comment = comments(:comment1)
@@ -37,12 +38,16 @@ fixtures :posts, :solutions, :comments, :users, :categories, :tags
 
   test "post valid post comment to create" do
     post :create, { :id => @problem.id, :problem_id => @problem.id, :post_type => @problem.class, :comment => { :comment => "test comment" } }, { :user_id => @user.id }
+    assert @problem.valid?, @problem.errors.full_messages.to_s
+    assert assigns(:comment).comment == "test comment"
     assert_equal "Comment Submitted Successfully", flash[:notice]
     assert_redirected_to :controller => "posts", :action => "show", :id => @problem.id
   end
   
   test "post valid solution comment to create" do  
     post :create, { :id => @solution.id, :problem_id => @problem.id, :post_type => @solution.class, :comment => { :comment => "test comment" } }, { :user_id => @user.id }
+    assert @solution.valid?, @solution.errors.full_messages.to_s
+    assert assigns(:comment).comment == "test comment"
     assert_equal "Comment Submitted Successfully", flash[:notice]
     assert_redirected_to :controller => "posts", :action => "show", :id => @problem.id
   end
@@ -59,4 +64,10 @@ fixtures :posts, :solutions, :comments, :users, :categories, :tags
     assert_equal "Errors prevented the comment from saving" , flash[:notice]
   end
   
+  ## Test Create with AJAX
+  test "post valid solution comment to create via AJAX" do
+    xhr :post, :create, { :id => @solution.id, :problem_id => @problem.id, :post_type => @solution.class, :comment => { :comment => "test comment" } }, { :user_id => @user.id }
+    assert_response :success
+    assert assigns(:comment).comment == "test comment"
+  end
 end

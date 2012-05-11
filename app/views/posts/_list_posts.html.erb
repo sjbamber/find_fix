@@ -29,18 +29,22 @@
       				
       			<td>
       			  Categories:
-      			  <% post.category_names.split("-").each do |category| %>
-		      	  	<span><%= link_to(category.strip, {:controller => 'posts', :action => 'list', :category_name => category.strip}, :class => "list_tags") %></span>
-		      	  <% end %>
+      			  <% unless post.category_names.blank? %>
+	      			  <% post.category_names.split("-").each do |category| %>
+			      	  	<span><%= link_to(category.strip, {:controller => 'posts', :action => 'list', :category_name => category.strip}, :class => "list_tags") %></span>
+			      	  <% end %>
+			      <% end %>
 		      	</td>
       		</tr>
       		<tr>
       			<td>Last updated: <%= time_ago_in_words(post.updated_at.to_time) %> ago</td>
       			<td>
       			  Tags:
-		      	  <% post.tag_names.split("-").each do |tag| %>
-      	  			<span><%= link_to(tag.strip, {:controller => 'posts', :action => 'list', :tag_name => tag.strip}, :class => "list_tags") %></span>
-      	  		  <% end %>
+      			  <% unless post.category_names.blank? %>
+			      	  <% post.tag_names.split("-").each do |tag| %>
+	      	  			<span><%= link_to(tag.strip, {:controller => 'posts', :action => 'list', :tag_name => tag.strip}, :class => "list_tags") %></span>
+	      	  		  <% end %>
+	      	  	  <% end %>
 		        </td>
       		</tr>
       		
