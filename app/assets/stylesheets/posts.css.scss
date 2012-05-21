@@ -153,9 +153,20 @@ input.vote_negative {
   display:block; 
 }
 input#comment_comment { 
-  width: 500px; 
+  width: 490px; 
   height: 28px; 
   font-size: 16px;
+}
+
+.facets h3{
+  color: #eee;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 5px;
+}
+
+.facets p{
+  text-align: center;
 }
 
 /* Pagination Styling from http://mislav.uniqpath.com/will_paginate/ */

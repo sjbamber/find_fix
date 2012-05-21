@@ -13,16 +13,16 @@
 					      		<li><%=h error_message.description %></li>
 					      	<% end %> 
 				      	</ul>
-						<div>
+						<div style="padding-top:15px;">
 					      <strong>Categories:</strong>
 					      	<% for category in post.categories %>
-					      		<span><%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_id => category.id}, :class => "list_tags") %></span>
+					      		<span><%= link_to(category.name, {:controller => 'posts', :action => 'list', :category_name => category.name}, :class => "list_tags") %></span>
 					      	<% end %>
 					    </div>
 					    <div>
 					      <strong>Tags:</strong>
 					      	<% for tag in post.tags %>
-					      		<span><%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_id => tag.id}, :class => "list_tags") %></span>
+					      		<span><%= link_to(tag.name, {:controller => 'posts', :action => 'list', :tag_name => tag.name}, :class => "list_tags") %></span>
 					      	<% end %> 
 					    </div>	
 				      	<p class="highlight right">Submitted by <%= post.user ? post.user.username : 'Unknown' %> <%= time_ago_in_words(post.updated_at.to_time) %> ago</p>

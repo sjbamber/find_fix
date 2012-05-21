@@ -6,10 +6,10 @@
 
 <% content_for :right_bar do %>
 <% if params[:query] %>
-	<div class="right_bar_feature">
+	<div class="right_bar_feature facets">
 	<h2>Refine Search</h2>
 		<div class="indent">					
-			<h3>Category</h3>
+			<h3>By Category</h3>
 				<% unless @category_facets.blank? %>
 					<% @category_facets.keys.each_with_index do |facet, i| %>
 						<p><%= link_to( facet, {:controller => 'posts', :action => 'search', :query => params[:query], :cfacet => facet, :tfacet => params[:tfacet]}) unless params[:cfacet] %>
@@ -20,7 +20,7 @@
 					<% end %>
 				<% end %>
 			<br />
-			<h3>Tag</h3>
+			<h3>By Tag</h3>
 				<% unless @tag_facets.blank? %>
 					<% @tag_facets.keys.each_with_index do |facet, i| %>
 						<p><%= link_to( facet, {:controller => 'posts', :action => 'search', :query => params[:query], :tfacet => facet, :cfacet => params[:cfacet]}) unless params[:tfacet] %> 
